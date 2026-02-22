@@ -2,8 +2,8 @@
   "members": [
     {
       "id": "1",
-      "name": "Muhammad Abdul Karim",
-      "nameBn": "মুহাম্মদ আবদুল করিম",
+      "name": "জাহাঙ্গীর মেম্বার",
+      "nameBn": "Jahangir Member",
       "designation": "Chairman",
       "phone": "01711111111",
       "isChairman": true,
@@ -11,8 +11,8 @@
     },
     {
       "id": "2",
-      "name": "Abdul Malek",
-      "nameBn": "আবদুল মালেক",
+      "name": "মাসুদ মিয়া",
+      "nameBn": "Masud Miya",
       "designation": "Secretary",
       "phone": "01822222222",
       "isChairman": false,
@@ -20,17 +20,17 @@
     },
     {
       "id": "3",
-      "name": "Habibur Rahman",
-      "nameBn": "হাবিবুর রহমান",
-      "designation": "Treasurer",
+      "name": "মোঃ ফয়সাল মিয়া ",
+      "nameBn": "Faysal Miya ",
+      "designation": "ক্যাশিয়ার ",
       "phone": "01933333333",
       "isChairman": false,
       "isSecretary": false
     },
     {
       "id": "4",
-      "name": "Mizanur Rahman",
-      "nameBn": "মিজানুর রহমান",
+      "name": "মোস্তফা ",
+      "nameBn": "Mostofa",
       "designation": "Member",
       "phone": "01544444444",
       "isChairman": false,
@@ -38,8 +38,8 @@
     },
     {
       "id": "5",
-      "name": "Shafiqul Islam",
-      "nameBn": "শফিকুল ইসলাম",
+      "name": "তাজুল ইসলাম ",
+      "nameBn": "Tajul Islam",
       "designation": "Member",
       "phone": "01655555555",
       "isChairman": false,
@@ -47,12 +47,43 @@
     },
     {
       "id": "6",
-      "name": "Nurul Amin",
-      "nameBn": "নুরুল আমিন",
+      "name": "হানিফা",
+      "nameBn": "Hanifa",
       "designation": "Member",
       "phone": "01766666666",
       "isChairman": false,
       "isSecretary": false
+    },
+    {
+      "id": "7",
+      "name": "ইসতেহার",
+      "nameBn": "Istehar",
+      "designation": "Member",
+      "phone": "01766666666",
+      "isChairman": false,
+      "isSecretary": false
+    }
+  ],
+  "Imam": [
+    {
+      "name": "মাওলানা আব্দুর রহমান",
+      "role": "প্রধান ইমাম",
+      "phone": "০১৭১২-১১১১১১"
+    },
+    {
+      "name": "হাফেজ মুহাম্মদ ইব্রাহিম",
+      "role": "সহকারী ইমাম",
+      "phone": "০১৭১২-২২২২২২"
+    },
+    {
+      "name": "আবু বকর সিদ্দিক",
+      "role": "মুয়াজ্জিন",
+      "phone": "০১৭১২-৩৩৩৩৩৩"
+    },
+    {
+      "name": "উসমান গণি",
+      "role": "খাদেম",
+      "phone": "০১৭১২-৪৪৪৪৪৪"
     }
   ]
 }

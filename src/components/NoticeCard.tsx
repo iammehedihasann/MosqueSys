@@ -1,37 +1,58 @@
-import { Link } from 'react-router-dom'
-import { Badge } from './Badge'
-import { cn } from '../utils/cn'
-import type { Notice, NoticeCategory } from '../types'
+import { Calendar, Eye } from "lucide-react";
 
 interface NoticeCardProps {
-  notice: Notice
-  className?: string
+  title: string;
+  date: string;
+  description: string;
+  category?: "general" | "ramadan" | "emergency";
+  onViewDetails?: () => void;
 }
 
-const categoryVariant: Record<NoticeCategory, 'ramadan' | 'general' | 'emergency'> = {
-  ramadan: 'ramadan',
-  general: 'general',
-  emergency: 'emergency',
-  all: 'general',
-}
+export function NoticeCard({
+  title,
+  date,
+  description,
+  category = "general",
+  onViewDetails,
+}: NoticeCardProps) {
+  const categoryColors = {
+    general: "bg-blue-100 text-blue-800",
+    ramadan: "bg-green-100 text-green-800",
+    emergency: "bg-red-100 text-red-800",
+  };
 
-export function NoticeCard({ notice, className }: NoticeCardProps) {
-  const variant = categoryVariant[notice.category] ?? 'general'
+  const categoryLabels = {
+    general: "সাধারণ",
+    ramadan: "রমজান",
+    emergency: "জরুরি",
+  };
+
   return (
-    <Link
-      to={`/notices#${notice.id}`}
-      className={cn(
-        'block rounded-xl border border-[var(--color-border)] bg-white p-5 shadow-[var(--shadow-card)] transition-shadow hover:shadow-[var(--shadow-card-hover)] focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2',
-        className
-      )}
-    >
-      <div className="flex flex-wrap items-center gap-2">
-        <Badge variant={variant}>{notice.category}</Badge>
-        <span className="text-sm text-[var(--color-text-muted)]">{notice.date}</span>
+    <div className="bg-white rounded-lg shadow-md p-4 md:p-5 hover:shadow-lg transition-shadow border-l-4 border-primary">
+      <div className="flex items-start justify-between mb-3">
+        <div className="flex-1">
+          <h3 className="text-base md:text-lg text-gray-900 mb-2">{title}</h3>
+          <div className="flex items-center gap-2 text-xs md:text-sm text-gray-500 mb-2">
+            <Calendar className="h-4 w-4" />
+            <span>{date}</span>
+          </div>
+        </div>
+        <span
+          className={`px-2 py-1 rounded-full text-xs ${categoryColors[category]}`}
+        >
+          {categoryLabels[category]}
+        </span>
       </div>
-      <h3 className="mt-3 font-semibold text-[var(--color-text)]">{notice.title}</h3>
-      <p className="mt-2 text-sm text-[var(--color-text-muted)] line-clamp-2 leading-relaxed">{notice.excerpt}</p>
-      <span className="mt-3 inline-block text-sm font-medium text-[var(--color-primary)]">আরও পড়ুন →</span>
-    </Link>
-  )
+      <p className="text-sm md:text-base text-gray-600 mb-4 line-clamp-2">
+        {description}
+      </p>
+      <button
+        onClick={onViewDetails}
+        className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors text-sm md:text-base"
+      >
+        <Eye className="h-4 w-4" />
+        <span>বিস্তারিত দেখুন</span>
+      </button>
+    </div>
+  );
 }

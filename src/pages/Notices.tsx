@@ -1,108 +1,88 @@
-import { useState, useMemo } from 'react'
-import { SectionTitle } from '../components/SectionTitle'
-import { NoticeCard } from '../components/NoticeCard'
-import { Input } from '../components/Input'
-import { Select } from '../components/Select'
-import noticesData from '../data/notices.json'
-import type { Notice } from '../types'
+import { useState } from "react";
+import { Search } from "lucide-react";
+import { NoticeCard } from "../components/NoticeCard";
+import noticesData from "../data/notices.json";
 
-const PER_PAGE = 6
-const filterOptions = [
-  { value: 'all', label: 'সব / All' },
-  { value: 'ramadan', label: 'রমজান' },
-  { value: 'general', label: 'সাধারণ' },
-  { value: 'emergency', label: 'জরুরি' },
-]
+const notices = noticesData.notices.map((n) => ({
+  ...n,
+  category: n.category as "ramadan" | "general" | "emergency",
+}));
+export function NoticePage() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterCategory, setFilterCategory] = useState("all");
 
-export function Notices() {
-  const [search, setSearch] = useState('')
-  const [filter, setFilter] = useState<string>('all')
-  const [page, setPage] = useState(1)
-
-  const notices = useMemo(() => {
-    let list = noticesData.notices as Notice[]
-    if (search.trim()) {
-      const q = search.toLowerCase()
-      list = list.filter(
-        (n) =>
-          n.title.toLowerCase().includes(q) ||
-          (n.titleBn && n.titleBn.includes(q)) ||
-          n.excerpt.toLowerCase().includes(q)
-      )
-    }
-    if (filter !== 'all') {
-      list = list.filter((n) => n.category === filter)
-    }
-    return list
-  }, [search, filter])
-
-  const totalPages = Math.ceil(notices.length / PER_PAGE) || 1
-  const paginated = notices.slice((page - 1) * PER_PAGE, page * PER_PAGE)
+  const filteredNotices = notices.filter((notice) => {
+    const matchesSearch =
+      notice.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      notice.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory =
+      filterCategory === "all" || notice.category === filterCategory;
+    return matchesSearch && matchesCategory;
+  });
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-      <SectionTitle
-        title="নোটিশ / Notices"
-        subtitle="মসজিদ ও এলাকার গুরুত্বপূর্ণ ঘোষণা। খুঁজতে সার্চ করুন বা ক্যাটাগরি দিয়ে ফিল্টার করুন।"
-      />
-      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center">
-        <div className="flex-1 w-full">
-          <Input
-            type="search"
-            placeholder="নোটিশ খুঁজুন..."
-            value={search}
-            onChange={(e) => {
-              setSearch(e.target.value)
-              setPage(1)
-            }}
-            aria-label="Search notices"
-          />
+    <div className="min-h-screen bg-background py-8 md:py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl md:text-4xl text-primary mb-4">
+            নোটিশ বোর্ড
+          </h1>
+          <p className="text-base md:text-lg text-gray-600">Notice Board</p>
         </div>
-        
-        <Select
-          options={filterOptions}
-          value={filter}
-          onChange={(e) => {
-            setFilter(e.target.value)
-            setPage(1)
-          }}
-          aria-label="Filter by category"
-          className="w-full sm:w-44"
-        />
-      </div>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {paginated.map((notice) => (
-          <NoticeCard key={notice.id} notice={notice} />
-        ))}
-      </div>
-      {notices.length === 0 && (
-        <p className="py-10 text-center text-[var(--color-text-muted)]">কোনো নোটিশ পাওয়া যায়নি।</p>
-      )}
-      {totalPages > 1 && (
-        <div className="mt-6 flex justify-center gap-2">
-          <button
-            type="button"
-            className="min-h-[44px] min-w-[44px] rounded-lg border border-[var(--color-border)] bg-white px-3 py-2 text-sm font-medium text-[var(--color-text)] shadow-sm hover:bg-gray-50 disabled:opacity-50"
-            onClick={() => setPage((p) => Math.max(1, p - 1))}
-            disabled={page === 1}
-            aria-label="Previous page"
-          >
-            আগে
-          </button>
-          <span className="flex min-h-[44px] items-center px-4 text-sm text-[var(--color-text-muted)]">
-            পৃষ্ঠা {page} / {totalPages}
-          </span>
-          <button
-            type="button"
-            className="min-h-[44px] min-w-[44px] rounded-lg border border-[var(--color-border)] bg-white px-3 py-2 text-sm font-medium text-[var(--color-text)] shadow-sm hover:bg-gray-50 disabled:opacity-50"
-            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-            disabled={page === totalPages}
-            aria-label="Next page"
-          >
-            পর
-          </button>
+
+        {/* Search and Filter */}
+        <div className="bg-white rounded-lg shadow-md p-4 md:p-6 mb-8">
+          <div className="flex flex-col md:flex-row gap-4">
+            {/* Search Bar */}
+            <div className="flex-1 relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+              <input
+                type="text"
+                placeholder="নোটিশ খুঁজুন..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+            </div>
+
+            {/* Category Filter */}
+            <select
+              value={filterCategory}
+              onChange={(e) => setFilterCategory(e.target.value)}
+              className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white"
+            >
+              <option value="all">সব নোটিশ</option>
+              <option value="general">সাধারণ</option>
+              <option value="ramadan">রমজান</option>
+              <option value="emergency">জরুরি</option>
+            </select>
+          </div>
         </div>
-      )}
+
+        {/* Notices List */}
+        {filteredNotices.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {filteredNotices.map((notice, index) => (
+              <NoticeCard key={index} {...notice} />
+            ))}
+          </div>
+        ) : (
+          <div className="bg-white rounded-lg shadow-md p-12 text-center">
+            <p className="text-gray-500 text-lg">কোন নোটিশ পাওয়া যায়নি</p>
+          </div>
+        )}
+
+        {/* Info Box */}
+        <div className="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-6">
+          <h3 className="text-lg text-blue-900 mb-2">নোটিশ সম্পর্কে</h3>
+          <p className="text-gray-700 text-sm md:text-base">
+            মসজিদের সকল গুরুত্বপূর্ণ তথ্য ও ঘোষণা এখানে প্রকাশ করা হয়। নিয়মিত
+            ভিজিট করে আপডেট জানুন। যেকোনো জরুরি বিষয়ে সরাসরি মসজিদ কমিটির সাথে
+            যোগাযোগ করুন।
+          </p>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
