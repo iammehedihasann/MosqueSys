@@ -1,0 +1,44 @@
+{
+  "notices": [
+    {
+      "id": "1",
+      "title": "Ramadan Schedule 2025",
+      "titleBn": "রমজান সময়সূচী ২০২৫",
+      "date": "2025-02-20",
+      "category": "ramadan",
+      "excerpt": "Sehri and Iftar timings for the month of Ramadan have been published."
+    },
+    {
+      "id": "2",
+      "title": "Eid Preparation Meeting",
+      "titleBn": "ঈদ প্রস্তুতি সভা",
+      "date": "2025-02-18",
+      "category": "general",
+      "excerpt": "All committee members are requested to attend the meeting on Friday."
+    },
+    {
+      "id": "3",
+      "title": "Emergency Repair Notice",
+      "titleBn": "জরুরি মেরামত নোটিশ",
+      "date": "2025-02-15",
+      "category": "emergency",
+      "excerpt": "Main gate will be under repair from 10 AM to 2 PM tomorrow."
+    },
+    {
+      "id": "4",
+      "title": "Maktab Registration Open",
+      "titleBn": "মক্তব নিবন্ধন খোলা",
+      "date": "2025-02-12",
+      "category": "general",
+      "excerpt": "Children can register for Maktab classes from this week."
+    },
+    {
+      "id": "5",
+      "title": "Qurbani 2025 Notice",
+      "titleBn": "কুরবানি ২০২৫ নোটিশ",
+      "date": "2025-02-10",
+      "category": "ramadan",
+      "excerpt": "Qurbani booking and distribution details will be announced soon."
+    }
+  ]
+}

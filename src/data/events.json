@@ -1,0 +1,28 @@
+{
+  "events": [
+    {
+      "id": "1",
+      "name": "Ramadan Iftar Program",
+      "nameBn": "রমজান ইফতার কার্যক্রম",
+      "date": "2025-03-15",
+      "time": "6:30 PM",
+      "location": "Masjid Premises"
+    },
+    {
+      "id": "2",
+      "name": "Eid Gathering",
+      "nameBn": "ঈদ সমাবেশ",
+      "date": "2025-04-10",
+      "time": "9:00 AM",
+      "location": "Masjid Ground"
+    },
+    {
+      "id": "3",
+      "name": "Milad & Dua",
+      "nameBn": "মিলাদ ও দোয়া",
+      "date": "2025-02-28",
+      "time": "7:00 PM",
+      "location": "Main Hall"
+    }
+  ]
+}

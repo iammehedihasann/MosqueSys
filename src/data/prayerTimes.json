@@ -1,0 +1,53 @@
+{
+  "lastUpdated": "2025-02-22T06:00:00Z",
+  "times": [
+    {
+      "id": "fajr",
+      "name": "Fajr",
+      "nameBn": "ফজর",
+      "azan": "5:15 AM",
+      "iqamah": "5:30 AM",
+      "isJumuah": false
+    },
+    {
+      "id": "dhuhr",
+      "name": "Dhuhr",
+      "nameBn": "যোহর",
+      "azan": "12:25 PM",
+      "iqamah": "12:45 PM",
+      "isJumuah": false
+    },
+    {
+      "id": "asr",
+      "name": "Asr",
+      "nameBn": "আসর",
+      "azan": "4:00 PM",
+      "iqamah": "4:15 PM",
+      "isJumuah": false
+    },
+    {
+      "id": "maghrib",
+      "name": "Maghrib",
+      "nameBn": "মাগরিব",
+      "azan": "6:15 PM",
+      "iqamah": "6:20 PM",
+      "isJumuah": false
+    },
+    {
+      "id": "isha",
+      "name": "Isha",
+      "nameBn": "ইশা",
+      "azan": "7:35 PM",
+      "iqamah": "8:00 PM",
+      "isJumuah": false
+    },
+    {
+      "id": "jumuah",
+      "name": "Jumu'ah",
+      "nameBn": "জুমুআ",
+      "azan": "12:20 PM",
+      "iqamah": "1:00 PM",
+      "isJumuah": true
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+@theme {
+  /* Village Mosque – production design tokens */
+  --color-primary: #166534;
+  --color-primary-dark: #14532d;
+  --color-primary-light: #22c55e;
+  --color-secondary: #ffffff;
+  --color-accent: #ca8a04;
+  --color-accent-light: #fde047;
+  --color-text: #1f2937;
+  --color-text-muted: #6b7280;
+  --color-bg: #f8faf8;
+  --color-bg-card: #ffffff;
+  --color-border: #e5e7eb;
+  --font-sans: "Noto Sans Bengali", system-ui, sans-serif;
+  --font-display: "Noto Sans Bengali", system-ui, sans-serif;
+  --spacing-section: 2rem;
+  --radius-card: 0.75rem;
+  --radius-button: 0.5rem;
+  --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.06);
+  --shadow-card-hover: 0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.06);
+  --shadow-section: 0 1px 2px 0 rgb(0 0 0 / 0.04);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply antialiased;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-size: 15px;
+    line-height: 1.65;
+    font-family: var(--font-sans);
+  }
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Focus for accessibility */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  @apply outline-2 outline-offset-2 outline-[var(--color-primary)];
+}
+
+/* Production card base */
+.card-base {
+  border-radius: var(--radius-card);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-card);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.card-base:hover {
+  box-shadow: var(--shadow-card-hover);
+}

@@ -1,0 +1,99 @@
+{
+  "summary": {
+    "monthCollected": 125000,
+    "monthExpense": 85000,
+    "currentBalance": 420000,
+    "currency": "টাকা ",
+    "lastUpdated": "2025-02-22"
+  },
+  "monthlyReport": [
+    {
+      "month": "ফেব্রুয়ারি   ২০২৬ ",
+      "collected": 125000,
+      "expense": 85000,
+      "balance": 420000
+    },
+    {
+      "month": "জানুয়ারি   ২০২৬ ",
+      "collected": 110000,
+      "expense": 92000,
+      "balance": 380000
+    },
+    {
+      "month": "ডিসেম্বর   ২০২৫ ",
+      "collected": 135000,
+      "expense": 88000,
+      "balance": 352000
+    },
+    {
+      "month": "নভেম্বর   ২০২৫ ",
+      "collected": 98000,
+      "expense": 75000,
+      "balance": 305000
+    }
+  ],
+  "methods": [
+    {
+      "id": "bkash",
+      "type": "bkash",
+      "name": "bKash",
+      "number": "01712345678",
+      "qrPlaceholder": true
+    },
+    {
+      "id": "nagad",
+      "type": "nagad",
+      "name": "Nagad",
+      "number": "01812345678",
+      "qrPlaceholder": true
+    },
+    {
+      "id": "rocket",
+      "type": "rocket",
+      "name": "rocket",
+      "number": "01812345678",
+      "qrPlaceholder": true
+    }
+   
+   
+  ],
+  "categories": [
+    {
+      "id": "1",
+      "name": "Monthly Fund",
+      "nameBn": "মাসিক তহবিল",
+      "description":"মসজিদের নিয়মিত পরিচালনা খরচ"
+    },
+    {
+      "id": "2",
+      "name": "Imam Salary",
+      "nameBn": "ইমাম বেতন",
+      "description":"ইমাম ও খাদেমের মাসিক বেতন "
+    },
+    {
+      "id": "3",
+      "name": "Electricity Bill",
+      "nameBn": "বিদ্যুৎ বিল",
+      "description":"মসজিদের নিয়মিত পরিচালনা খরচ"
+    },
+    {
+      "id": "4",
+      "name": "Development",
+      "nameBn": "উন্নয়ন",
+      "description":"মসজিদ সম্প্রসারণ ও মেরামত"
+    },
+    {
+      "id": "5",
+      "name": "Zakat/Fitra",
+      "nameBn": "জাকাত/ফিতরা",
+      "description":"দরিদ্রদের মাঝে বিতরণ"
+    },
+    {
+      "id": "6",
+      "name": "Education Fund",
+      "nameBn": "শিক্ষা কার্যক্রম ",
+      "description":"মক্তব ও কোরআন শিক্ষা সম্প্রসারণ "
+    }
+  ]
+}
+

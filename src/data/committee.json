@@ -1,0 +1,58 @@
+{
+  "members": [
+    {
+      "id": "1",
+      "name": "Muhammad Abdul Karim",
+      "nameBn": "মুহাম্মদ আবদুল করিম",
+      "designation": "Chairman",
+      "phone": "01711111111",
+      "isChairman": true,
+      "isSecretary": false
+    },
+    {
+      "id": "2",
+      "name": "Abdul Malek",
+      "nameBn": "আবদুল মালেক",
+      "designation": "Secretary",
+      "phone": "01822222222",
+      "isChairman": false,
+      "isSecretary": true
+    },
+    {
+      "id": "3",
+      "name": "Habibur Rahman",
+      "nameBn": "হাবিবুর রহমান",
+      "designation": "Treasurer",
+      "phone": "01933333333",
+      "isChairman": false,
+      "isSecretary": false
+    },
+    {
+      "id": "4",
+      "name": "Mizanur Rahman",
+      "nameBn": "মিজানুর রহমান",
+      "designation": "Member",
+      "phone": "01544444444",
+      "isChairman": false,
+      "isSecretary": false
+    },
+    {
+      "id": "5",
+      "name": "Shafiqul Islam",
+      "nameBn": "শফিকুল ইসলাম",
+      "designation": "Member",
+      "phone": "01655555555",
+      "isChairman": false,
+      "isSecretary": false
+    },
+    {
+      "id": "6",
+      "name": "Nurul Amin",
+      "nameBn": "নুরুল আমিন",
+      "designation": "Member",
+      "phone": "01766666666",
+      "isChairman": false,
+      "isSecretary": false
+    }
+  ]
+}
