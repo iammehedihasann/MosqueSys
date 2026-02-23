@@ -1,89 +1,127 @@
 {
   "members": [
     {
-      "id": "1",
-      "name": "জাহাঙ্গীর মেম্বার",
-      "nameBn": "Jahangir Member",
-      "designation": "Chairman",
-      "phone": "01711111111",
-      "isChairman": true,
-      "isSecretary": false
+      "name": "মোঃ জাহাঙ্গীর হোসেন মেম্বার",
+      "role": "সভাপতি",
+      "phone": "০১৯৭১০১০৯১৪৮ ",
+      "image": "/images/members/abdul-karim.jpg"
     },
     {
-      "id": "2",
+      "name": "মোস্তফা মিয়া",
+      "role": "সহ-সভাপতি",
+      "phone": "০১৭১২-১০০০০১",
+      "image": "/images/members/rafiqul.jpg"
+    },
+    {
       "name": "মাসুদ মিয়া",
-      "nameBn": "Masud Miya",
-      "designation": "Secretary",
-      "phone": "01822222222",
-      "isChairman": false,
-      "isSecretary": true
+      "role": "সাধারণ সম্পাদক",
+      "phone": "০১৭১২-১০০০০২",
+      "image": "/images/members/abdur-rahman.jpg"
     },
     {
-      "id": "3",
-      "name": "মোঃ ফয়সাল মিয়া ",
-      "nameBn": "Faysal Miya ",
-      "designation": "ক্যাশিয়ার ",
-      "phone": "01933333333",
-      "isChairman": false,
-      "isSecretary": false
+      "name": "ইসতেহার মিয়া",
+      "role": "সহ-সাধারণ সম্পাদক",
+      "phone": "০১৭৮৩৩৮৫৮৬৫",
+      "image": "/images/members/nurul-islam.jpg"
     },
     {
-      "id": "4",
-      "name": "মোস্তফা ",
-      "nameBn": "Mostofa",
-      "designation": "Member",
-      "phone": "01544444444",
-      "isChairman": false,
-      "isSecretary": false
+      "name": "মোঃ ফয়সাল মিয়া",
+      "role": "কোষাধ্যক্ষ",
+      "phone": "০১৯২৮১৯৮৫৬১ ",
+      "image": "/images/members/kamal-hossain.jpg"
+    },
+
+    {
+      "name": "তাজুল ইসলাম",
+      "role": "দপ্তরভিত্তিক",
+      "phone": "০১৭৪০-৯৭২০০৪ ",
+      "image": "/images/members/kamal-hossain.jpg"
     },
     {
-      "id": "5",
-      "name": "তাজুল ইসলাম ",
-      "nameBn": "Tajul Islam",
-      "designation": "Member",
-      "phone": "01655555555",
-      "isChairman": false,
-      "isSecretary": false
+      "name": "মনির হোসেন",
+      "role": "সমাজকল্যাণ সম্পাদক",
+      "phone": "০১৭১২-১০০০০৭",
+      "image": "/images/members/saiful.jpg"
     },
     {
-      "id": "6",
-      "name": "হানিফা",
-      "nameBn": "Hanifa",
-      "designation": "Member",
-      "phone": "01766666666",
-      "isChairman": false,
-      "isSecretary": false
+      "name": "তোফাজ্জল হোসেন ",
+      "role": "সদস্য",
+      "phone": "০১৭৪০-৪৩৪২৮০ ",
+      "image": "/images/members/idris-ali.jpg"
     },
     {
-      "id": "7",
-      "name": "ইসতেহার",
-      "nameBn": "Istehar",
-      "designation": "Member",
-      "phone": "01766666666",
-      "isChairman": false,
-      "isSecretary": false
+      "name": "তৌকির আহমেদ ",
+      "role": "সদস্য",
+      "phone": "০১৯১২-৫৭৫৫৬৮",
+      "image": "/images/members/abu-bakar.jpg"
+    },
+    {
+      "name": "মতিন মিয়া ",
+      "role": "সদস্য",
+      "phone": "০১৭১২-১০০০০৯",
+      "image": "/images/members/idris-ali.jpg"
     }
   ],
-  "Imam": [
+  "imamStaff": [
     {
-      "name": "মাওলানা আব্দুর রহমান",
+      "name": "হাফেজ মুহাম্মদ নোমান মিয়া",
       "role": "প্রধান ইমাম",
-      "phone": "০১৭১২-১১১১১১"
+      "phone": "০১৭১২-১১১১১১",
+      "image": "/images/imam/abdul-rahman.jpg"
     },
     {
-      "name": "হাফেজ মুহাম্মদ ইব্রাহিম",
+      "name": "মোকারম মিয়া",
       "role": "সহকারী ইমাম",
-      "phone": "০১৭১২-২২২২২২"
+      "phone": "০১৭১২-২২২২২২",
+      "image": "/images/imam/ibrahim.jpg"
     },
     {
-      "name": "আবু বকর সিদ্দিক",
+      "name": "হাফেজ মুহাম্মদ নোমান মিয়া",
+      "role": "খতিব",
+      "phone": "০১৭১২-৩৩৩৩৩৩",
+      "image": "/images/imam/abu-taher.jpg"
+    },
+    {
+      "name": " মোহাম্মদ হানিফা",
       "role": "মুয়াজ্জিন",
-      "phone": "০১৭১২-৩৩৩৩৩৩"
+      "phone": "০১৭১২-৪৪৪৪৪৪",
+      "image": "/images/imam/abdullah.jpg"
     },
     {
-      "name": "উসমান গণি",
+      "name": "মেহেদী",
       "role": "খাদেম",
-      "phone": "০১৭১২-৪৪৪৪৪৪"
+      "phone": "০১৭৭৯-৫২০৫৯৩ ",
+      "image": "/images/imam/yusuf.jpg"
+    },
+    {
+      "name": "রিয়াদ",
+      "role": "খাদেম",
+      "phone": "০১৭১৮-১৭৩১২২",
+      "image": "/images/imam/yusuf.jpg"
+    },
+    {
+      "name": "আরিফ",
+      "role": "খাদেম",
+      "phone": "০১৩০৯-৮০২০৫৬ ",
+      "image": "/images/imam/yusuf.jpg"
+    },
+    {
+      "name": "এনামুল",
+      "role": "খাদেম",
+      "phone": "০১৩২২-০৪৪১৬৪",
+      "image": "/images/imam/yusuf.jpg"
+    },
+    {
+      "name": "নুরে আলম নীরব",
+      "role": "খাদেম",
+      "phone": "০১৭১২-৫৫৫৫৫৫",
+      "image": "/images/imam/yusuf.jpg"
+    },
+    {
+      "name": "মাহফুজ ",
+      "role": "খাদেম",
+      "phone": "০১৭১২-৫৫৫৫৫৫",
+      "image": "/images/imam/yusuf.jpg"
     }
   ]
 }

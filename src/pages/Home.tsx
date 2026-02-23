@@ -5,7 +5,7 @@ import { PrayerTimeCard } from "../components/PrayerTimeCard";
 import { NoticeCard } from "../components/NoticeCard";
 import { EventCard } from "../components/EventCard";
 import { DonationSummaryCard } from "../components/DonationSummaryCard";
-import { ProfileCard } from "../components/ProfileCard";
+import ProfileCard from "../components/ProfileCard";
 import { images } from "../assets/image";
 import prayerTimesData from "../data/prayerTimes.json";
 import noticesData from "../data/notices.json";
@@ -42,14 +42,14 @@ export function Home() {
     category: n.category as "ramadan" | "general" | "emergency",
   }));
   const events = eventsData.events.slice(0, 3);
-  const imamAndMuazzin = committeeData.members.slice(0, 2);
+  const imamAndMuazzin = committeeData.imamStaff.slice(0, 4);
   const galleryItems = galleryData.items.slice(0, 6);
   const services = servicesData.services;
 
   return (
     <div>
       {/* Hero – production style */}
-      <section className="relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
+      <section className="relative h-100 md:h-125 lg:h-150 overflow-hidden">
         <img
           src={images.mosqueCover}
           alt="Mosque"
@@ -58,7 +58,7 @@ export function Home() {
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/50 to-black/30" />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center text-white px-4 max-w-4xl">
-            <h1 className="text-3xl md:text-5xl lg:text-6xl mb-4">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl mb-4 text-accent">
               সাগরদী কান্দাপাড়া বাইতুল মামুর জামে মসজিদ{" "}
             </h1>
             <p className="text-lg md:text-xl lg:text-2xl mb-8 text-gray-200">
@@ -86,7 +86,7 @@ export function Home() {
         {/* Today Prayer Times */}
         <section className="mb-12">
           <SectionTitle
-            title="আজকের নামাজের সময় / Today's Prayer Times"
+            title="আজকের নামাজের সময়"
             subtitle="নামাজের সময়সূচী। আযান = ঘোষণা, ইকামত = জামাত শুরুর সময়।"
           />
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -96,7 +96,7 @@ export function Home() {
           </div>
           <div className="mt-5 text-center">
             <Button asChild to="/prayer-times" variant="outline" size="md">
-              পূর্ণ সময়সূচী ও নির্দেশনা / Full Schedule
+              পূর্ণ সময়সূচী ও নির্দেশনা
             </Button>
           </div>
         </section>
@@ -136,7 +136,7 @@ export function Home() {
         {/* Donation Summary */}
         <section className="mb-12">
           <SectionTitle
-            title="দান সংক্ষেপ / Donation Summary"
+            title="দান সংক্ষেপ"
             subtitle="মাসিক আয়, ব্যয় ও ব্যালেন্স—পূর্ণ স্বচ্ছতা।"
           />
           <DonationSummaryCard summary={donationData.summary} showCta />
@@ -145,12 +145,25 @@ export function Home() {
         {/* Imam & Muazzin */}
         <section className="mb-12">
           <SectionTitle
-            title="ইমাম ও মুয়াযযিন / Imam & Muazzin"
+            title="ইমাম ও মুয়াযযিন"
             subtitle="নামাজ ও আযানের দায়িত্বে থাকা ব্যক্তিবর্গ।"
           />
+          <Link
+            to="/committee"
+            className="text-primary hover:text-primary/80 flex items-center gap-1"
+          >
+            <span>সব দেখুন</span>
+            <ArrowRight className="h-4 w-4" />
+          </Link>
           <div className="grid gap-4 sm:grid-cols-2">
             {imamAndMuazzin.map((member) => (
-              <ProfileCard key={member.id} member={member} />
+              <ProfileCard
+                key={member.phone}
+                name={member.name}
+                role={member.role}
+                phone={member.phone}
+                image={member.image}
+              />
             ))}
           </div>
         </section>
