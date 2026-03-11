@@ -54,8 +54,8 @@ export function Donation() {
     <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
       <div className="text-center mb-8 md:mb-12">
         <h1 className="text-3xl md:text-4xl text-primary mb-4">দান করুন</h1>
-        <p className="text-base md:text-lg text-gray-600 mb-2">Donation</p>
-        <p className="text-sm md:text-base text-gray-600 max-w-2xl mx-auto">
+
+        <p className="text-2xl  text-gray-600 max-w-2xl mx-auto">
           "যে ব্যক্তি আল্লাহর পথে ব্যয় করে, তাকে সাতশত গুণ পর্যন্ত বৃদ্ধি করা
           হয়" - সূরা বাকারা (২:২৬১)
         </p>
@@ -64,9 +64,9 @@ export function Donation() {
       {/* Section 1: Donation Methods */}
       <section className="mb-12 ">
         <h2 className="mb-2 text-lg font-semibold text-[var(--color-text)]">
-          দানের মাধ্যম / Donation Methods
+          দানের মাধ্যম
         </h2>
-        <p className="mb-4 text-sm text-[var(--color-text-muted)]">
+        <p className="mb-4 text-lg text-[var(--color-text-muted)]">
           bKash, Nagad, ব্যাংক বা নগদ—যেকোনো উপায়ে দান করতে পারেন। নম্বর কপি
           করে ব্যবহার করুন।
         </p>
@@ -89,7 +89,7 @@ export function Donation() {
               <strong>একাউন্ট নাম:</strong> সাগরদী বাইতুল মামুর জামে মসজিদ
             </p>
             <p>
-              <strong>একাউন্ট নাম্বার:</strong> ২৩০৪৭৮০৭১৩০০১{" "}
+              <strong>একাউন্ট নাম্বার:</strong> ২৩০৪৭৮০৭****{" "}
             </p>
             <p>
               <strong>শাখা:</strong> মাদবদী, নরসিংদী
@@ -98,10 +98,13 @@ export function Donation() {
         </div>
         {/* Cash Donation Info */}
         <div className="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-6">
-          <h3 className="text-lg text-blue-900 mb-2">নগদ দান</h3>
-          <p className="text-gray-700">
+          <h3 className="text-2xl text-blue-900 mb-2">নগদ দান</h3>
+          <p className="text-gray-700 text-lg">
             সরাসরি মসজিদে এসে দান বক্সে দান করতে পারবেন অথবা কমিটির যেকোনো
-            সদস্যের কাছে হস্তান্তর করতে পারবেন। রসিদ নিতে ভুলবেন না।
+            সদস্যের কাছে হস্তান্তর করতে পারবেন।{" "}
+            <span className="text-xl text-green-400 font-bold">
+              রসিদ নিতে ভুলবেন না।
+            </span>
           </p>
         </div>
       </section>
@@ -109,7 +112,7 @@ export function Donation() {
       {/* Section 2: Donation Categories */}
       <section className="mb-12">
         <h2 className="mb-2 text-2xl font-semibold text-[var(--color-text)]' ">
-          দানের খাত <br></br> Donation Categories
+          দানের খাত
         </h2>
         <p className="mb-4 text-sm text-text-muted"></p>
         <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3 ">
@@ -120,7 +123,7 @@ export function Donation() {
             >
               <div>
                 {categoryIcons[cat.name] || (
-                  <PiggyBank className="h-7 w-7 text-accent" />
+                  <PiggyBank className="h-7 w-7 text-accent text-xl" />
                 )}
               </div>
               <div>
@@ -129,12 +132,9 @@ export function Donation() {
                     {cat.nameBn}
                   </p>
                 )}
-                <p className="mt-0.5 text-sm text-[var(--color-text-muted)]">
-                  {cat.name}
-                </p>
 
                 {cat.description && (
-                  <p className="mt-0.5 text-sm text-[var(--color-text-muted)]">
+                  <p className="mt-0.5 text-[15px] text-[var(--color-text-muted)]">
                     {cat.description}
                   </p>
                 )}
@@ -148,9 +148,7 @@ export function Donation() {
       <section className="mb-12">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h2 className="text-2xl font-semibold text-text">
-              মাসিক রিপোর্ট / Monthly Report
-            </h2>
+            <h2 className="text-2xl font-semibold text-text">মাসিক রিপোর্ট</h2>
           </div>
           <Button
             variant="secondary"
@@ -164,7 +162,7 @@ export function Donation() {
         <DonationSummaryCard
           summary={donationData.summary}
           showCta={true}
-          className="mb-6 "
+          className="mb-6 text-2xl "
         />
         <Table<DonationMonthlyRow>
           columns={monthlyColumns}

@@ -15,6 +15,7 @@ import eventsData from "../data/events.json";
 import galleryData from "../data/gallery.json";
 import servicesData from "../data/services.json";
 import type { PrayerTime } from "../types";
+import { getImgSrc } from "../utils/getImgSrc";
 import {
   ScrollText,
   BookOpen,
@@ -47,33 +48,34 @@ export function Home() {
   const services = servicesData.services;
 
   return (
-    <div>
-      {/* Hero – production style */}
-      <section className="relative h-100 md:h-125 lg:h-150 overflow-hidden">
+    <div className="bg-slate-50 min-h-screen">
+      {/* 1. Hero Section - Refined Overlay and Typography */}
+      <section className="relative h-[60vh] md:h-[70vh] lg:h-[80vh] min-h-[400px] overflow-hidden">
         <img
           src={images.mosqueCover}
           alt="Mosque"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover scale-105 animate-subtle-zoom"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/50 to-black/30" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center text-white px-4 max-w-4xl">
-            <h1 className="text-3xl md:text-5xl lg:text-6xl mb-4 text-accent">
-              সাগরদী কান্দাপাড়া বাইতুল মামুর জামে মসজিদ{" "}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black/90" />
+        <div className="absolute inset-0 flex items-center justify-center p-6 text-center">
+          <div className="max-w-4xl space-y-6">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white drop-shadow-lg leading-tight">
+              সাগরদী কান্দাপাড়া{" "}
+              <span className="text-amber-400">বাইতুল মামুর</span> জামে মসজিদ
             </h1>
-            <p className="text-lg md:text-xl lg:text-2xl mb-8 text-gray-200">
-              সালাম মেম্বার বাড়ি,সাগরদী
+            <p className="text-lg md:text-2xl text-gray-200 font-medium">
+              সালাম মেম্বার বাড়ি, সাগরদী
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
               <Link
                 to="/prayer-times"
-                className="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-lg transition-colors"
+                className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 rounded-2xl font-bold shadow-lg shadow-emerald-900/20 transition-all transform hover:-translate-y-1 active:scale-95"
               >
                 নামাজের সময় দেখুন
               </Link>
               <Link
                 to="/donation"
-                className="bg-accent hover:bg-accent/90 text-primary px-6 py-3 rounded-lg transition-colors"
+                className="bg-white hover:bg-gray-100 text-gray-900 px-8 py-4 rounded-2xl font-bold shadow-lg transition-all transform hover:-translate-y-1 active:scale-95"
               >
                 দান করুন
               </Link>
@@ -82,80 +84,108 @@ export function Home() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
-        {/* Today Prayer Times */}
-        <section className="mb-12">
+      {/* Main Content Container */}
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 space-y-20">
+        {/* 2. Today Prayer Times - Grid Refresh */}
+        <section>
           <SectionTitle
             title="আজকের নামাজের সময়"
-            subtitle="নামাজের সময়সূচী। আযান = ঘোষণা, ইকামত = জামাত শুরুর সময়।"
+            subtitle="আযান ও ইকামতের সঠিক সময়সূচী"
           />
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mt-8">
             {times.map((prayer) => (
               <PrayerTimeCard key={prayer.id} prayer={prayer} />
             ))}
           </div>
-          <div className="mt-5 text-center">
-            <Button asChild to="/prayer-times" variant="outline" size="md">
-              পূর্ণ সময়সূচী ও নির্দেশনা
-            </Button>
-          </div>
         </section>
 
-        {/* Latest Notices */}
-        <section className="mb-12">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl md:text-3xl text-primary">সর্বশেষ নোটিশ</h2>
+        {/* 3. Latest Notices & Events Grid */}
+        <div className="grid lg:grid-cols-3 gap-12">
+          {/* Notices - Takes 2 columns */}
+          <div className="lg:col-span-2 space-y-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-3xl font-black text-gray-900">
+                সর্বশেষ নোটিশ
+              </h2>
+              <Link
+                to="/notices"
+                className="group flex items-center gap-2 text-emerald-600 font-bold hover:underline"
+              >
+                সব দেখুন{" "}
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-4">
+              {notices.map((notice, id) => (
+                <NoticeCard key={id} {...notice} />
+              ))}
+            </div>
+          </div>
+
+          {/* Side Banner / Quick Event */}
+          <div className="bg-emerald-900 rounded-[2.5rem] p-8 text-white flex flex-col justify-between shadow-xl">
+            <div>
+              <h3 className="text-2xl font-bold mb-2 text-amber-400">
+                আসন্ন কার্যক্রম
+              </h3>
+              <p className="text-emerald-100/80 mb-6 text-sm italic">
+                ইকামতের সাথে আপনার দ্বীনি কার্যক্রম পরিচালনা করুন
+              </p>
+              <div className="space-y-4">
+                {events.slice(0, 2).map((event) => (
+                  <EventCard key={event.id} event={event} />
+                ))}
+              </div>
+            </div>
             <Link
-              to="/notices"
-              className="text-primary hover:text-primary/80 flex items-center gap-1"
+              to="/events"
+              className="mt-8 text-center text-sm font-bold underline underline-offset-4 opacity-70 hover:opacity-100"
             >
-              <span>সব দেখুন</span>
-              <ArrowRight className="h-4 w-4" />
+              সব কার্যক্রম দেখুন
             </Link>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-            {notices.map((notice, id) => (
-              <NoticeCard key={id} {...notice} />
-            ))}
+        </div>
+
+        {/* 4. Donation Summary Section - Full Width Feature */}
+        <section className="bg-white p-8 md:p-12 rounded-[3rem] border border-gray-100 shadow-sm overflow-hidden relative">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-50 rounded-full -mr-16 -mt-16 blur-3xl opacity-50" />
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+            <SectionTitle
+              title="দান সংক্ষেপ"
+              subtitle="মাসিক আয়, ব্যয় ও ব্যালেন্স—পূর্ণ স্বচ্ছতা।"
+            />
+            <Button
+              asChild
+              to="/donation"
+              variant="primary"
+              className="rounded-2xl px-8 h-12 shadow-md"
+            >
+              পূর্ণ রিপোর্ট দেখুন <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </div>
+          <div className="mt-10">
+            <DonationSummaryCard
+              summary={donationData.summary}
+              showCta={false}
+            />
           </div>
         </section>
 
-        {/* Upcoming Events */}
-        <section className="mb-12">
-          <SectionTitle
-            title="আসন্ন কার্যক্রম / Upcoming Events"
-            subtitle="ইফতার, ঈদ, মিলাদ ও অন্যান্য অনুষ্ঠানের তারিখ।"
-          />
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {events.map((event) => (
-              <EventCard key={event.id} event={event} />
-            ))}
+        {/* 5. Imam & Muazzin - Modern Flex Grid */}
+        <section>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-8">
+            <SectionTitle
+              title="ইমাম ও মুয়াযযিন"
+              subtitle="সালাত ও দ্বীনি শিক্ষার দায়িত্বে নিয়োজিত"
+            />
+            <Link
+              to="/committee"
+              className="text-emerald-600 font-bold hover:underline inline-flex items-center gap-2"
+            >
+              সকল স্টাফ দেখুন <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
-        </section>
-
-        {/* Donation Summary */}
-        <section className="mb-12">
-          <SectionTitle
-            title="দান সংক্ষেপ"
-            subtitle="মাসিক আয়, ব্যয় ও ব্যালেন্স—পূর্ণ স্বচ্ছতা।"
-          />
-          <DonationSummaryCard summary={donationData.summary} showCta />
-        </section>
-
-        {/* Imam & Muazzin */}
-        <section className="mb-12">
-          <SectionTitle
-            title="ইমাম ও মুয়াযযিন"
-            subtitle="নামাজ ও আযানের দায়িত্বে থাকা ব্যক্তিবর্গ।"
-          />
-          <Link
-            to="/committee"
-            className="text-primary hover:text-primary/80 flex items-center gap-1"
-          >
-            <span>সব দেখুন</span>
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {imamAndMuazzin.map((member) => (
               <ProfileCard
                 key={member.phone}
@@ -168,68 +198,61 @@ export function Home() {
           </div>
         </section>
 
-        {/* Services Preview */}
-        <section className="mb-12">
+        {/* 6. Services - Compact Bento Style */}
+        <section>
           <SectionTitle
             title="সেবাসমূহ / Services"
-            subtitle="জানাযা, মক্তব, রমজান ইফতার, দান ও ঘোষণা।"
+            subtitle="মসজিদের মাধ্যমে পরিচালিত জনকল্যাণমূলক কাজ"
           />
-          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mt-8">
             {services.map((service) => {
               const Icon = serviceIcons[service.icon] ?? Megaphone;
               return (
-                <Link
-                  key={service.id}
-                  to="/services"
-                  className="card-base flex flex-col items-center rounded-xl border border-[var(--color-border)] bg-white p-5 shadow-[var(--shadow-card)] transition-shadow hover:shadow-[var(--shadow-card-hover)] focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                <div
+                  key={service.title}
+                  className="group bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center"
                 >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[var(--color-primary)]/10 text-[var(--color-primary)]">
-                    <Icon className="h-6 w-6" />
+                  <div className="h-14 w-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4 transition-colors group-hover:bg-emerald-600 group-hover:text-white">
+                    <Icon className="h-7 w-7" />
                   </div>
-                  <span className="mt-3 text-center text-sm font-medium text-[var(--color-text)]">
+                  <h4 className="font-bold text-gray-900 text-sm leading-tight">
                     {service.title}
-                  </span>
-                  <span className="mt-1 text-center text-xs text-[var(--color-text-muted)]">
+                  </h4>
+                  <p className="text-xs text-gray-500 mt-1">
                     {service.titleBn}
-                  </span>
-                </Link>
+                  </p>
+                </div>
               );
             })}
           </div>
-          <div className="mt-5 text-center">
-            <Button asChild to="/services" variant="outline" size="md">
-              সব সেবা / All Services
-            </Button>
-          </div>
         </section>
 
-        {/* Gallery Preview */}
-        <section className="mb-12">
-          <div className="flex flex-wrap items-end justify-between gap-4">
+        {/* 7. Gallery Preview - Masonry-like Grid */}
+        <section className="pb-12">
+          <div className="flex justify-between items-end mb-8">
             <SectionTitle
               title="গ্যালারি / Gallery"
-              subtitle="অনুষ্ঠান, নির্মাণ ও রমজানের ছবি।"
+              subtitle="মসজিদের সুন্দর মুহূর্তসমূহ"
             />
             <Link
               to="/gallery"
-              className="text-sm font-medium text-[var(--color-primary)] hover:underline focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] rounded"
+              className="bg-gray-900 text-white px-5 py-2 rounded-xl text-sm font-bold hover:bg-gray-800 transition-colors"
             >
-              পূর্ণ গ্যালারি দেখুন →
+              পূর্ণ গ্যালারি →
             </Link>
           </div>
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
-            {galleryItems.map((item) => (
-              <Link
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {galleryItems.map((item, idx) => (
+              <div
                 key={item.id}
-                to="/gallery"
-                className="block aspect-[4/3] overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-bg)] shadow-[var(--shadow-card)] transition-shadow hover:shadow-[var(--shadow-card-hover)] focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                className={`overflow-hidden rounded-2xl shadow-sm border border-gray-100 ${idx === 0 || idx === 3 ? "md:col-span-2" : ""}`}
               >
                 <img
-                  src={item.src}
+                  src={getImgSrc(item.src)}
                   alt={item.alt}
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-cover aspect-video hover:scale-110 transition-transform duration-500"
                 />
-              </Link>
+              </div>
             ))}
           </div>
         </section>

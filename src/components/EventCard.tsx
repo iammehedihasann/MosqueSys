@@ -1,4 +1,5 @@
 import { Calendar, Clock } from 'lucide-react'
+import { images } from '../assets/image'
 import { cn } from '../utils/cn'
 import type { Event } from '../types'
 
@@ -8,6 +9,9 @@ interface EventCardProps {
 }
 
 export function EventCard({ event, className }: EventCardProps) {
+  const imageKey = event.image as keyof typeof images
+  const imageSrc = event.image && images[imageKey] ? images[imageKey] : event.image
+
   return (
     <div
       className={cn(
@@ -15,6 +19,15 @@ export function EventCard({ event, className }: EventCardProps) {
         className
       )}
     >
+      {imageSrc && (
+        <div className="mb-4 overflow-hidden rounded-lg">
+          <img
+            src={imageSrc}
+            alt={event.name}
+            className="h-40 w-full object-cover"
+          />
+        </div>
+      )}
       <h3 className="font-semibold text-[var(--color-text)]">{event.name}</h3>
       {event.nameBn && <p className="mt-0.5 text-sm text-[var(--color-text-muted)]">{event.nameBn}</p>}
       <div className="mt-3 flex flex-wrap items-center gap-3 text-sm text-[var(--color-text-muted)]">

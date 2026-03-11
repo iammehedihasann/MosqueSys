@@ -4,62 +4,82 @@
       "name": "মোঃ জাহাঙ্গীর হোসেন মেম্বার",
       "role": "সভাপতি",
       "phone": "০১৯৭১০১০৯১৪৮ ",
-      "image": "/images/members/abdul-karim.jpg"
+      "image": "",
+      "email": "arif@gmail.com",
+      "facebook": "www.facebook.com"
     },
     {
       "name": "মোস্তফা মিয়া",
       "role": "সহ-সভাপতি",
       "phone": "০১৭১২-১০০০০১",
-      "image": "/images/members/rafiqul.jpg"
+      "image": "",
+      "email": "arif@gmail.com",
+      "facebook": "www.facebook.com"
     },
     {
       "name": "মাসুদ মিয়া",
       "role": "সাধারণ সম্পাদক",
       "phone": "০১৭১২-১০০০০২",
-      "image": "/images/members/abdur-rahman.jpg"
+      "image": "",
+      "email": "arif@gmail.com",
+      "facebook": "www.facebook.com"
     },
     {
       "name": "ইসতেহার মিয়া",
       "role": "সহ-সাধারণ সম্পাদক",
       "phone": "০১৭৮৩৩৮৫৮৬৫",
-      "image": "/images/members/nurul-islam.jpg"
+      "image": "",
+      "email": "arif@gmail.com",
+      "facebook": "www.facebook.com"
     },
     {
       "name": "মোঃ ফয়সাল মিয়া",
       "role": "কোষাধ্যক্ষ",
       "phone": "০১৯২৮১৯৮৫৬১ ",
-      "image": "/images/members/kamal-hossain.jpg"
+      "image": "",
+      "email": "arif@gmail.com",
+      "facebook": "www.facebook.com"
     },
 
     {
       "name": "তাজুল ইসলাম",
       "role": "দপ্তরভিত্তিক",
       "phone": "০১৭৪০-৯৭২০০৪ ",
-      "image": "/images/members/kamal-hossain.jpg"
+      "image": "",
+      "email": "arif@gmail.com",
+      "facebook": "www.facebook.com"
     },
     {
       "name": "মনির হোসেন",
       "role": "সমাজকল্যাণ সম্পাদক",
       "phone": "০১৭১২-১০০০০৭",
-      "image": "/images/members/saiful.jpg"
+      "image": "",
+      "email": "arif@gmail.com",
+      "facebook": "www.facebook.com"
     },
     {
       "name": "তোফাজ্জল হোসেন ",
       "role": "সদস্য",
       "phone": "০১৭৪০-৪৩৪২৮০ ",
-      "image": "/images/members/idris-ali.jpg"
+      "image": "",
+      "email": "arif@gmail.com",
+      "facebook": "www.facebook.com"
     },
     {
       "name": "তৌকির আহমেদ ",
       "role": "সদস্য",
       "phone": "০১৯১২-৫৭৫৫৬৮",
-      "image": "/images/members/abu-bakar.jpg"
+      "image": "",
+      "email": "arif@gmail.com",
+      "facebook": "www.facebook.com"
     },
     {
       "name": "মতিন মিয়া ",
       "role": "সদস্য",
       "phone": "০১৭১২-১০০০০৯",
-      "image": "/images/members/idris-ali.jpg"
+      "image": "",
+      "email": "arif@gmail.com",
+      "facebook": "www.facebook.com"
     }
   ],
   "imamStaff": [
@@ -67,61 +87,81 @@
       "name": "হাফেজ মুহাম্মদ নোমান মিয়া",
       "role": "প্রধান ইমাম",
       "phone": "০১৭১২-১১১১১১",
-      "image": "/images/imam/abdul-rahman.jpg"
+      "image": "",
+      "email": "arif@gmail.com",
+      "facebook": "www.facebook.com"
     },
     {
       "name": "মোকারম মিয়া",
       "role": "সহকারী ইমাম",
       "phone": "০১৭১২-২২২২২২",
-      "image": "/images/imam/ibrahim.jpg"
+      "image": "",
+      "email": "arif@gmail.com",
+      "facebook": "www.facebook.com"
     },
     {
       "name": "হাফেজ মুহাম্মদ নোমান মিয়া",
       "role": "খতিব",
       "phone": "০১৭১২-৩৩৩৩৩৩",
-      "image": "/images/imam/abu-taher.jpg"
+      "image": "",
+      "email": "arif@gmail.com",
+      "facebook": "www.facebook.com"
     },
     {
       "name": " মোহাম্মদ হানিফা",
       "role": "মুয়াজ্জিন",
       "phone": "০১৭১২-৪৪৪৪৪৪",
-      "image": "/images/imam/abdullah.jpg"
+      "image": "",
+      "email": "arif@gmail.com",
+      "facebook": "www.facebook.com"
     },
     {
       "name": "মেহেদী",
       "role": "খাদেম",
       "phone": "০১৭৭৯-৫২০৫৯৩ ",
-      "image": "/images/imam/yusuf.jpg"
+      "image": "",
+      "email": "mehediextrim@gmail.com",
+      "facebook": "www.facebook.com/HasanMehediX"
     },
     {
       "name": "রিয়াদ",
       "role": "খাদেম",
       "phone": "০১৭১৮-১৭৩১২২",
-      "image": "/images/imam/yusuf.jpg"
+      "image": "riyad",
+      "email": "mehediextrim@gmail.com",
+      "facebook": "www.facebook.com/HasanMehediX"
     },
     {
       "name": "আরিফ",
       "role": "খাদেম",
       "phone": "০১৩০৯-৮০২০৫৬ ",
-      "image": "/images/imam/yusuf.jpg"
+      "image": "arif",
+      "email": "arif@gmail.com",
+      "facebook": "www.facebook.com"
     },
     {
       "name": "এনামুল",
       "role": "খাদেম",
       "phone": "০১৩২২-০৪৪১৬৪",
-      "image": "/images/imam/yusuf.jpg"
+      "image": "anamul",
+      "email": "mehediextrim@gmail.com",
+      "facebook": "www.facebook.com/HasanMehediX"
     },
     {
       "name": "নুরে আলম নীরব",
       "role": "খাদেম",
       "phone": "০১৭১২-৫৫৫৫৫৫",
-      "image": "/images/imam/yusuf.jpg"
+      "image": "nirob",
+      "email": "mehediextrim@gmail.com",
+      "facebook": "www.facebook.com/HasanMehediX"
     },
     {
       "name": "মাহফুজ ",
       "role": "খাদেম",
       "phone": "০১৭১২-৫৫৫৫৫৫",
-      "image": "/images/imam/yusuf.jpg"
+      "image": "",
+      "email": "mehediextrim@gmail.com",
+      "facebook": "www.facebook.com/HasanMehediX"
     }
   ]
 }

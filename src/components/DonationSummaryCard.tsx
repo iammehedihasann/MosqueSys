@@ -63,18 +63,6 @@ export function DonationSummaryCard({
           </p>
         </div>
       </div>
-      {showCta && (
-        <Button
-          asChild
-          to="/donation"
-          variant="primary"
-          size="md"
-          className="mt-6"
-        >
-          পূর্ণ রিপোর্ট দেখুন{" "}
-          {<ArrowRight className="ml-2 h-5 w-5 text-white" />}
-        </Button>
-      )}
     </div>
   );
 }
