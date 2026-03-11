@@ -1,78 +1,88 @@
-import { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import { Menu } from 'lucide-react'
-import { Button } from './Button'
-import { MobileMenu } from './MobileMenu'
-import { cn } from '../utils/cn'
-
-const navLinks = [
-  { to: '/', label: 'হোম', labelEn: 'Home' },
-  { to: '/prayer-times', label: 'নামাজের সময়', labelEn: 'Prayer Times' },
-  { to: '/notices', label: 'নোটিশ', labelEn: 'Notice' },
-  { to: '/donation', label: 'দান', labelEn: 'Donation' },
-  { to: '/committee', label: 'কমিটি', labelEn: 'Committee' },
-  { to: '/services', label: 'সেবা', labelEn: 'Services' },
-  { to: '/gallery', label: 'গ্যালারি', labelEn: 'Gallery' },
-  { to: '/contact', label: 'যোগাযোগ', labelEn: 'Contact' },
-]
-
-const shortName = 'মসজিদ'
+import { useState } from 'react';
+import { Link, useLocation } from 'react-router';
+import { Menu, X, Building2 } from 'lucide-react';
 
 export function Navbar() {
-  const [mobileOpen, setMobileOpen] = useState(false)
-  const location = useLocation()
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+
+  const navItems = [
+    { name: 'Home', path: '/', label: 'হোম' },
+    { name: 'Prayer Times', path: '/prayer-times', label: 'নামাজের সময়' },
+    { name: 'NoticePage', path: '/notices', label: 'নোটিশ' },
+    { name: 'Donation', path: '/donation', label: 'দান' },
+    { name: 'Committee', path: '/committee', label: 'কমিটি' },
+    { name: 'Services', path: '/services', label: 'সেবা' },
+    { name: 'Gallery', path: '/gallery', label: 'গ্যালারি' },
+    { name: 'Contact', path: '/contact', label: 'যোগাযোগ' },
+  ];
+
+  const isActive = (path: string) => location.pathname === path;
+  const mosqueName = "বাইতুল মামুর জামে মসজিদ "
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-[var(--color-border)] bg-white/95 shadow-[var(--shadow-section)] backdrop-blur-sm">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
-        <Link
-          to="/"
-          className="flex min-h-[44px] min-w-[44px] items-center gap-2 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 rounded-lg"
-          aria-label="Home"
-        >
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--color-primary)] text-white font-bold text-lg shadow-sm">
-            ম
-          </div>
-          <span className="hidden text-lg font-semibold text-[var(--color-text)] sm:inline" style={{ fontFamily: 'var(--font-display)' }}>
-            গ্রাম মসজিদ
-          </span>
-          <span className="text-lg font-semibold text-[var(--color-text)] sm:hidden" style={{ fontFamily: 'var(--font-display)' }}>{shortName}</span>
-        </Link>
-
-        <nav className="hidden items-center gap-0.5 lg:flex" aria-label="Main">
-          {navLinks.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              className={cn(
-                'min-h-[44px] min-w-[44px] flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors',
-                location.pathname === link.to
-                  ? 'bg-[var(--color-primary)]/12 text-[var(--color-primary)]'
-                  : 'text-[var(--color-text)] hover:bg-gray-100'
-              )}
-            >
-              {link.label}
-            </Link>
-          ))}
-          <Link to="/donation" className="ml-2">
-            <Button variant="primary" size="sm">
-              দান করুন
-            </Button>
+    <nav className="bg-primary text-white shadow-lg sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 md:h-20">
+          {/* Logo and Name */}
+          <Link to="/" className="flex items-center gap-2 md:gap-3">
+           
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl  text-accent font-bold text-lg border shadow-sm">{mosqueName.slice(0,3)}</div>
+            <div className="flex flex-col">
+              <span className="font-semibold text-base md:text-lg"> {mosqueName}</span>
+              <span className="text-xs md:text-sm text-accent">সাগরদী, মাধবদী</span>
+            </div>
           </Link>
-        </nav>
 
-        <button
-          type="button"
-          className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg text-[var(--color-text)] hover:bg-gray-100 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] lg:hidden"
-          onClick={() => setMobileOpen(true)}
-          aria-label="Open menu"
-          aria-expanded={mobileOpen}
-        >
-          <Menu className="h-6 w-6" />
-        </button>
+          {/* Desktop Menu */}
+          <div className="hidden lg:flex items-center gap-1">
+            {navItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`px-3 py-2 rounded-md transition-colors ${
+                  isActive(item.path)
+                    ? 'bg-accent text-primary'
+                    : 'hover:bg-primary/80'
+                }`}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="lg:hidden p-2 rounded-md hover:bg-primary/80"
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
       </div>
 
-      <MobileMenu isOpen={mobileOpen} onClose={() => setMobileOpen(false)} links={navLinks} />
-    </header>
-  )
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div className="lg:hidden bg-primary border-t border-primary/20">
+          <div className="px-4 py-3 space-y-1">
+            {navItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                onClick={() => setIsMenuOpen(false)}
+                className={`block px-4 py-3 rounded-md transition-colors ${
+                  isActive(item.path)
+                    ? 'bg-accent text-primary'
+                    : 'hover:bg-primary/80'
+                }`}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+    </nav>
+  );
 }
