@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import {
   Heart,
   BookOpen,
@@ -72,6 +73,14 @@ export function Services() {
                     <span>{service.contact}</span>
                   </a>
                 )}
+                <div className="mt-3">
+                  <Link
+                    to={`/services/${service.id}`}
+                    className="inline-flex min-h-[44px] items-center justify-center rounded-md border border-[var(--color-border)] bg-white px-4 text-sm font-semibold text-[var(--color-primary)] hover:bg-[var(--color-bg)]"
+                  >
+                    বিস্তারিত দেখুন
+                  </Link>
+                </div>
               </div>
             )
           })}
