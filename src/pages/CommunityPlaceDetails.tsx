@@ -5,6 +5,7 @@ import { Badge } from '../components/Badge'
 import communityPlacesData from '../data/communityPlaces.json'
 import { images } from '../assets/image'
 import type { CommunityPlace, CommunityPlaceCategory } from '../types'
+import { MadrasahDetails } from './MadrasahDetails'
 
 const categoryLabel: Record<CommunityPlaceCategory, string> = {
   madrasa: 'মাদ্রাসা',
@@ -37,6 +38,10 @@ export function CommunityPlaceDetails() {
         </div>
       </div>
     )
+  }
+
+  if (place.category === 'madrasa') {
+    return <MadrasahDetails place={place} />
   }
 
   const imageKey = place.image as keyof typeof images

@@ -12,6 +12,7 @@ export function Navbar() {
 
   const topLinks = [
     { name: 'Home', path: '/', label: 'হোম' },
+    { name: 'Gallery', path: '/gallery', label: 'গ্যালারি' },
     { name: 'Contact', path: '/contact', label: 'যোগাযোগ' },
   ];
 
@@ -34,8 +35,7 @@ export function Navbar() {
         { name: 'Community', path: '/community', label: 'কমিউনিটি তথ্য' },
         { name: 'Events', path: '/events', label: 'অনুষ্ঠান' },
         { name: 'Emergency', path: '/emergency', label: 'জরুরি' },
-        { name: 'Charity', path: '/charity', label: 'দাতব্য' },
-        { name: 'Gallery', path: '/gallery', label: 'গ্যালারি' },
+        { name: 'Charity', path: '/charity', label: 'দাতব্য' }
       ],
     },
   ];

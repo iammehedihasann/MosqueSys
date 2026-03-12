@@ -150,6 +150,7 @@ export interface CommunityPlace {
   name: string
   nameBn?: string
   category: CommunityPlaceCategory
+  typeBn?: string
   addressBn: string
   contact?: string
   hoursBn?: string
@@ -159,6 +160,28 @@ export interface CommunityPlace {
   facilitiesBn?: string[]
   image?: string
   images?: string[]
+  mapUrl?: string
+  mapPreviewImage?: string
+  coursesBn?: string[]
+  staff?: CommunityStaffMember[]
+  eventsBn?: CommunityActivityEvent[]
+}
+
+export interface CommunityStaffMember {
+  id: string
+  nameBn: string
+  roleBn: string
+  subjectBn?: string
+  experienceBn?: string
+  phone?: string
+  photo?: string
+}
+
+export interface CommunityActivityEvent {
+  id: string
+  titleBn: string
+  dateBn: string
+  descriptionBn: string
 }
 
 // Emergency Contacts
