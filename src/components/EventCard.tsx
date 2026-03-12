@@ -1,14 +1,16 @@
 import { Calendar, Clock } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import { images } from '../assets/image'
 import { cn } from '../utils/cn'
 import type { Event } from '../types'
 
 interface EventCardProps {
   event: Event
+  detailPath?: string
   className?: string
 }
 
-export function EventCard({ event, className }: EventCardProps) {
+export function EventCard({ event, detailPath, className }: EventCardProps) {
   const imageKey = event.image as keyof typeof images
   const imageSrc = event.image && images[imageKey] ? images[imageKey] : event.image
 
@@ -41,6 +43,16 @@ export function EventCard({ event, className }: EventCardProps) {
         </span>
       </div>
       {event.location && <p className="mt-2 text-sm text-[var(--color-text-muted)]">{event.location}</p>}
+      {detailPath && (
+        <div className="mt-4">
+          <Link
+            to={detailPath}
+            className="inline-flex min-h-[44px] items-center justify-center rounded-md border border-[var(--color-border)] bg-white px-4 text-sm font-semibold text-[var(--color-primary)] hover:bg-[var(--color-bg)]"
+          >
+            বিস্তারিত দেখুন
+          </Link>
+        </div>
+      )}
     </div>
   )
 }

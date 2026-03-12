@@ -2,63 +2,63 @@
   "items": [
     {
       "id": "1",
-      "src": "mosqueCoverPage.jpg",
+      "src": "mosque/mosqueCoverPage.jpg",
       "caption": "Eid gathering",
       "alt": "Iftar",
       "category": "mosque"
     },
     {
       "id": "2",
-      "src": "program_1.jpg",
+      "src": "programs/program_1.jpg",
       "caption": "New extension",
       "alt": "program-1",
       "category": "programs"
     },
     {
       "id": "3",
-      "src": "program_2.jpg",
+      "src": "programs/program_2.jpg",
       "alt": "Iftar",
       "category": "programs",
       "caption": "Iftar 2024"
     },
     {
       "id": "4",
-      "src": "BeautifulImage_1.jpg",
+      "src": "mosque/BeautifulImage_1.jpg",
       "alt": "Program",
       "category": "mosque",
       "caption": "Maktab"
     },
     {
       "id": "5",
-      "src": "mosque_contrac_1.jpg",
+      "src": "mosque/mosque_contrac_1.jpg",
       "alt": "Work",
       "category": "construction",
       "caption": "Renovation"
     },
     {
       "id": "6",
-      "src": "mosque_contrac_1.jpg",
+      "src": "mosque/mosque_contrac_1.jpg",
       "alt": "Sehri",
       "category": "construction",
       "caption": "Sehri arrangement"
     },
     {
       "id": "7",
-      "src": "friends_image.jpg",
+      "src": "community/friends_image.jpg",
       "alt": "Sehri",
       "category": "mosque",
       "caption": "Sehri arrangement"
     },
     {
       "id": "8",
-      "src": "mosque_contrac_1.jpg",
+      "src": "mosque/mosque_contrac_1.jpg",
       "alt": "Sehri",
       "category": "construction",
       "caption": "Sehri arrangement"
     },
     {
       "id": "9",
-      "src": "program_3.jpg",
+      "src": "programs/program_3.jpg",
       "category": "programs",
       "caption": "Sehri arrangement"
     }

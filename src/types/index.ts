@@ -77,6 +77,11 @@ export interface Event {
   location?: string
   description?: string
   image?: string
+  descriptionBn?: string
+  organizerBn?: string
+  contact?: string
+  agendaBn?: string[]
+  images?: string[]
 }
 
 // Gallery
@@ -97,6 +102,14 @@ export interface Service {
   description: string
   icon: string
   contact?: string
+  summaryBn?: string
+  detailsBn?: string
+  availabilityBn?: string
+  eligibilityBn?: string[]
+  requirementsBn?: string[]
+  processBn?: string[]
+  image?: string
+  images?: string[]
 }
 
 // FAQ
@@ -111,4 +124,79 @@ export interface ContactFormData {
   name: string
   phone: string
   message: string
+}
+
+// Charity Campaigns
+export interface CharityCampaign {
+  id: string
+  titleBn: string
+  descriptionBn: string
+  goalAmount: number
+  raisedAmount: number
+  currency: string
+  deadline: string
+  beneficiaryBn?: string
+  contact?: string
+  activitiesBn?: string[]
+  updatesBn?: string[]
+  image?: string
+  images?: string[]
+}
+
+// Community Places
+export type CommunityPlaceCategory = 'madrasa' | 'school' | 'library' | 'eidgah' | 'health' | 'service'
+export interface CommunityPlace {
+  id: string
+  name: string
+  nameBn?: string
+  category: CommunityPlaceCategory
+  typeBn?: string
+  addressBn: string
+  contact?: string
+  hoursBn?: string
+  descriptionBn?: string
+  highlightsBn?: string[]
+  activitiesBn?: string[]
+  facilitiesBn?: string[]
+  image?: string
+  images?: string[]
+  mapUrl?: string
+  mapPreviewImage?: string
+  coursesBn?: string[]
+  staff?: CommunityStaffMember[]
+  eventsBn?: CommunityActivityEvent[]
+}
+
+export interface CommunityStaffMember {
+  id: string
+  nameBn: string
+  roleBn: string
+  subjectBn?: string
+  experienceBn?: string
+  phone?: string
+  photo?: string
+}
+
+export interface CommunityActivityEvent {
+  id: string
+  titleBn: string
+  dateBn: string
+  descriptionBn: string
+}
+
+// Emergency Contacts
+export type EmergencyServiceType = 'police' | 'hospital' | 'fire' | 'ambulance' | 'blood' | 'electricity' | 'disaster' | 'women'
+export interface EmergencyContact {
+  id: string
+  nameBn: string
+  serviceType: EmergencyServiceType
+  phone: string
+  alternatePhones?: string[]
+  locationBn?: string
+  availabilityBn?: string
+  noteBn?: string
+  servicesBn?: string[]
+  instructionsBn?: string[]
+  coverageBn?: string
+  image?: string
 }

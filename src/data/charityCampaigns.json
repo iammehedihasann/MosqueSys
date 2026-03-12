@@ -1,0 +1,49 @@
+{
+  "campaigns": [
+    {
+      "id": "charity-1",
+      "titleBn": "রোজার খাদ্য সহায়তা ক্যাম্পেইন",
+      "descriptionBn": "রমজান মাসে দরিদ্র পরিবারের জন্য খাদ্য প্যাকেট বিতরণ।",
+      "goalAmount": 150000,
+      "raisedAmount": 96500,
+      "currency": "৳",
+      "deadline": "2025-03-25",
+      "beneficiaryBn": "দরিদ্র ও শ্রমজীবী পরিবার",
+      "contact": "01712-333333",
+      "activitiesBn": ["খাদ্য প্যাকেট প্রস্তুত", "ঘরে ঘরে বিতরণ", "ইফতার সহায়তা"],
+      "updatesBn": ["১৫০ পরিবার নিবন্ধিত", "প্রথম ধাপ বিতরণ সম্পন্ন"],
+      "image": "program_1",
+      "images": ["program_1", "program_2"]
+    },
+    {
+      "id": "charity-2",
+      "titleBn": "শীতবস্ত্র বিতরণ",
+      "descriptionBn": "শীত মৌসুমে কম্বল ও গরম পোশাক বিতরণ।",
+      "goalAmount": 90000,
+      "raisedAmount": 42000,
+      "currency": "৳",
+      "deadline": "2025-12-15",
+      "beneficiaryBn": "বৃদ্ধ ও শিশু পরিবার",
+      "contact": "01712-444444",
+      "activitiesBn": ["কম্বল সংগ্রহ", "বাছাই ও প্যাকিং", "বিতরণ অনুষ্ঠান"],
+      "updatesBn": ["২০০ কম্বল সংগ্রহ", "স্বেচ্ছাসেবক তালিকা প্রস্তুত"],
+      "image": "program_4",
+      "images": ["program_4", "mosque_construction"]
+    },
+    {
+      "id": "charity-3",
+      "titleBn": "শিক্ষা সহায়তা তহবিল",
+      "descriptionBn": "গরিব শিক্ষার্থীদের বই ও ফি সহায়তা।",
+      "goalAmount": 120000,
+      "raisedAmount": 80500,
+      "currency": "৳",
+      "deadline": "2025-06-30",
+      "beneficiaryBn": "স্কুল ও মাদ্রাসার শিক্ষার্থী",
+      "contact": "01712-555555",
+      "activitiesBn": ["বই বিতরণ", "ফি সহায়তা", "পরামর্শ সেশন"],
+      "updatesBn": ["প্রথম ধাপে ৩০ শিক্ষার্থী নির্বাচন"],
+      "image": "program_2",
+      "images": ["program_2", "program_3"]
+    }
+  ]
+}

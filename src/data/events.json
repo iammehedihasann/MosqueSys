@@ -6,7 +6,13 @@
       "nameBn": "রমজান ইফতার কার্যক্রম",
       "date": "2025-03-15",
       "time": "6:30 PM",
-      "location": "Masjid Premises"
+      "location": "Masjid Premises",
+      "descriptionBn": "রমজান মাসে প্রতিদিন মুসাফির ও দরিদ্রদের জন্য ইফতার বিতরণ করা হয়।",
+      "organizerBn": "মসজিদ দাওয়াহ ও সমাজসেবা বিভাগ",
+      "contact": "01712-222222",
+      "agendaBn": ["ইফতার বিতরণ", "দোয়া ও সংক্ষিপ্ত বয়ান", "পরিচ্ছন্নতা সহায়তা"],
+      "image": "program_1",
+      "images": ["program_1", "program_2", "program_3"]
     },
     {
       "id": "2",
@@ -14,7 +20,13 @@
       "nameBn": "ঈদ সমাবেশ",
       "date": "2025-04-10",
       "time": "9:00 AM",
-      "location": "Masjid Ground"
+      "location": "Masjid Ground",
+      "descriptionBn": "ঈদের জামাতের পরে কমিউনিটি সমাবেশ ও শুভেচ্ছা বিনিময় অনুষ্ঠিত হয়।",
+      "organizerBn": "ঈদ ব্যবস্থাপনা কমিটি",
+      "contact": "01712-333333",
+      "agendaBn": ["ঈদ জামাত", "সমাবেশ", "শিশু অংশগ্রহণ", "কমিউনিটি ঘোষণা"],
+      "image": "program_4",
+      "images": ["program_4", "mosqueCover"]
     },
     {
       "id": "3",
@@ -22,7 +34,13 @@
       "nameBn": "মিলাদ ও দোয়া",
       "date": "2025-02-28",
       "time": "7:00 PM",
-      "location": "Main Hall"
+      "location": "Main Hall",
+      "descriptionBn": "সাপ্তাহিক মিলাদ ও দোয়া মাহফিলে সবাইকে আমন্ত্রণ জানানো হচ্ছে।",
+      "organizerBn": "মসজিদ ধর্মীয় শিক্ষা বিভাগ",
+      "contact": "01712-444444",
+      "agendaBn": ["তিলাওয়াত", "দরুদ ও মিলাদ", "দোয়া ও মোনাজাত"],
+      "image": "program_2",
+      "images": ["program_2", "program_1"]
     }
   ]
 }
