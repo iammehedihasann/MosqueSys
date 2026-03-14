@@ -1,7 +1,7 @@
-import { SectionTitle } from '../components/SectionTitle'
-import { Table } from '../components/Table'
-import prayerTimesData from '../data/prayerTimes.json'
-import type { PrayerTime } from '../types'
+import { SectionTitle } from "@/components/ui/SectionTitle";
+import { Table } from "@/components/ui/Table";
+import prayerTimesData from "@/data/prayerTimes.json";
+import type { PrayerTime } from "@/types";
 import { Info, Clock, Calendar } from 'lucide-react'
 
 const columns = [

@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom'
-import type { CommunityPlace } from '../types'
-import type { ActivityEvent } from '../components/madrasah/MadrasahComponents'
+import { Link } from "react-router-dom";
+import type { CommunityPlace } from "@/types";
+import type { ActivityEvent } from "@/components/shared/madrasah/MadrasahComponents";
 import {
   ContactCard,
   CoursesTags,
@@ -10,17 +10,19 @@ import {
   MadrasahHeader,
   OperatingHoursCard,
   PhotoGallery,
-  StaffCard
-} from '../components/madrasah/MadrasahComponents'
+  StaffCard,
+} from "@/components/shared/madrasah/MadrasahComponents";
 
 interface MadrasahDetailsProps {
-  place: CommunityPlace
+  place: CommunityPlace;
 }
 
 export function MadrasahDetails({ place }: MadrasahDetailsProps) {
-  const courses = place.coursesBn ?? []
-  const staffMembers = (place.staff ?? []) as Parameters<typeof StaffCard>[0]['staff']
-  const events = (place.eventsBn ?? []) as ActivityEvent[]
+  const courses = place.coursesBn ?? [];
+  const staffMembers = (place.staff ?? []) as Parameters<
+    typeof StaffCard
+  >[0]["staff"];
+  const events = (place.eventsBn ?? []) as ActivityEvent[];
 
   return (
     <div className="min-h-screen bg-[var(--color-bg)] py-8 md:py-12">
@@ -37,7 +39,7 @@ export function MadrasahDetails({ place }: MadrasahDetailsProps) {
         <section className="rounded-2xl border border-[var(--color-border)] bg-white p-5 sm:p-6 md:p-8">
           <MadrasahHeader
             nameBn={place.nameBn ?? place.name}
-            typeBn={place.typeBn ?? 'মাদরাসা'}
+            typeBn={place.typeBn ?? "মাদরাসা"}
           />
         </section>
 
@@ -78,5 +80,5 @@ export function MadrasahDetails({ place }: MadrasahDetailsProps) {
         )}
       </div>
     </div>
-  )
+  );
 }

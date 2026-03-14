@@ -1,36 +1,36 @@
-import { Link } from 'react-router-dom'
-import { ArrowRight, CalendarClock } from 'lucide-react'
-import { SectionTitle } from '../components/SectionTitle'
-import { EventCard } from '../components/EventCard'
-import eventsData from '../data/events.json'
-import type { Event } from '../types'
+import { Link } from "react-router-dom";
+import { ArrowRight, CalendarClock } from "lucide-react";
+import { SectionTitle } from "@/components/ui/SectionTitle";
+import { EventCard } from "@/components/shared/EventCard";
+import eventsData from "@/data/events.json";
+import type { Event } from "@/types";
 
 const toBnDigits = (value: string | number) => {
-  const map = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯']
+  const map = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
   return value
     .toString()
-    .replace(/\d/g, (digit) => map[Number(digit)])
-}
+    .replace(/\d/g, (digit) => map[Number(digit)]);
+};
 
 const formatDateBn = (date: string) => {
-  const parts = date.split('-')
-  if (parts.length !== 3) return toBnDigits(date)
-  const [year, month, day] = parts
-  return `${toBnDigits(day)}-${toBnDigits(month)}-${toBnDigits(year)}`
-}
+  const parts = date.split("-");
+  if (parts.length !== 3) return toBnDigits(date);
+  const [year, month, day] = parts;
+  return `${toBnDigits(day)}-${toBnDigits(month)}-${toBnDigits(year)}`;
+};
 
 const formatTimeBn = (time: string) => {
-  const [clock, suffix] = time.split(' ')
-  const lower = (suffix ?? '').toLowerCase()
-  const period = lower === 'am' ? 'সকাল' : lower === 'pm' ? 'বিকাল' : ''
-  return period ? `${period} ${toBnDigits(clock)}` : toBnDigits(time)
-}
+  const [clock, suffix] = time.split(" ");
+  const lower = (suffix ?? "").toLowerCase();
+  const period = lower === "am" ? "সকাল" : lower === "pm" ? "বিকাল" : "";
+  return period ? `${period} ${toBnDigits(clock)}` : toBnDigits(time);
+};
 
 const locationMap: Record<string, string> = {
-  'Masjid Premises': 'মসজিদ প্রাঙ্গণ',
-  'Masjid Ground': 'মসজিদ মাঠ',
-  'Main Hall': 'মূল হল'
-}
+  "Masjid Premises": "মসজিদ প্রাঙ্গণ",
+  "Masjid Ground": "মসজিদ মাঠ",
+  "Main Hall": "মূল হল",
+};
 
 export function Events() {
   const events = (eventsData.events as Event[]).map((event) => ({
@@ -39,8 +39,10 @@ export function Events() {
     nameBn: undefined,
     date: formatDateBn(event.date),
     time: formatTimeBn(event.time),
-    location: event.location ? (locationMap[event.location] ?? event.location) : undefined
-  }))
+    location: event.location
+      ? locationMap[event.location] ?? event.location
+      : undefined,
+  }));
 
   return (
     <div className="min-h-screen bg-[var(--color-bg)] py-8 md:py-12">
@@ -80,11 +82,15 @@ export function Events() {
           </div>
           <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
             {events.map((event) => (
-              <EventCard key={event.id} event={event} detailPath={`/events/${event.id}`} />
+              <EventCard
+                key={event.id}
+                event={event}
+                detailPath={`/events/${event.id}`}
+              />
             ))}
           </div>
         </section>
       </div>
     </div>
-  )
+  );
 }

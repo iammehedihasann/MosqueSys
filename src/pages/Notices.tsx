@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Search } from "lucide-react";
-import { NoticeCard } from "../components/NoticeCard";
-import noticesData from "../data/notices.json";
+import { NoticeCard } from "@/components/shared/NoticeCard";
+import noticesData from "@/data/notices.json";
 
 const notices = noticesData.notices.map((n) => ({
   ...n,

@@ -1,12 +1,12 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { MainLayout } from "./layouts/MainLayout";
+import { MainLayout } from "./components/layout/MainLayout";
 import { Home } from "./pages/Home";
 import { PrayerTimes } from "./pages/PrayerTimes";
 import { NoticePage } from "./pages/Notices";
 import { Donation } from "./pages/Donation";
 import { Committee } from "./pages/Committee";
 import { Services } from "./pages/Services";
-// import { Gallery } from './pages/Gallery'
+// import { Gallery } from "./pages/Gallery"
 import { ContactPage } from "./pages/Contact";
 import { NotFound } from "./pages/NotFound";
 import { GalleryPage } from "./pages/Gallery";

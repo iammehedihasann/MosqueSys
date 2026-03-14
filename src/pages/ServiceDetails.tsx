@@ -1,9 +1,9 @@
-import { Link, useParams } from 'react-router-dom'
-import { ArrowLeft, Clock, Phone } from 'lucide-react'
-import { SectionTitle } from '../components/SectionTitle'
-import servicesData from '../data/services.json'
-import { images } from '../assets/image'
-import type { Service } from '../types'
+import { Link, useParams } from "react-router-dom";
+import { ArrowLeft, Clock, Phone } from "lucide-react";
+import { SectionTitle } from "@/components/ui/SectionTitle";
+import servicesData from "@/data/services.json";
+import { images } from "@/assets/image";
+import type { Service } from "@/types";
 
 export function ServiceDetails() {
   const { id } = useParams()

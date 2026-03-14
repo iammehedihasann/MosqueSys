@@ -1,10 +1,10 @@
-import { Link, useParams } from 'react-router-dom'
-import { ArrowLeft, Calendar, Clock, MapPin, Phone } from 'lucide-react'
-import { SectionTitle } from '../components/SectionTitle'
-import { Badge } from '../components/Badge'
-import eventsData from '../data/events.json'
-import { images } from '../assets/image'
-import type { Event } from '../types'
+import { Link, useParams } from "react-router-dom";
+import { ArrowLeft, Calendar, Clock, MapPin, Phone } from "lucide-react";
+import { SectionTitle } from "@/components/ui/SectionTitle";
+import { Badge } from "@/components/ui/Badge";
+import eventsData from "@/data/events.json";
+import { images } from "@/assets/image";
+import type { Event } from "@/types";
 
 const toBnDigits = (value: string | number) => {
   const map = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯']

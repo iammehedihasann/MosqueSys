@@ -1,11 +1,11 @@
-import { Link, useParams } from 'react-router-dom'
-import { ArrowLeft, Clock, MapPin, Phone } from 'lucide-react'
-import { SectionTitle } from '../components/SectionTitle'
-import { Badge } from '../components/Badge'
-import communityPlacesData from '../data/communityPlaces.json'
-import { images } from '../assets/image'
-import type { CommunityPlace, CommunityPlaceCategory } from '../types'
-import { MadrasahDetails } from './MadrasahDetails'
+import { Link, useParams } from "react-router-dom";
+import { ArrowLeft, Clock, MapPin, Phone } from "lucide-react";
+import { SectionTitle } from "@/components/ui/SectionTitle";
+import { Badge } from "@/components/ui/Badge";
+import communityPlacesData from "@/data/communityPlaces.json";
+import { images } from "@/assets/image";
+import type { CommunityPlace, CommunityPlaceCategory } from "@/types";
+import { MadrasahDetails } from "./MadrasahDetails";
 
 const categoryLabel: Record<CommunityPlaceCategory, string> = {
   madrasa: 'মাদ্রাসা',

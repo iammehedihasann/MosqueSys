@@ -1,31 +1,35 @@
-import { AlertTriangle, PhoneCall } from 'lucide-react'
-import { SectionTitle } from '../components/SectionTitle'
-import { EmergencyContactCard } from '../components/EmergencyContactCard'
-import emergencyContactsData from '../data/emergencyContacts.json'
-import type { EmergencyContact, EmergencyServiceType } from '../types'
+import { AlertTriangle, PhoneCall } from "lucide-react";
+import { SectionTitle } from "@/components/ui/SectionTitle";
+import { EmergencyContactCard } from "@/components/shared/EmergencyContactCard";
+import emergencyContactsData from "@/data/emergencyContacts.json";
+import type { EmergencyContact, EmergencyServiceType } from "@/types";
 
 const toBnDigits = (value: string | number) => {
-  const map = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯']
+  const map = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
   return value
     .toString()
-    .replace(/\d/g, (digit) => map[Number(digit)])
-}
+    .replace(/\d/g, (digit) => map[Number(digit)]);
+};
 
 const typeOrder: EmergencyServiceType[] = [
-  'disaster',
-  'police',
-  'hospital',
-  'ambulance',
-  'fire',
-  'blood',
-  'electricity',
-  'women'
-]
+  "disaster",
+  "police",
+  "hospital",
+  "ambulance",
+  "fire",
+  "blood",
+  "electricity",
+  "women",
+];
 
 export function Emergency() {
-  const contacts = emergencyContactsData.contacts as EmergencyContact[]
-  const sorted = [...contacts].sort((a, b) => typeOrder.indexOf(a.serviceType) - typeOrder.indexOf(b.serviceType))
-  const hotline = contacts.find((contact) => contact.serviceType === 'disaster')
+  const contacts = emergencyContactsData.contacts as EmergencyContact[];
+  const sorted = [...contacts].sort(
+    (a, b) => typeOrder.indexOf(a.serviceType) - typeOrder.indexOf(b.serviceType),
+  );
+  const hotline = contacts.find(
+    (contact) => contact.serviceType === "disaster",
+  );
 
   return (
     <div className="min-h-screen bg-[var(--color-bg)] py-8 md:py-12">
@@ -48,9 +52,11 @@ export function Emergency() {
                   <AlertTriangle className="h-6 w-6" />
                 </div>
                 <p className="text-sm text-red-700">জাতীয় জরুরি সেবা</p>
-                <p className="mt-1 text-3xl font-semibold text-red-700">{toBnDigits(hotline.phone)}</p>
+                <p className="mt-1 text-3xl font-semibold text-red-700">
+                  {toBnDigits(hotline.phone)}
+                </p>
                 <a
-                  href={`tel:${hotline.phone.replace(/\s/g, '')}`}
+                  href={`tel:${hotline.phone.replace(/\s/g, "")}`}
                   className="mt-3 inline-flex min-h-[44px] items-center justify-center rounded-md bg-red-600 px-4 text-sm font-semibold text-white hover:bg-red-700"
                 >
                   এখনই কল করুন
@@ -86,7 +92,11 @@ export function Emergency() {
           />
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
             {sorted.map((contact) => (
-              <EmergencyContactCard key={contact.id} contact={contact} detailPath={`/emergency/${contact.id}`} />
+              <EmergencyContactCard
+                key={contact.id}
+                contact={contact}
+                detailPath={`/emergency/${contact.id}`}
+              />
             ))}
           </div>
           <p className="mt-6 text-sm text-[var(--color-text-muted)]">
@@ -95,5 +105,5 @@ export function Emergency() {
         </section>
       </div>
     </div>
-  )
+  );
 }

@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
-// import { SectionTitle } from '../components/SectionTitle'
-import { Modal } from "../components/Modal";
+// import { SectionTitle } from '@/components/ui/SectionTitle'
+import { Modal } from "@/components/ui/Modal";
 import galleryData from "../data/gallery.json";
 import type { GalleryItem, GalleryCategory } from "../types";
 import { cn } from "../utils/cn";
