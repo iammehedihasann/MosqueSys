@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../components/Button";
 import { SectionTitle } from "../components/SectionTitle";
@@ -46,43 +47,83 @@ export function Home() {
   const imamAndMuazzin = committeeData.imamStaff.slice(0, 4);
   const galleryItems = galleryData.items.slice(0, 6);
   const services = servicesData.services;
+  const heroImages = [
+    images.mosqueCover,
+    images.friends,
+    images.program_1,
+  ];
+const [currentImage, setCurrentImage] = useState(0);
+
+useEffect(() => {
+  const interval = setInterval(() => {
+    setCurrentImage((prev) => (prev + 1) % heroImages.length);
+  }, 5000);
+
+  return () => clearInterval(interval);
+}, [heroImages.length]);
 
   return (
     <div className="bg-slate-50 min-h-screen">
       {/* 1. Hero Section - Refined Overlay and Typography */}
-      <section className="relative h-[60vh] md:h-[70vh] lg:h-[80vh] min-h-[400px] overflow-hidden">
-        <img
-          src={images.mosqueCover}
-          alt="Mosque"
-          className="w-full h-full object-cover scale-105 animate-subtle-zoom"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black/90" />
-        <div className="absolute inset-0 flex items-center justify-center p-6 text-center">
-          <div className="max-w-4xl space-y-6">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white drop-shadow-lg leading-tight">
-              সাগরদী কান্দাপাড়া{" "}
-              <span className="text-amber-400">বাইতুল মামুর</span> জামে মসজিদ
-            </h1>
-            <p className="text-lg md:text-2xl text-gray-200 font-medium">
-              সালাম মেম্বার বাড়ি, সাগরদী
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Link
-                to="/prayer-times"
-                className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 rounded-2xl font-bold shadow-lg shadow-emerald-900/20 transition-all transform hover:-translate-y-1 active:scale-95"
-              >
-                নামাজের সময় দেখুন
-              </Link>
-              <Link
-                to="/donation"
-                className="bg-white hover:bg-gray-100 text-gray-900 px-8 py-4 rounded-2xl font-bold shadow-lg transition-all transform hover:-translate-y-1 active:scale-95"
-              >
-                দান করুন
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+     <section className="relative h-[60vh] md:h-[70vh] lg:h-[80vh] min-h-[400px] overflow-hidden">
+  
+  {heroImages.map((img, index) => (
+   <img
+  key={index}
+  src={img}
+  alt="Mosque"
+  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[2000ms] 
+  ${index === currentImage ? "opacity-100 scale-105" : "opacity-0"}
+  brightness-110 contrast-105`}
+/>
+  ))}
+
+  <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/60 to-black/90" />
+
+  <div className="absolute inset-0 flex items-center justify-center p-6 text-center">
+    <div className="max-w-4xl space-y-6">
+      
+      <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white drop-shadow-lg leading-tight">
+        সাগরদী কান্দাপাড়া{" "}
+        <span className="text-amber-400">বাইতুল মামুর</span> জামে মসজিদ
+      </h1>
+
+      <p className="text-lg md:text-2xl text-gray-200 font-medium">
+        সালাম মেম্বার বাড়ি, সাগরদী
+      </p>
+
+      <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+        <Link
+          to="/prayer-times"
+          className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 rounded-2xl font-bold shadow-lg shadow-emerald-900/20 transition-all transform hover:-translate-y-1 active:scale-95"
+        >
+          নামাজের সময় দেখুন
+        </Link>
+
+        <Link
+          to="/donation"
+          className="bg-white hover:bg-gray-100 text-gray-900 px-8 py-4 rounded-2xl font-bold shadow-lg transition-all transform hover:-translate-y-1 active:scale-95"
+        >
+          দান করুন
+        </Link>
+      </div>
+
+    </div>
+  </div>
+
+  {/* Slider Indicators */}
+  <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
+    {heroImages.map((_, i) => (
+      <span
+        key={i}
+        className={`h-2 w-6 rounded-full transition-all ${
+          i === currentImage ? "bg-amber-400" : "bg-white/40"
+        }`}
+      />
+    ))}
+  </div>
+
+</section>
 
       {/* Main Content Container */}
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 space-y-20">
@@ -186,13 +227,10 @@ export function Home() {
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {imamAndMuazzin.map((member) => (
+            {imamAndMuazzin.map((member, index) => (
               <ProfileCard
-                key={member.phone}
-                name={member.name}
-                role={member.role}
-                phone={member.phone}
-                image={member.image}
+                key={`${member.name}-${member.role}-${member.phone}-${index}`}
+                {...member}
               />
             ))}
           </div>

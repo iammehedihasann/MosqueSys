@@ -14,6 +14,10 @@ export function Committee() {
     imamStaff: CommitteeMember[];
   };
 
+  const president = members.find((member) => member.role === "সভাপতি");
+  const secretary = members.find(
+    (member) => member.role === "সাধারণ সম্পাদক"
+  );
   return (
     <div className="min-h-screen bg-background py-8 md:py-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -35,8 +39,11 @@ export function Committee() {
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {imamStaff.map((person) => (
-              <ProfileCard key={person.phone} {...person} />
+            {imamStaff.map((person, index) => (
+              <ProfileCard
+                key={`${person.name}-${person.role}-${person.phone}-${index}`}
+                {...person}
+              />
             ))}
           </div>
         </section>
@@ -48,8 +55,11 @@ export function Committee() {
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {members.map((member) => (
-              <ProfileCard key={member.phone} {...member} />
+            {members.map((member, index) => (
+              <ProfileCard
+                key={`${member.name}-${member.role}-${member.phone}-${index}`}
+                {...member}
+              />
             ))}
           </div>
         </section>
@@ -127,14 +137,16 @@ export function Committee() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <p className="text-accent font-medium">সভাপতি</p>
-              <p className="mt-1">আলহাজ্ব মোঃ আব্দুল করিম</p>
-              <p>০১৭১২-১০০০০০</p>
+              <p className="mt-1">
+                {president?.name ?? "আলহাজ্ব মোঃ আব্দুল করিম"}
+              </p>
+              <p>{president?.phone ?? "০১৭১২-১০০০০০"}</p>
             </div>
 
             <div>
               <p className="text-accent font-medium">সাধারণ সম্পাদক</p>
-              <p className="mt-1">হাজী আব্দুর রহমান</p>
-              <p>০১৭১২-১০০০০২</p>
+              <p className="mt-1">{secretary?.name ?? "হাজী আব্দুর রহমান"}</p>
+              <p>{secretary?.phone ?? "০১৭১২-১০০০০২"}</p>
             </div>
           </div>
         </div>

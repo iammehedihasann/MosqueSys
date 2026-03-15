@@ -152,19 +152,37 @@ export interface CommunityPlace {
   category: CommunityPlaceCategory
   typeBn?: string
   addressBn: string
+  establishedYearBn?: string
   contact?: string
+  email?: string
   hoursBn?: string
   descriptionBn?: string
   highlightsBn?: string[]
   activitiesBn?: string[]
+  weeklyActivitiesBn?: string[]
+  monthlyActivitiesBn?: string[]
+  specialEventsBn?: string[]
+  moralEducationBn?: string[]
   facilitiesBn?: string[]
   image?: string
   images?: string[]
   mapUrl?: string
   mapPreviewImage?: string
   coursesBn?: string[]
+  curriculumBn?: string[]
+  principal?: CommunityPrincipal
   staff?: CommunityStaffMember[]
+  studentsOverview?: CommunityStudentOverview
+  classGroups?: CommunityClassGroup[]
+  campusImages?: CommunityCampusGroup[]
   eventsBn?: CommunityActivityEvent[]
+}
+
+export interface CommunityPrincipal {
+  nameBn: string
+  designationBn: string
+  qualificationBn: string
+  photo?: string
 }
 
 export interface CommunityStaffMember {
@@ -172,6 +190,7 @@ export interface CommunityStaffMember {
   nameBn: string
   roleBn: string
   subjectBn?: string
+  qualificationBn?: string
   experienceBn?: string
   phone?: string
   photo?: string
@@ -182,6 +201,30 @@ export interface CommunityActivityEvent {
   titleBn: string
   dateBn: string
   descriptionBn: string
+}
+
+export interface CommunityStudentOverview {
+  total: number
+  ageRangeBn: string
+}
+
+export interface CommunityClassGroup {
+  id: string
+  classNameBn: string
+  ageRangeBn?: string
+  students: CommunityStudent[]
+}
+
+export interface CommunityStudent {
+  id: string
+  nameBn: string
+  photo?: string
+}
+
+export interface CommunityCampusGroup {
+  id: string
+  titleBn: string
+  images: string[]
 }
 
 // Emergency Contacts
