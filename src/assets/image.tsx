@@ -3,7 +3,7 @@ import arif from "./MosqueImage/people/arif.jpg";
 import riyad from "./MosqueImage/people/riyad.jpg";
 import nirob from "./MosqueImage/people/nirob.jpg";
 import Imam from "./MosqueImage/people/imam.webp"
-import JahagirMember from "./MosqueImage/people/sovapoti.jpg";
+import JahagirMember from "./MosqueImage/people/Sovapoti.jpg";
 import Tofajjol from "./MosqueImage/people/Tofajjol.jpeg";
 import taukir from "./MosqueImage/people/Taukir.jpeg";
 import Faysal from "./MosqueImage/people/Faysal.jpg"
