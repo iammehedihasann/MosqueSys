@@ -1,7 +1,7 @@
-import { Button } from "./Button";
+
 import { cn } from "../utils/cn";
 import type { DonationSummary } from "../types";
-import { ArrowRight } from "lucide-react";
+// import { ArrowRight } from "lucide-react";
 
 interface DonationSummaryCardProps {
   summary: DonationSummary;
@@ -21,7 +21,7 @@ function formatMoney(amount: number, currency: string): string {
 
 export function DonationSummaryCard({
   summary,
-  showCta = true,
+  // showCta = true,
   className,
 }: DonationSummaryCardProps) {
   return (

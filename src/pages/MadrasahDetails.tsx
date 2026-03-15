@@ -8,7 +8,7 @@ import {
   DescriptionCard,
   EventsCard,
   FacilitiesCard,
-  MadrasahHeader,
+  // MadrasahHeader,
   OperatingHoursCard,
   PhotoGallery,
   StaffCard,
