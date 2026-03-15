@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
-import { Link, useLocation } from 'react-router';
-import { ChevronDown, Menu, X } from 'lucide-react';
+import { useEffect, useRef, useState } from "react";
+import { Link, useLocation } from "react-router";
+import { ChevronDown, Menu, X } from "lucide-react";
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -8,34 +8,36 @@ export function Navbar() {
   const closeTimeoutRef = useRef<number | null>(null);
 
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const [openMobileGroup, setOpenMobileGroup] = useState<string | null>('mosque');
+  const [openMobileGroup, setOpenMobileGroup] = useState<string | null>(
+    "mosque",
+  );
 
   const topLinks = [
-    { name: 'Home', path: '/', label: 'হোম' },
-    { name: 'Gallery', path: '/gallery', label: 'গ্যালারি' },
-    { name: 'Contact', path: '/contact', label: 'যোগাযোগ' },
+    { name: "Home", path: "/", label: "হোম" },
+    { name: "Gallery", path: "/gallery", label: "গ্যালারি" },
+    { name: "Contact", path: "/contact", label: "যোগাযোগ" },
   ];
 
   const navGroups = [
     {
-      key: 'mosque',
-      label: 'মসজিদ',
+      key: "mosque",
+      label: "মসজিদ",
       items: [
-        { name: 'Prayer Times', path: '/prayer-times', label: 'নামাজের সময়' },
-        { name: 'NoticePage', path: '/notices', label: 'নোটিশ' },
-        { name: 'Donation', path: '/donation', label: 'দান' },
-        { name: 'Committee', path: '/committee', label: 'কমিটি' },
-        { name: 'Services', path: '/services', label: 'সেবা' },
+        { name: "Prayer Times", path: "/prayer-times", label: "নামাজের সময়" },
+        { name: "NoticePage", path: "/notices", label: "নোটিশ" },
+        { name: "Donation", path: "/donation", label: "দান" },
+        { name: "Committee", path: "/committee", label: "কমিটি" },
+        { name: "Services", path: "/services", label: "সেবা" },
       ],
     },
     {
-      key: 'community',
-      label: 'কমিউনিটি',
+      key: "community",
+      label: "কমিউনিটি",
       items: [
-        { name: 'Community', path: '/community', label: 'কমিউনিটি তথ্য' },
-        { name: 'Events', path: '/events', label: 'অনুষ্ঠান' },
-        { name: 'Emergency', path: '/emergency', label: 'জরুরি' },
-        { name: 'Charity', path: '/charity', label: 'দাতব্য' }
+        { name: "Community", path: "/community", label: "কমিউনিটি তথ্য" },
+        { name: "Events", path: "/events", label: "অনুষ্ঠান" },
+        { name: "Emergency", path: "/emergency", label: "জরুরি" },
+        { name: "Charity", path: "/charity", label: "দাতব্য" },
       ],
     },
   ];
@@ -46,10 +48,10 @@ export function Navbar() {
 
   useEffect(() => {
     if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
       return;
     }
-    document.body.style.overflow = '';
+    document.body.style.overflow = "";
   }, [isMenuOpen]);
 
   useEffect(() => {
@@ -61,13 +63,15 @@ export function Navbar() {
   }, []);
 
   const isActive = (path: string) => {
-    if (path === '/') return location.pathname === '/';
-    return location.pathname === path || location.pathname.startsWith(`${path}/`);
+    if (path === "/") return location.pathname === "/";
+    return (
+      location.pathname === path || location.pathname.startsWith(`${path}/`)
+    );
   };
 
   const isGroupActive = (paths: { path: string }[]) =>
     paths.some((item) => isActive(item.path));
-  const mosqueName = "বাইতুল মামুর জামে মসজিদ "
+  const mosqueName = "বাইতুল মামুর জামে মসজিদ ";
 
   return (
     <nav className="bg-primary text-white shadow-lg sticky top-0 z-50">
@@ -75,11 +79,17 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo and Name */}
           <Link to="/" className="flex items-center gap-2 md:gap-3">
-           
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl  text-accent font-bold text-lg border shadow-sm">{mosqueName.slice(0,3)}</div>
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl  text-accent font-bold text-lg border shadow-sm">
+              {mosqueName.slice(0, 3)}
+            </div>
             <div className="flex flex-col">
-              <span className="font-semibold text-base md:text-lg"> {mosqueName}</span>
-              <span className="text-xs md:text-sm text-accent">সাগরদী, মাধবদী</span>
+              <span className="font-semibold text-base md:text-lg">
+                {" "}
+                {mosqueName}
+              </span>
+              <span className="text-xs md:text-sm text-accent">
+                সাগরদী, মাধবদী
+              </span>
             </div>
           </Link>
 
@@ -91,8 +101,8 @@ export function Navbar() {
                 to={item.path}
                 className={`px-3 py-2 rounded-md transition-colors ${
                   isActive(item.path)
-                    ? 'bg-accent text-primary'
-                    : 'hover:bg-primary/80'
+                    ? "bg-accent text-primary"
+                    : "hover:bg-primary/80"
                 }`}
               >
                 {item.label}
@@ -100,7 +110,7 @@ export function Navbar() {
             ))}
 
             {navGroups.map((group) => {
-              const active = isGroupActive(group.items)
+              const active = isGroupActive(group.items);
               return (
                 <div
                   key={group.key}
@@ -122,11 +132,15 @@ export function Navbar() {
                 >
                   <button
                     type="button"
-                    onClick={() => setOpenDropdown(openDropdown === group.key ? null : group.key)}
+                    onClick={() =>
+                      setOpenDropdown(
+                        openDropdown === group.key ? null : group.key,
+                      )
+                    }
                     className={`flex items-center gap-2 px-3 py-2 rounded-md transition-colors ${
                       active || openDropdown === group.key
-                        ? 'bg-accent text-primary'
-                        : 'hover:bg-primary/80'
+                        ? "bg-accent text-primary"
+                        : "hover:bg-primary/80"
                     }`}
                     aria-expanded={openDropdown === group.key}
                     aria-haspopup="menu"
@@ -137,24 +151,24 @@ export function Navbar() {
                   {openDropdown === group.key && (
                     <div className="absolute left-0 top-full w-56 pt-2">
                       <div className="rounded-xl border border-[var(--color-border)] bg-white p-2 shadow-lg">
-                      {group.items.map((item) => (
-                        <Link
-                          key={item.path}
-                          to={item.path}
-                          className={`block rounded-md px-3 py-2 text-sm transition-colors ${
-                            isActive(item.path)
-                              ? 'bg-[var(--color-bg)] text-[var(--color-primary)]'
-                              : 'text-[var(--color-text)] hover:bg-[var(--color-bg)]'
-                          }`}
-                        >
-                          {item.label}
-                        </Link>
-                      ))}
+                        {group.items.map((item) => (
+                          <Link
+                            key={item.path}
+                            to={item.path}
+                            className={`block rounded-md px-3 py-2 text-sm transition-colors ${
+                              isActive(item.path)
+                                ? "bg-[var(--color-bg)] text-[var(--color-primary)]"
+                                : "text-[var(--color-text)] hover:bg-[var(--color-bg)]"
+                            }`}
+                          >
+                            {item.label}
+                          </Link>
+                        ))}
                       </div>
                     </div>
                   )}
                 </div>
-              )
+              );
             })}
           </div>
 
@@ -164,7 +178,11 @@ export function Navbar() {
             className="lg:hidden p-2 rounded-md hover:bg-primary/80"
             aria-label="Toggle menu"
           >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {isMenuOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <Menu className="h-6 w-6" />
+            )}
           </button>
         </div>
       </div>
@@ -187,8 +205,8 @@ export function Navbar() {
                     onClick={() => setIsMenuOpen(false)}
                     className={`block px-4 py-3 rounded-md transition-colors ${
                       isActive(item.path)
-                        ? 'bg-accent text-primary'
-                        : 'hover:bg-primary/80'
+                        ? "bg-accent text-primary"
+                        : "hover:bg-primary/80"
                     }`}
                   >
                     {item.label}
@@ -197,21 +215,31 @@ export function Navbar() {
               </div>
 
               {navGroups.map((group) => {
-                const isOpen = openMobileGroup === group.key
+                const isOpen = openMobileGroup === group.key;
                 return (
-                  <div key={group.key} className="rounded-xl border border-primary/30 bg-primary/60">
+                  <div
+                    key={group.key}
+                    className="rounded-xl border border-primary/30 bg-primary/60"
+                  >
                     <button
                       type="button"
-                      onClick={() => setOpenMobileGroup(isOpen ? null : group.key)}
+                      onClick={() =>
+                        setOpenMobileGroup(isOpen ? null : group.key)
+                      }
                       className="flex w-full items-center justify-between px-4 py-3 text-left text-sm font-semibold text-white"
                       aria-expanded={isOpen}
                       aria-controls={`mobile-group-${group.key}`}
                     >
                       {group.label}
-                      <ChevronDown className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+                      <ChevronDown
+                        className={`h-4 w-4 transition-transform ${isOpen ? "rotate-180" : ""}`}
+                      />
                     </button>
                     {isOpen && (
-                      <div id={`mobile-group-${group.key}`} className="px-2 pb-3">
+                      <div
+                        id={`mobile-group-${group.key}`}
+                        className="px-2 pb-3"
+                      >
                         {group.items.map((item) => (
                           <Link
                             key={item.path}
@@ -219,8 +247,8 @@ export function Navbar() {
                             onClick={() => setIsMenuOpen(false)}
                             className={`block rounded-md px-3 py-3 text-sm transition-colors ${
                               isActive(item.path)
-                                ? 'bg-accent text-primary'
-                                : 'text-white hover:bg-primary/80'
+                                ? "bg-accent text-primary"
+                                : "text-white hover:bg-primary/80"
                             }`}
                           >
                             {item.label}
@@ -229,7 +257,7 @@ export function Navbar() {
                       </div>
                     )}
                   </div>
-                )
+                );
               })}
             </div>
           </div>
