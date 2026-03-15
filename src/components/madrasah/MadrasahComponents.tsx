@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Clock, MapPin, Phone } from 'lucide-react'
+import { Clock, MapPin, Phone, Mail } from 'lucide-react'
 import { Badge } from '../Badge'
 import { SectionTitle } from '../SectionTitle'
 import { cn } from '../../utils/cn'
@@ -10,6 +10,7 @@ export interface StaffMember {
   nameBn: string
   roleBn: string
   subjectBn?: string
+  qualificationBn?: string
   experienceBn?: string
   phone?: string
   photo?: string
@@ -56,12 +57,13 @@ export function DescriptionCard({ text, className }: DescriptionCardProps) {
 interface ContactCardProps {
   addressBn: string
   phone?: string
+  email?: string
   mapUrl?: string
   mapPreviewImage?: string
   className?: string
 }
 
-export function ContactCard({ addressBn, phone, mapUrl, mapPreviewImage, className }: ContactCardProps) {
+export function ContactCard({ addressBn, phone, email, mapUrl, mapPreviewImage, className }: ContactCardProps) {
   const previewKey = mapPreviewImage as keyof typeof images
   const previewSrc = mapPreviewImage && images[previewKey] ? images[previewKey] : mapPreviewImage
 
@@ -72,6 +74,14 @@ export function ContactCard({ addressBn, phone, mapUrl, mapPreviewImage, classNa
         <MapPin className="mt-0.5 h-4 w-4 text-[var(--color-primary)]" />
         <span>{addressBn}</span>
       </p>
+      {email && (
+        <p className="mt-3 flex items-start gap-2 text-base text-[var(--color-text-muted)]">
+          <Mail className="mt-0.5 h-4 w-4 text-[var(--color-primary)]" />
+          <a href={`mailto:${email}`} className="break-all hover:text-[var(--color-primary)]">
+            {email}
+          </a>
+        </p>
+      )}
       {previewSrc && (
         <div className="mt-4 overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-bg)]">
           <img src={previewSrc} alt="মানচিত্র" className="h-36 w-full object-cover" loading="lazy" />
@@ -175,6 +185,9 @@ export function StaffCard({ staff, className }: StaffCardProps) {
                 <p className="text-xs text-[var(--color-text-muted)]">ভূমিকা: {member.roleBn}</p>
                 {member.subjectBn && (
                   <p className="mt-1 text-xs text-[var(--color-text-muted)]">বিষয়: {member.subjectBn}</p>
+                )}
+                {member.qualificationBn && (
+                  <p className="mt-1 text-xs text-[var(--color-text-muted)]">যোগ্যতা: {member.qualificationBn}</p>
                 )}
                 {member.experienceBn && (
                   <p className="mt-1 text-xs text-[var(--color-text-muted)]">অভিজ্ঞতা: {member.experienceBn}</p>
