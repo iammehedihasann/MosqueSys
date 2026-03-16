@@ -29,6 +29,8 @@ import madrashaCoverPic from "./MosqueImage/madrashaImages/madrashaCoverPic.jpeg
 import madrashaClassRoom from "./MosqueImage/madrashaImages/madrasaClassRoom.jpeg"
 import MadrashaClassPic from "./MosqueImage/madrashaImages/MadrashaClassPic.jpg";
 
+//Primary School Images
+import primarySchoolCover from "./MosqueImage/primarySchoolImages/primarySchoolCoverPhoto.jpg"
 
 export const images = {
   ImamDemoImage: Imam,
@@ -60,6 +62,9 @@ export const images = {
   // Madrasha pic
   madrashaCoverPic,
   madrashaClassRoom,
-  MadrashaClassPic
+  MadrashaClassPic,
 
+
+  //primary school
+  primarySchoolCover
 };

@@ -23,17 +23,17 @@
     },
     {
       "id": "school-1",
-      "name": "Village Government Primary School",
-      "nameBn": "গ্রাম সরকারি প্রাথমিক বিদ্যালয়",
+      "name": "Sagordi Government Primary School",
+      "nameBn": "সাগরদী সরকারি প্রাথমিক বিদ্যালয়",
       "category": "school",
-      "addressBn": "বাজার মোড়, গ্রাম কেন্দ্র",
+      "addressBn": "সাগরদী দক্ষিণ পাড়া ",
       "contact": "01321-456789",
-      "hoursBn": "সকাল ৯টা - দুপুর ১টা",
+      "hoursBn": "সকাল ৯টা - বিকাল ৪টা ",
       "descriptionBn": "প্রাথমিক শিক্ষা ও বার্ষিক ক্রীড়া কার্যক্রম পরিচালিত হয়।",
       "highlightsBn": ["প্রাথমিক শিক্ষা", "বার্ষিক ক্রীড়া", "অভিভাবক দিবস"],
       "activitiesBn": ["প্রাত্যহিক সমাবেশ", "ক্রীড়া দিবস", "অভিভাবক সভা"],
       "facilitiesBn": ["খেলার মাঠ", "শিশু কর্নার", "টিউবওয়েল"],
-      "image": "program_3",
+      "image": "primarySchoolCover",
       "images": ["program_3", "program_4"]
     },
     {
