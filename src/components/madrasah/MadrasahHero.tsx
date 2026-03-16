@@ -7,7 +7,7 @@ interface MadrasahHeroProps {
 }
 
 export function MadrasahHero({ name, images }: MadrasahHeroProps) {
-  const defaultHero = assetImages.madrasha;
+  const defaultHero = assetImages.madrashaCoverPic;
 
   const resolvedImages: string[] =
     images

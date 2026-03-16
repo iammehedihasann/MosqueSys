@@ -22,7 +22,13 @@ import program_1 from "./MosqueImage/programs/program_1.jpg";
 import program_2 from "./MosqueImage/programs/program_2.jpg";
 import program_3 from "./MosqueImage/programs/program_3.jpg";
 import program_4 from "./MosqueImage/programs/program_4.jpg";
-import madrashaClassPic from "./MosqueImage/programs/program_4.jpg";
+
+
+// Madrasha Images 
+import madrashaCoverPic from "./MosqueImage/madrashaImages/madrashaCoverPic.jpeg"
+import madrashaClassRoom from "./MosqueImage/madrashaImages/madrasaClassRoom.jpeg"
+import MadrashaClassPic from "./MosqueImage/madrashaImages/MadrashaClassPic.jpg";
+
 
 export const images = {
   ImamDemoImage: Imam,
@@ -49,5 +55,11 @@ export const images = {
   program_2,
   program_3,
   program_4,
-  madrashaClassPic
+  
+
+  // Madrasha pic
+  madrashaCoverPic,
+  madrashaClassRoom,
+  MadrashaClassPic
+
 };

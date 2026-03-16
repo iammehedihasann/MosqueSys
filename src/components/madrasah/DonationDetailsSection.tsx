@@ -39,9 +39,9 @@ export function DonationDetailsSection({
   ];
 
   const defaultPayments: PaymentMethod[] = [
-    { name: "bKash", number: "01XXXXXXXXX" },
-    { name: "Nagad", number: "01XXXXXXXXX" },
-    { name: "Bank Transfer" },
+    { name: "bKash", number: "01735-578868" },
+    { name: "Nagad", number: "01735-578868" },
+    { name: "Bank Transfer",number: "ব্যাংক এর লেনদের জন্য মুহতামিম হুজুরের সাথে যোগাযোগ করুন " },
   ];
 
   const methods = paymentMethods ?? defaultPayments;

@@ -7,17 +7,18 @@
       "category": "madrasa",
       "typeBn": "কওমি মাদরাসা",
 
-      "image": "madrasha",
+      "image": "madrashaCoverPic",
 
       "images": [
-        "madrasha",
-        "madrashaClassPic",
-        "program_1",
-        "program_2"
+        "madrashaClassRoom",
+        "MadrashaClassPic",
+        "madrashaCoverPic",
+        "madrasha"
+        
       ],
 
-      "addressBn": "মসজিদ সংলগ্ন, মেইন রোড",
-      "contact": "01712-345678",
+      "addressBn": "সাগরদী করবস্থান সংলগ্ন মাঠ ",
+      "contact": "01735-578868",
       "hoursBn": "সকাল ৮টা - দুপুর ১২টা"
     },
     {

@@ -1,9 +1,9 @@
 export function MadrasahStats() {
   const stats = [
     { label: "মোট ছাত্র", value: "১২০০+" },
-    { label: "শিক্ষক", value: "৪৫+" },
+    { label: "শিক্ষক", value: "১০+" },
     { label: "বিভাগ", value: "৫" },
-    { label: "হাফেজ", value: "৩০০+" },
+    { label: "হাফেজ", value: "১০০+" },
   ];
 
   return (
