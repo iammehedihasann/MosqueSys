@@ -61,44 +61,6 @@ export function MadrasahDetails({ place }: MadrasahDetailsProps) {
           />
         </section>
 
-        {/* 3. Info Header - Floating White Card Layout */}
-        {/* <header className="relative z-10 -mt-16 sm:-mt-20 mx-4 sm:mx-8 mb-10 grid grid-cols-1 gap-4 md:grid-cols-12 rounded-[2rem] bg-white p-4 sm:p-6 shadow-xl shadow-slate-200/50 ring-1 ring-slate-100">
-          <div className="md:col-span-5 lg:col-span-6 flex flex-col justify-center border-b border-slate-100 pb-4 md:border-b-0 md:border-r md:pb-0 md:pr-6">
-            <MadrasahHeader
-              nameBn={place.nameBn ?? place.name}
-              typeBn={place.typeBn ?? "মাদরাসা"}
-            />
-          </div>
-          
-          <div className="md:col-span-7 lg:col-span-6 grid grid-cols-2 sm:grid-cols-3 gap-3 md:pl-4">
-            <div className="rounded-2xl bg-slate-50 p-4 flex flex-col justify-center transition-colors hover:bg-emerald-50/50">
-              <p className="text-[0.65rem] font-bold uppercase tracking-wider text-emerald-600 mb-1">
-                ধরন
-              </p>
-              <p className="font-semibold text-sm text-slate-800">
-                {place.category === "madrasa" ? "মাদরাসা" : place.category}
-              </p>
-            </div>
-
-            {place.hoursBn && (
-              <div className="rounded-2xl bg-slate-50 p-4 flex flex-col justify-center transition-colors hover:bg-emerald-50/50">
-                <p className="text-[0.65rem] font-bold uppercase tracking-wider text-emerald-600 mb-1">
-                  সময়সূচি
-                </p>
-                <p className="font-semibold text-sm text-slate-800 line-clamp-2">{place.hoursBn}</p>
-              </div>
-            )}
-
-            {place.contact && (
-              <div className="col-span-2 sm:col-span-1 rounded-2xl bg-slate-50 p-4 flex flex-col justify-center transition-colors hover:bg-emerald-50/50">
-                <p className="text-[0.65rem] font-bold uppercase tracking-wider text-emerald-600 mb-1">
-                  যোগাযোগ
-                </p>
-                <p className="font-semibold text-sm text-slate-800">{place.contact}</p>
-              </div>
-            )}
-          </div>
-        </header> */}
 
         {/* 4. Statistics & Departments */}
         <section className="mb-8 grid gap-6 lg:grid-cols-[1.2fr_1fr]">

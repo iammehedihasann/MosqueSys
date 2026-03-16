@@ -19,12 +19,16 @@ export function Footer() {
             <h3 className="text-lg font-semibold tracking-wide text-zinc-100 mb-4">
               মানচিত্র / Map
             </h3>
-            {/* Modern embedded map placeholder with hover effect */}
-            <div className="group relative h-48 w-full overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900 transition-all hover:border-emerald-500/50">
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-sm text-zinc-500 transition-transform duration-300 group-hover:scale-105">
-                <MapPin className="mb-2 h-6 w-6 text-zinc-700" />
-                <span>Google Map Embed Here</span>
-              </div>
+            {/* Embedded Google Map */}
+            <div className="h-48 w-full overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900">
+              <iframe
+                title="Mosque location map"
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2391.2678663626834!2d90.69170624857563!3d23.833863094263815!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x375437863baec4c1%3A0x4e6724df9861df66!2z4KaG4Kay4Ka54Ka-4Kac4KeN4KasIOCmhuCmrOCnjeCmpuCngeCmsiDgppvgpr7gprLgpr7gpq4g4Kau4KeH4Kau4KeN4Kas4Ka-4KawIOCmrOCmvuCnnOCngCDgppzgpr7gpq7gp4cg4Kau4Ka44Kac4Ka_4Kam!5e0!3m2!1sen!2sbd!4v1773640664696!5m2!1sen!2sbd"
+                className="h-full w-full border-0"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+              />
             </div>
           </div>
 
@@ -38,11 +42,11 @@ export function Footer() {
                 <MapPin className="h-5 w-5" />
               </div>
               <p className="text-base leading-relaxed text-zinc-300">
-                গ্রাম মসজিদ, মেইন রোড
+                সাগরদী কান্দাপাড়া
                 <br />
-                ইউনিয়ন পরিষদ
+                পাইকারচর ইউনিয়ন পরিষদ
                 <br />
-                জেলা, বাংলাদেশ
+                নরসিংদী ,ঢাকা,বাংলাদেশ
               </p>
             </div>
           </div>
@@ -62,7 +66,7 @@ export function Footer() {
                 </div>
                 <div>
                   <p className="text-sm font-medium text-zinc-200">
-                    ০১৭১২-৩৪৫৬৭৮
+                    ০১৭৭৯-৫২০৫৯৩ 
                   </p>
                   <p className="text-xs text-zinc-500">জরুরি কল (Emergency)</p>
                 </div>
@@ -78,7 +82,7 @@ export function Footer() {
                 </div>
                 <div>
                   <p className="text-sm font-medium text-zinc-200">
-                    info@mosque.com
+                    kandaparamosque@gmail.com
                   </p>
                   <p className="text-xs text-zinc-500">ইমেইল (Email)</p>
                 </div>
