@@ -4,7 +4,7 @@ export interface PrayerTime {
   name: string
   nameBn?: string
   azan: string
-  iqamah: string
+  iqamah?: string
   isJumuah?: boolean
 }
 
