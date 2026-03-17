@@ -7,6 +7,7 @@ import { cn } from '../utils/cn'
 import { dateWithHHMM, formatCountdownHMS, formatTimeLabel, getNextPrayer } from '../utils/prayerUtils'
 import { NextPrayer } from './NextPrayer'
 import { PrayerCard, type PrayerRow } from './PrayerCard'
+import { QiblaCard } from './QiblaCard'
 
 type DailyKey = 'Fajr' | 'Dhuhr' | 'Asr' | 'Maghrib' | 'Isha'
 
@@ -175,6 +176,17 @@ export function PrayerTimes({
     return getNextPrayer(state.prayers, now)
   }, [state?.prayers, now])
 
+  const afterNext = useMemo(() => {
+    if (!state?.prayers?.length || !next) return null
+    const sameDay =
+      next.at.getFullYear() === now.getFullYear() &&
+      next.at.getMonth() === now.getMonth() &&
+      next.at.getDate() === now.getDate()
+    if (!sameDay) return null
+    const probe = new Date(next.at.getTime() + 1000)
+    return getNextPrayer(state.prayers, probe)
+  }, [state?.prayers, next, now])
+
   const currentPrayer = useMemo(() => {
     if (!state?.prayers?.length) return null
     // "Current" means the last prayer that already started today.
@@ -183,6 +195,16 @@ export function PrayerTimes({
     return lastStarted ?? null
   }, [state?.prayers, now])
 
+  const countdownToNext = useMemo(() => {
+    if (!next) return null
+    return formatCountdownHMS(next.at.getTime() - now.getTime())
+  }, [next, now])
+
+  const countdownToAfterNext = useMemo(() => {
+    if (!afterNext) return null
+    return formatCountdownHMS(afterNext.at.getTime() - now.getTime())
+  }, [afterNext, now])
+
   const nextInfo = useMemo(() => {
     if (!next) return null
     return {
@@ -190,9 +212,14 @@ export function PrayerTimes({
       name: next.prayer.name,
       nameBn: next.prayer.nameBn,
       timeLabel: formatTimeLabel(next.at),
-      subLabel: `in ${formatCountdownHMS(next.at.getTime() - now.getTime())}`,
+      subLines: [
+        countdownToNext ? `starts in ${countdownToNext}` : '',
+        afterNext?.prayer
+          ? `after that: ${afterNext.prayer.nameBn ?? afterNext.prayer.name} in ${countdownToAfterNext ?? '—'}`
+          : '',
+      ].filter(Boolean),
     }
-  }, [next, now])
+  }, [next, now, countdownToNext, afterNext, countdownToAfterNext])
 
   const currentInfo = useMemo(() => {
     if (!state?.prayers?.length) return null
@@ -202,7 +229,7 @@ export function PrayerTimes({
         name: 'Before Fajr',
         nameBn: 'ফজরের আগে',
         timeLabel: '—',
-        subLabel: 'Waiting',
+        subLines: [countdownToNext ? `next in ${countdownToNext}` : 'Waiting'],
       }
     }
     return {
@@ -210,9 +237,12 @@ export function PrayerTimes({
       name: currentPrayer.name,
       nameBn: currentPrayer.nameBn,
       timeLabel: formatTimeLabel(currentPrayer.dateTime),
-      subLabel: 'Active now',
+      subLines: [
+        'active now',
+        countdownToNext ? `next in ${countdownToNext}` : '',
+      ].filter(Boolean),
     }
-  }, [currentPrayer, state?.prayers?.length])
+  }, [currentPrayer, state?.prayers?.length, countdownToNext])
 
   return (
     <section className={cn('rounded-[2.5rem] border border-emerald-200/60 bg-white p-6 sm:p-8', className)} aria-label="Prayer times">
@@ -244,6 +274,7 @@ export function PrayerTimes({
 
       <div className={cn('mt-6', !showHeader && 'mt-0')}>
         <NextPrayer current={currentInfo} next={nextInfo} />
+        <QiblaCard />
 
         <div className="mt-4 overflow-hidden rounded-3xl border border-emerald-200/60 bg-white">
           <table className="min-w-full text-left text-sm">

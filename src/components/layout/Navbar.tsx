@@ -69,26 +69,25 @@ export function Navbar() {
 
   const isGroupActive = (paths: { path: string }[]) =>
     paths.some((item) => isActive(item.path));
-  const mosqueName = "বাইতুল মামুর জামে মসজিদ ";
+  const mosqueName = "বাইতুল মামুর জামে মসজিদ";
+  const mosqueArea = "সাগরদী, মাধবদী";
 
   return (
-    <nav className="bg-primary text-white shadow-lg sticky top-0 z-50">
+    <nav className="sticky top-0 z-50 border-b border-emerald-900/20 bg-[var(--color-primary)] text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo and Name */}
           <Link to="/" className="flex items-center gap-2 md:gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl  text-accent font-bold text-lg border shadow-sm">
-              {mosqueName.slice(0, 3)}
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-amber-200 font-extrabold text-sm shadow-[var(--shadow-card)]">
+              {mosqueName.replace(/\s+/g, "").slice(0, 2)}
             </div>
             <div className="flex flex-col">
-              <span className="font-semibold text-base md:text-lg">
-                {" "}
+              <span className="font-extrabold text-base md:text-lg leading-tight">
                 {mosqueName}
               </span>
-              <span className="text-xs md:text-sm text-accent">
-                সাগরদী, মাধবদী
+              <span className="text-xs md:text-sm text-amber-200/90 leading-tight">
+                {mosqueArea}
               </span>
-              <span className="text-xs md:text-sm text-accent">সাগরদী, মাধবদী</span>
             </div>
           </Link>
 
@@ -100,8 +99,8 @@ export function Navbar() {
                 to={item.path}
                 className={`px-3 py-2 rounded-md transition-colors ${
                   isActive(item.path)
-                    ? "bg-accent text-primary"
-                    : "hover:bg-primary/80"
+                    ? "bg-amber-300 text-emerald-950"
+                    : "hover:bg-white/10"
                 }`}
               >
                 {item.label}
@@ -138,8 +137,8 @@ export function Navbar() {
                     }
                     className={`flex items-center gap-2 px-3 py-2 rounded-md transition-colors ${
                       active || openDropdown === group.key
-                        ? "bg-accent text-primary"
-                        : "hover:bg-primary/80"
+                        ? "bg-amber-300 text-emerald-950"
+                        : "hover:bg-white/10"
                     }`}
                     aria-expanded={openDropdown === group.key}
                     aria-haspopup="menu"
@@ -174,7 +173,7 @@ export function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="lg:hidden p-2 rounded-md hover:bg-primary/80"
+            className="lg:hidden p-2 rounded-md hover:bg-white/10"
             aria-label="Toggle menu"
           >
             {isMenuOpen ? (
@@ -194,7 +193,7 @@ export function Navbar() {
             onClick={() => setIsMenuOpen(false)}
             aria-hidden="true"
           />
-          <div className="fixed inset-x-0 top-16 z-50 max-h-[calc(100vh-4rem)] overflow-y-auto border-t border-primary/20 bg-primary md:top-20 md:max-h-[calc(100vh-5rem)]">
+          <div className="fixed inset-x-0 top-16 z-50 max-h-[calc(100vh-4rem)] overflow-y-auto border-t border-white/10 bg-[var(--color-primary)] md:top-20 md:max-h-[calc(100vh-5rem)]">
             <div className="px-4 py-4 space-y-4">
               <div className="space-y-1">
                 {topLinks.map((item) => (
@@ -204,8 +203,8 @@ export function Navbar() {
                     onClick={() => setIsMenuOpen(false)}
                     className={`block px-4 py-3 rounded-md transition-colors ${
                       isActive(item.path)
-                        ? "bg-accent text-primary"
-                        : "hover:bg-primary/80"
+                        ? "bg-amber-300 text-emerald-950"
+                        : "hover:bg-white/10"
                     }`}
                   >
                     {item.label}
@@ -218,7 +217,7 @@ export function Navbar() {
                 return (
                   <div
                     key={group.key}
-                    className="rounded-xl border border-primary/30 bg-primary/60"
+                    className="rounded-xl border border-white/10 bg-white/5"
                   >
                     <button
                       type="button"
@@ -246,8 +245,8 @@ export function Navbar() {
                             onClick={() => setIsMenuOpen(false)}
                             className={`block rounded-md px-3 py-3 text-sm transition-colors ${
                               isActive(item.path)
-                                ? "bg-accent text-primary"
-                                : "text-white hover:bg-primary/80"
+                                ? "bg-amber-300 text-emerald-950"
+                                : "text-white hover:bg-white/10"
                             }`}
                           >
                             {item.label}

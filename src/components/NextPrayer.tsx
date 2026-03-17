@@ -7,6 +7,7 @@ export interface PrayerStatusInfo {
   nameBn?: string
   timeLabel: string
   subLabel?: string
+  subLines?: string[]
 }
 
 export interface NextPrayerProps {
@@ -42,7 +43,15 @@ export function NextPrayer({ current, next, className }: NextPrayerProps) {
             <Clock className="h-4 w-4 text-amber-800" />
             <div className="text-right leading-tight">
               <div className="text-sm font-extrabold">{current?.timeLabel ?? '—'}</div>
-              <div className="text-[11px] font-semibold text-amber-900/70">{current?.subLabel ?? ''}</div>
+              {current?.subLines?.length ? (
+                <div className="mt-0.5 space-y-0.5 text-[11px] font-semibold text-amber-900/70">
+                  {current.subLines.map((line) => (
+                    <div key={line}>{line}</div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-[11px] font-semibold text-amber-900/70">{current?.subLabel ?? ''}</div>
+              )}
             </div>
           </div>
         </div>
@@ -72,7 +81,15 @@ export function NextPrayer({ current, next, className }: NextPrayerProps) {
             <Clock className="h-4 w-4 text-amber-200" />
             <div className="text-right leading-tight">
               <div className="text-sm font-extrabold">{next?.timeLabel ?? '—'}</div>
-              <div className="text-[11px] font-mono font-semibold text-white/80">{next?.subLabel ?? ''}</div>
+              {next?.subLines?.length ? (
+                <div className="mt-0.5 space-y-0.5 text-[11px] font-mono font-semibold text-white/80">
+                  {next.subLines.map((line) => (
+                    <div key={line}>{line}</div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-[11px] font-mono font-semibold text-white/80">{next?.subLabel ?? ''}</div>
+              )}
             </div>
           </div>
         </div>

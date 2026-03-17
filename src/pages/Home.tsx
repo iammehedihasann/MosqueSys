@@ -85,14 +85,14 @@ export function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
               <Link
                 to="/prayer-times"
-                className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 rounded-2xl font-bold shadow-lg shadow-emerald-900/20 transition-all transform hover:-translate-y-1 active:scale-95"
+                className="bg-emerald-700 hover:bg-emerald-800 text-white px-8 py-4 rounded-2xl font-bold shadow-[var(--shadow-card)] transition-transform hover:-translate-y-0.5 active:scale-[0.99]"
               >
                 নামাজের সময় দেখুন
               </Link>
 
               <Link
                 to="/donation"
-                className="bg-white hover:bg-gray-100 text-gray-900 px-8 py-4 rounded-2xl font-bold shadow-lg transition-all transform hover:-translate-y-1 active:scale-95"
+                className="bg-white hover:bg-gray-50 text-gray-900 px-8 py-4 rounded-2xl font-bold shadow-[var(--shadow-card)] transition-transform hover:-translate-y-0.5 active:scale-[0.99]"
               >
                 দান করুন
               </Link>
@@ -144,7 +144,7 @@ export function Home() {
           </div>
 
           {/* Side Banner / Quick Event */}
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-900 via-emerald-800 to-teal-900 p-6 md:p-8 text-white shadow-2xl border border-emerald-700/40">
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-900 via-emerald-800 to-teal-900 p-6 md:p-8 text-white shadow-[var(--shadow-card-hover)] border border-emerald-700/30">
             {/* Decorative Background */}
             <div className="absolute -top-16 -right-16 w-40 h-40 bg-amber-400/10 rounded-full blur-2xl"></div>
             <div className="absolute -bottom-16 -left-16 w-40 h-40 bg-teal-300/10 rounded-full blur-2xl"></div>
@@ -165,7 +165,7 @@ export function Home() {
                   {events.slice(0, 2).map((event) => (
                     <div
                       key={event.id}
-                      className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-4 hover:bg-white/10 transition duration-300"
+                      className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-4 hover:bg-white/10 transition-colors"
                     >
                       <EventCard event={event} />
                     </div>
@@ -176,7 +176,7 @@ export function Home() {
               {/* Button */}
               <Link
                 to="/events"
-                className="mt-8 block text-center text-sm md:text-base font-semibold py-3 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-500 text-emerald-900 hover:scale-105 transition-all duration-300 shadow-lg"
+                className="mt-8 block text-center text-sm md:text-base font-semibold py-3 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-500 text-emerald-950 hover:brightness-105 transition-colors shadow-[var(--shadow-card)]"
               >
                 সব কার্যক্রম দেখুন →
               </Link>
