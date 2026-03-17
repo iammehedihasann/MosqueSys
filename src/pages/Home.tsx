@@ -2,20 +2,18 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../components/Button";
 import { SectionTitle } from "../components/SectionTitle";
-import { PrayerTimeCard } from "../components/PrayerTimeCard";
 import { NoticeCard } from "../components/NoticeCard";
 import { EventCard } from "../components/EventCard";
 import { DonationSummaryCard } from "../components/DonationSummaryCard";
 import ProfileCard from "../components/ProfileCard";
+import { PrayerTimes } from "../components/PrayerTimes";
 import { images } from "../assets/image";
-import prayerTimesData from "../data/prayerTimes.json";
 import noticesData from "../data/notices.json";
 import donationData from "../data/donation.json";
 import committeeData from "../data/committee.json";
 import eventsData from "../data/events.json";
 import galleryData from "../data/gallery.json";
 import servicesData from "../data/services.json";
-import type { PrayerTime } from "../types";
 import { getImgSrc } from "../utils/getImgSrc";
 import {
   ScrollText,
@@ -38,7 +36,6 @@ const serviceIcons: Record<
 };
 
 export function Home() {
-  const times = prayerTimesData.times as PrayerTime[];
   const notices = noticesData.notices.slice(0, 3).map((n) => ({
     ...n,
     category: n.category as "ramadan" | "general" | "emergency",
@@ -121,15 +118,7 @@ export function Home() {
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 space-y-20">
         {/* 2. Today Prayer Times - Grid Refresh */}
         <section>
-          <SectionTitle
-            title="আজকের নামাজের সময়"
-            subtitle="আযান ও ইকামতের সঠিক সময়সূচী"
-          />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 mt-8">
-            {times.map((prayer) => (
-              <PrayerTimeCard key={prayer.id} prayer={prayer} />
-            ))}
-          </div>
+          <PrayerTimes />
         </section>
 
         {/* 3. Latest Notices & Events Grid */}
