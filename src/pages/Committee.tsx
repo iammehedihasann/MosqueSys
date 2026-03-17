@@ -1,5 +1,5 @@
-import ProfileCard from "../components/ProfileCard";
-import committeeData from "../data/committee.json";
+import ProfileCard from "@/components/shared/ProfileCard";
+import committeeData from "@/data/committee.json";
 
 type CommitteeMember = {
   name: string;

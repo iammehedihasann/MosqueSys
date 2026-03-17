@@ -1,4 +1,4 @@
-import { PrayerTimes as PrayerTimesWidget } from "../components/PrayerTimes";
+import { PrayerTimes as PrayerTimesWidget } from "@/components/PrayerTimes";
 import { Info, Clock } from "lucide-react";
 
 export function PrayerTimes() {

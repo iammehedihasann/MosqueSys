@@ -1,4 +1,3 @@
-// import { SectionTitle } from '../components/SectionTitle'
 import {
   PiggyBank,
   User,
@@ -7,12 +6,12 @@ import {
   HandCoins,
   TriangleAlert,
 } from "lucide-react";
-import { DonationMethodCard } from "../components/DonationMethodCard";
-import { DonationSummaryCard } from "../components/DonationSummaryCard";
-import { Table } from "../components/Table";
-import { Button } from "../components/Button";
-import donationData from "../data/donation.json";
-import type { DonationMethod, DonationMonthlyRow } from "../types";
+import { DonationMethodCard } from "@/components/shared/DonationMethodCard";
+import { DonationSummaryCard } from "@/components/shared/DonationSummaryCard";
+import { Table } from "@/components/ui/Table";
+import { Button } from "@/components/ui/Button";
+import donationData from "@/data/donation.json";
+import type { DonationMethod, DonationMonthlyRow } from "@/types";
 
 const monthlyColumns = [
   { key: "month" as const, header: "মাস / Month" },

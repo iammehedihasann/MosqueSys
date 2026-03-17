@@ -1,10 +1,20 @@
-import { Link, useParams } from 'react-router-dom'
-import { ArrowLeft, AlertTriangle, Bolt, Droplet, Flame, Heart, MapPin, Phone, Shield } from 'lucide-react'
-import { Badge } from '../components/Badge'
-import { SectionTitle } from '../components/SectionTitle'
-import emergencyContactsData from '../data/emergencyContacts.json'
-import { images } from '../assets/image'
-import type { EmergencyContact, EmergencyServiceType } from '../types'
+import { Link, useParams } from "react-router-dom";
+import {
+  ArrowLeft,
+  AlertTriangle,
+  Bolt,
+  Droplet,
+  Flame,
+  Heart,
+  MapPin,
+  Phone,
+  Shield,
+} from "lucide-react";
+import { Badge } from "@/components/ui/Badge";
+import { SectionTitle } from "@/components/ui/SectionTitle";
+import emergencyContactsData from "@/data/emergencyContacts.json";
+import { images } from "@/assets/image";
+import type { EmergencyContact, EmergencyServiceType } from "@/types";
 
 const serviceMeta: Record<EmergencyServiceType, { label: string; icon: React.ComponentType<{ className?: string }>; tone: string; badge: 'emergency' | 'general' | 'success' }> = {
   police: { label: 'পুলিশ', icon: Shield, tone: 'bg-indigo-50 text-indigo-700 border-indigo-100', badge: 'emergency' },

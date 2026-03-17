@@ -1,20 +1,20 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "../components/Button";
-import { SectionTitle } from "../components/SectionTitle";
-import { NoticeCard } from "../components/NoticeCard";
-import { EventCard } from "../components/EventCard";
-import { DonationSummaryCard } from "../components/DonationSummaryCard";
-import ProfileCard from "../components/ProfileCard";
-import { PrayerTimes } from "../components/PrayerTimes";
-import { images } from "../assets/image";
-import noticesData from "../data/notices.json";
-import donationData from "../data/donation.json";
-import committeeData from "../data/committee.json";
-import eventsData from "../data/events.json";
-import galleryData from "../data/gallery.json";
-import servicesData from "../data/services.json";
-import { getImgSrc } from "../utils/getImgSrc";
+import { Button } from "@/components/ui/Button";
+import { SectionTitle } from "@/components/ui/SectionTitle";
+import { NoticeCard } from "@/components/shared/NoticeCard";
+import { EventCard } from "@/components/shared/EventCard";
+import { DonationSummaryCard } from "@/components/shared/DonationSummaryCard";
+import ProfileCard from "@/components/shared/ProfileCard";
+import { PrayerTimes } from "@/components/PrayerTimes";
+import { images } from "@/assets/image";
+import noticesData from "@/data/notices.json";
+import donationData from "@/data/donation.json";
+import committeeData from "@/data/committee.json";
+import eventsData from "@/data/events.json";
+import galleryData from "@/data/gallery.json";
+import servicesData from "@/data/services.json";
+import { getImgSrc } from "@/utils/getImgSrc";
 import {
   ScrollText,
   BookOpen,
@@ -71,7 +71,6 @@ export function Home() {
         ))}
 
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/60 to-black/90" />
-
         <div className="absolute inset-0 flex items-center justify-center p-6 text-center">
           <div className="max-w-4xl space-y-6">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white drop-shadow-lg leading-tight">
@@ -145,26 +144,43 @@ export function Home() {
           </div>
 
           {/* Side Banner / Quick Event */}
-          <div className="bg-emerald-900 rounded-[2.5rem] p-8 text-white flex flex-col justify-between shadow-xl">
-            <div>
-              <h3 className="text-2xl font-bold mb-2 text-amber-400">
-                আসন্ন কার্যক্রম
-              </h3>
-              <p className="text-emerald-100/80 mb-6 text-sm italic">
-                ইকামতের সাথে আপনার দ্বীনি কার্যক্রম পরিচালনা করুন
-              </p>
-              <div className="space-y-4">
-                {events.slice(0, 2).map((event) => (
-                  <EventCard key={event.id} event={event} />
-                ))}
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-900 via-emerald-800 to-teal-900 p-6 md:p-8 text-white shadow-2xl border border-emerald-700/40">
+            {/* Decorative Background */}
+            <div className="absolute -top-16 -right-16 w-40 h-40 bg-amber-400/10 rounded-full blur-2xl"></div>
+            <div className="absolute -bottom-16 -left-16 w-40 h-40 bg-teal-300/10 rounded-full blur-2xl"></div>
+
+            <div className="relative z-10 flex flex-col h-full justify-between">
+              {/* Header */}
+              <div>
+                <h3 className="text-xl md:text-2xl font-bold mb-2 text-amber-400 tracking-wide">
+                  আসন্ন কার্যক্রম
+                </h3>
+
+                <p className="text-emerald-100/80 mb-6 text-sm italic leading-relaxed">
+                  ইকামতের সাথে আপনার দ্বীনি কার্যক্রম পরিচালনা করুন
+                </p>
+
+                {/* Events */}
+                <div className="space-y-4">
+                  {events.slice(0, 2).map((event) => (
+                    <div
+                      key={event.id}
+                      className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-4 hover:bg-white/10 transition duration-300"
+                    >
+                      <EventCard event={event} />
+                    </div>
+                  ))}
+                </div>
               </div>
+
+              {/* Button */}
+              <Link
+                to="/events"
+                className="mt-8 block text-center text-sm md:text-base font-semibold py-3 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-500 text-emerald-900 hover:scale-105 transition-all duration-300 shadow-lg"
+              >
+                সব কার্যক্রম দেখুন →
+              </Link>
             </div>
-            <Link
-              to="/events"
-              className="mt-8 text-center text-sm font-bold underline underline-offset-4 opacity-70 hover:opacity-100"
-            >
-              সব কার্যক্রম দেখুন
-            </Link>
           </div>
         </div>
 

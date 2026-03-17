@@ -1,54 +1,56 @@
-import { Link } from 'react-router-dom'
-import { ArrowRight, Building2, Heart, Shield } from 'lucide-react'
-import { SectionTitle } from '../components/SectionTitle'
-import { CommunityPlaceCard } from '../components/CommunityPlaceCard'
-import { EmergencyContactCard } from '../components/EmergencyContactCard'
-import { EventCard } from '../components/EventCard'
-import communityPlacesData from '../data/communityPlaces.json'
-import emergencyContactsData from '../data/emergencyContacts.json'
-import eventsData from '../data/events.json'
-import type { CommunityPlace, EmergencyContact, Event } from '../types'
+import { Link } from "react-router-dom";
+import { ArrowRight, Building2, Heart, Shield } from "lucide-react";
+import { SectionTitle } from "@/components/ui/SectionTitle";
+import { CommunityPlaceCard } from "@/components/shared/CommunityPlaceCard";
+import { EmergencyContactCard } from "@/components/shared/EmergencyContactCard";
+import { EventCard } from "@/components/shared/EventCard";
+import communityPlacesData from "@/data/communityPlaces.json";
+import emergencyContactsData from "@/data/emergencyContacts.json";
+import eventsData from "@/data/events.json";
+import type { CommunityPlace, EmergencyContact, Event } from "@/types";
 
 const toBnDigits = (value: string | number) => {
-  const map = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯']
+  const map = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
   return value
     .toString()
-    .replace(/\d/g, (digit) => map[Number(digit)])
-}
+    .replace(/\d/g, (digit) => map[Number(digit)]);
+};
 
 const formatDateBn = (date: string) => {
-  const parts = date.split('-')
-  if (parts.length !== 3) return toBnDigits(date)
-  const [year, month, day] = parts
-  return `${toBnDigits(day)}-${toBnDigits(month)}-${toBnDigits(year)}`
-}
+  const parts = date.split("-");
+  if (parts.length !== 3) return toBnDigits(date);
+  const [year, month, day] = parts;
+  return `${toBnDigits(day)}-${toBnDigits(month)}-${toBnDigits(year)}`;
+};
 
 const formatTimeBn = (time: string) => {
-  const [clock, suffix] = time.split(' ')
-  const lower = (suffix ?? '').toLowerCase()
-  const period = lower === 'am' ? 'সকাল' : lower === 'pm' ? 'বিকাল' : ''
-  return period ? `${period} ${toBnDigits(clock)}` : toBnDigits(time)
-}
+  const [clock, suffix] = time.split(" ");
+  const lower = (suffix ?? "").toLowerCase();
+  const period = lower === "am" ? "সকাল" : lower === "pm" ? "বিকাল" : "";
+  return period ? `${period} ${toBnDigits(clock)}` : toBnDigits(time);
+};
 
 const locationMap: Record<string, string> = {
-  'Masjid Premises': 'মসজিদ প্রাঙ্গণ',
-  'Masjid Ground': 'মসজিদ মাঠ',
-  'Main Hall': 'মূল হল'
-}
+  "Masjid Premises": "মসজিদ প্রাঙ্গণ",
+  "Masjid Ground": "মসজিদ মাঠ",
+  "Main Hall": "মূল হল",
+};
 
 export function Community() {
-  const places = communityPlacesData.places as CommunityPlace[]
-  const contacts = emergencyContactsData.contacts as EmergencyContact[]
+  const places = communityPlacesData.places as CommunityPlace[];
+  const contacts = emergencyContactsData.contacts as EmergencyContact[];
   const events = (eventsData.events as Event[]).map((event) => ({
     ...event,
     name: event.nameBn ?? event.name,
     nameBn: undefined,
     date: formatDateBn(event.date),
     time: formatTimeBn(event.time),
-    location: event.location ? (locationMap[event.location] ?? event.location) : undefined
-  }))
+    location: event.location
+      ? locationMap[event.location] ?? event.location
+      : undefined,
+  }));
 
-  const quickContacts = contacts.slice(0, 3)
+  const quickContacts = contacts.slice(0, 3);
 
   return (
     <div className="min-h-screen bg-[var(--color-bg)] py-8 md:py-12">
@@ -187,5 +189,5 @@ export function Community() {
         </section>
       </div>
     </div>
-  )
+  );
 }
