@@ -36,7 +36,7 @@ const serviceIcons: Record<
 };
 
 export function Home() {
-  const notices = noticesData.notices.slice(0, 3).map((n) => ({
+  const notices = noticesData.notices.slice(0, 4).map((n) => ({
     ...n,
     category: n.category as "ramadan" | "general" | "emergency",
   }));
@@ -44,7 +44,7 @@ export function Home() {
   const imamAndMuazzin = committeeData.imamStaff.slice(0, 4);
   const galleryItems = galleryData.items.slice(0, 6);
   const services = servicesData.services;
-  const heroImages = [images.mosqueCover, images.friends, images.program_1];
+  const heroImages = [images.mosqueCover, images.mosque_construction, images.program_1];
   const [currentImage, setCurrentImage] = useState(0);
 
   useEffect(() => {
@@ -65,8 +65,8 @@ export function Home() {
             src={img}
             alt="Mosque"
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[2000ms] 
-  ${index === currentImage ? "opacity-100 scale-105" : "opacity-0"}
-  brightness-110 contrast-105`}
+              ${index === currentImage ? "opacity-100 scale-105" : "opacity-0"}
+              brightness-110 contrast-105`}
           />
         ))}
 
@@ -144,11 +144,8 @@ export function Home() {
           </div>
 
           {/* Side Banner / Quick Event */}
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-900 via-emerald-800 to-teal-900 p-6 md:p-8 text-white shadow-[var(--shadow-card-hover)] border border-emerald-700/30">
-            {/* Decorative Background */}
-            <div className="absolute -top-16 -right-16 w-40 h-40 bg-amber-400/10 rounded-full blur-2xl"></div>
-            <div className="absolute -bottom-16 -left-16 w-40 h-40 bg-teal-300/10 rounded-full blur-2xl"></div>
-
+           <div className="relative overflow-hidden rounded-3xl  p-6 md:p-8 text-black shadow-[var(--shadow-card-hover)] border border-emerald-700/30">
+          
             <div className="relative z-10 flex flex-col h-full justify-between">
               {/* Header */}
               <div>
@@ -156,7 +153,7 @@ export function Home() {
                   আসন্ন কার্যক্রম
                 </h3>
 
-                <p className="text-emerald-100/80 mb-6 text-sm italic leading-relaxed">
+                <p className="text-black mb-6 text-sm italic leading-relaxed">
                   ইকামতের সাথে আপনার দ্বীনি কার্যক্রম পরিচালনা করুন
                 </p>
 
@@ -181,12 +178,13 @@ export function Home() {
                 সব কার্যক্রম দেখুন →
               </Link>
             </div>
+          
           </div>
         </div>
 
         {/* 4. Donation Summary Section - Full Width Feature */}
         <section className="bg-white p-8 md:p-12 rounded-[3rem] border border-gray-100 shadow-sm overflow-hidden relative">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-50 rounded-full -mr-16 -mt-16 blur-3xl opacity-50" />
+          {/* <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-50 rounded-full -mr-16 -mt-16 blur-3xl opacity-50" /> */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
             <SectionTitle
               title="দান সংক্ষেপ"
@@ -210,28 +208,31 @@ export function Home() {
         </section>
 
         {/* 5. Imam & Muazzin - Modern Flex Grid */}
-        <section>
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-8">
-            <SectionTitle
-              title="ইমাম ও মুয়াযযিন"
-              subtitle="সালাত ও দ্বীনি শিক্ষার দায়িত্বে নিয়োজিত"
+      <section className="relative">
+        <div className="flex flex-col md:flex-row justify-between md:items-end gap-4 mb-10">
+          <SectionTitle
+            title="ইমাম ও মুয়াযযিন"
+            subtitle="সালাত পরিচালনা, আযান এবং দ্বীনি শিক্ষার দায়িত্বে নিয়োজিত সম্মানিত ব্যক্তিবর্গ"
+          />
+
+          <Link
+            to="/committee"
+            className="inline-flex items-center gap-2 text-emerald-600 font-semibold hover:text-emerald-700 transition-colors"
+          >
+            সকল স্টাফ দেখুন
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+
+        <div className="grid lg:grid-cols-3 gap-6">
+          {imamAndMuazzin.map((member, index) => (
+            <ProfileCard
+              key={`${member.name}-${member.role}-${member.phone}-${index}`}
+              {...member}
             />
-            <Link
-              to="/committee"
-              className="text-emerald-600 font-bold hover:underline inline-flex items-center gap-2"
-            >
-              সকল স্টাফ দেখুন <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {imamAndMuazzin.map((member, index) => (
-              <ProfileCard
-                key={`${member.name}-${member.role}-${member.phone}-${index}`}
-                {...member}
-              />
-            ))}
-          </div>
-        </section>
+          ))}
+        </div>
+      </section>
 
         {/* 6. Services - Compact Bento Style */}
         <section>
@@ -239,21 +240,21 @@ export function Home() {
             title="সেবাসমূহ / Services"
             subtitle="মসজিদের মাধ্যমে পরিচালিত জনকল্যাণমূলক কাজ"
           />
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mt-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
             {services.map((service) => {
               const Icon = serviceIcons[service.icon] ?? Megaphone;
               return (
                 <div
                   key={service.title}
-                  className="group bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center"
+                  className="group bg-white p-6  rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center"
                 >
-                  <div className="h-14 w-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4 transition-colors group-hover:bg-emerald-600 group-hover:text-white">
+                  <div className="h-16 w-16 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4 transition-colors group-hover:bg-emerald-600 group-hover:text-white">
                     <Icon className="h-7 w-7" />
                   </div>
-                  <h4 className="font-bold text-gray-900 text-sm leading-tight">
+                  <h4 className="font-bold text-gray-900 text-[16px] leading-tight">
                     {service.title}
                   </h4>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-[14px] text-gray-500 mt-1">
                     {service.titleBn}
                   </p>
                 </div>

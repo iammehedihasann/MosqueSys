@@ -32,6 +32,7 @@ import MadrashaClassPic from "./MosqueImage/madrashaImages/MadrashaClassPic.jpg"
 //Primary School Images
 import primarySchoolCover from "./MosqueImage/primarySchoolImages/primarySchoolCoverPhoto.jpg"
 
+
 export const images = {
   ImamDemoImage: Imam,
   Mokramkaka,
@@ -68,3 +69,7 @@ export const images = {
   //primary school
   primarySchoolCover
 };
+
+
+// const iconBase = "/images/Public-Safety-Images";
+// const appIcon = (name: string) => `${iconBase}/${encodeURIComponent(name)}`;

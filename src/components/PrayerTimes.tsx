@@ -354,12 +354,12 @@ export function PrayerTimes({
           </table>
         </div>
 
-        <p className="mt-3 text-xs text-slate-500">
+        {/* <p className="mt-3 text-xs text-slate-500">
           Source: Aladhan API{state?.timezone ? ` (${state.timezone})` : ''}
           {state?.methodName ? ` • ${state.methodName}` : ''}
           {' • Jamaat: Mosque schedule'}
           {state?.fetchedAt ? ` • Updated ${state.fetchedAt.toLocaleTimeString('en-BD', { timeStyle: 'short' })}` : ''}
-        </p>
+        </p> */}
       </div>
     </section>
   )

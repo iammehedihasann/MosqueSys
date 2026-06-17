@@ -38,7 +38,7 @@ export function Committee() {
             ইমাম ও কর্মকর্তা
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {imamStaff.map((person, index) => (
               <ProfileCard
                 key={`${person.name}-${person.role}-${person.phone}-${index}`}
@@ -54,7 +54,7 @@ export function Committee() {
             কমিটি সদস্যবৃন্দ
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
             {members.map((member, index) => (
               <ProfileCard
                 key={`${member.name}-${member.role}-${member.phone}-${index}`}
@@ -72,7 +72,7 @@ export function Committee() {
               কমিটির দায়িত্ব
             </h3>
 
-            <ul className="space-y-4 text-gray-700">
+            <ul className="space-y-4 text-gray-700 text-[20px]">
               {[
                 "মসজিদের দৈনন্দিন পরিচালনা ও রক্ষণাবেক্ষণ",
                 "আর্থিক ব্যবস্থাপনা ও স্বচ্ছতা নিশ্চিতকরণ",
@@ -93,7 +93,7 @@ export function Committee() {
               সভার সময়সূচী
             </h3>
 
-            <div className="space-y-6 text-gray-700">
+            <div className="space-y-6 text-gray-700 text-[20px]">
               <div>
                 <p className="font-semibold">মাসিক সভা</p>
                 <p className="text-sm text-gray-600">

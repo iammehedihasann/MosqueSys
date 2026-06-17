@@ -85,7 +85,9 @@ export function ContactPage() {
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
   ) => {
     const { name, value } = e.target;
 
@@ -98,21 +100,29 @@ export function ContactPage() {
   return (
     <div className="min-h-screen bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
-
         {/* Header */}
-        <header className="mx-auto mb-12 max-w-3xl text-center">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
-            যোগাযোগ করুন
-          </h1>
+        <header className="relative overflow-hidden rounded-3xl border border-emerald-100 bg-gradient-to-br from-emerald-50 via-white to-white px-6 py-12 md:px-10 md:py-16 text-center mb-12">
+          <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-emerald-100/40 blur-3xl" />
+          <div className="absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-emerald-50 blur-3xl" />
 
-          <p className="mt-3 text-sm sm:text-base text-muted-foreground">
-            Contact Us — যেকোনো প্রশ্ন, সেবা, দান বা পরামর্শের জন্য আমাদের লিখুন।
-          </p>
+          <div className="relative">
+            <span className="inline-flex rounded-full border border-emerald-200 bg-white px-4 py-2 text-sm font-medium text-emerald-700">
+              বায়তুল মামুর জামে মসজিদ
+            </span>
+
+            <h1 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900">
+              যোগাযোগ করুন
+            </h1>
+
+            <p className="mx-auto mt-4 max-w-2xl text-slate-600">
+              Contact Us — যেকোনো প্রশ্ন, সেবা, দান বা পরামর্শের জন্য আমাদের
+              সাথে যোগাযোগ করুন।
+            </p>
+          </div>
         </header>
 
         {/* Main Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-start">
-
           {/* Contact Info */}
           <section className="space-y-5">
             <h2 className="text-xl font-semibold text-foreground">
@@ -120,7 +130,6 @@ export function ContactPage() {
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-5">
-
               <InfoCard
                 icon={<MapPin className="h-6 w-6" />}
                 titleBn="ঠিকানা"
@@ -142,7 +151,7 @@ export function ContactPage() {
                     className="font-medium text-foreground hover:text-primary"
                     href="tel:01757705728"
                   >
-                    ০১৭-৫৭৭০৫৭২৮
+                    ০১৭৫৭-৭০৫৭২৮
                   </a>
                 </p>
 
@@ -162,7 +171,7 @@ export function ContactPage() {
                     className="font-medium text-foreground hover:text-primary"
                     href="tel:01757705728"
                   >
-                    ০১৭-৫৭৭০৫৭২৮
+                    ০১৯২৮-১৯৮৫৬১
                   </a>
                 </p>
               </InfoCard>
@@ -199,7 +208,7 @@ export function ContactPage() {
                 <p className="text-foreground/90">শনিবার - বৃহস্পতিবার</p>
                 <p>ফজরের পর - এশা পর্যন্ত</p>
 
-                <p className="mt-1 text-xs text-muted-foreground">
+                <p className="mt-1 text-lg text-muted-foreground">
                   শুক্রবার: জুমআর পর থেকে
                 </p>
               </InfoCard>
@@ -209,7 +218,6 @@ export function ContactPage() {
           {/* Contact Form */}
           <section>
             <div className="rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-sm">
-
               <div className="mb-6">
                 <h2 className="text-xl font-semibold text-foreground">
                   আমাদের লিখুন
@@ -222,10 +230,8 @@ export function ContactPage() {
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-5">
-
                 {/* Name + Email */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-
                   <div>
                     <label className="mb-2 block text-sm font-medium">
                       নাম *
@@ -259,7 +265,6 @@ export function ContactPage() {
 
                 {/* Phone + Subject */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-
                   <div>
                     <label className="mb-2 block text-sm font-medium">
                       মোবাইল নাম্বার *
@@ -318,7 +323,20 @@ export function ContactPage() {
                 {/* Submit */}
                 <button
                   type="submit"
-                  className="w-full rounded-xl bg-primary px-5 py-3 text-sm font-medium text-primary-foreground shadow-sm transition hover:opacity-95"
+                  className="
+    w-full
+    rounded-2xl
+    bg-emerald-600
+    px-5
+    py-4
+    font-semibold
+    text-white
+    shadow-md
+    transition-all
+    duration-300
+    hover:bg-emerald-700
+    hover:shadow-lg
+  "
                 >
                   বার্তা পাঠান
                 </button>
@@ -330,14 +348,12 @@ export function ContactPage() {
         {/* Visit Info */}
         <section className="mt-10">
           <div className="rounded-2xl border border-blue-200 bg-blue-50 p-6 sm:p-8">
-
             <h3 className="text-lg font-semibold text-blue-900">
               মসজিদে আসার আগে
               <span className="text-blue-800/80"> / Before Visiting</span>
             </h3>
 
             <ul className="mt-4 space-y-3 text-sm text-slate-700">
-
               {[
                 "নামাজের সময় জানতে নামাজের সময়সূচী পেজ দেখুন",
                 "বিশেষ সেবার জন্য আগে থেকে যোগাযোগ করুন",
@@ -349,11 +365,9 @@ export function ContactPage() {
                   <span>{t}</span>
                 </li>
               ))}
-
             </ul>
           </div>
         </section>
-
       </div>
     </div>
   );
