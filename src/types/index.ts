@@ -31,9 +31,9 @@ export interface DonationSummary {
 
 export interface DonationMonthlyRow {
   month: string
-  collected: number
-  expense: number
-  balance: number
+  collected: number | string
+  expense: number | string
+  balance: number | string
 }
 
 export type DonationMethodType = 'bkash' | 'nagad' | 'bank' | 'cash'

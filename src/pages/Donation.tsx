@@ -13,25 +13,30 @@ import { Button } from "@/components/ui/Button";
 import donationData from "@/data/donation.json";
 import type { DonationMethod, DonationMonthlyRow } from "@/types";
 
+const formatReportValue = (value: number | string) =>
+  typeof value === "number"
+    ? value.toLocaleString("en-BD")
+    : value;
+
 const monthlyColumns = [
   { key: "month" as const, header: "মাস / Month" },
   {
     key: "collected" as const,
     header: "সংগৃহীত",
     render: (row: DonationMonthlyRow) =>
-      `${row.collected.toLocaleString("en-BD")} ${donationData.summary.currency}`,
+      `${formatReportValue(row.collected)} ${donationData.summary.currency}`,
   },
   {
     key: "expense" as const,
     header: "ব্যয়",
     render: (row: DonationMonthlyRow) =>
-      `${row.expense.toLocaleString("en-BD")} ${donationData.summary.currency}`,
+      `${formatReportValue(row.expense)} ${donationData.summary.currency}`,
   },
   {
     key: "balance" as const,
     header: "ব্যালেন্স",
     render: (row: DonationMonthlyRow) =>
-      `${row.balance.toLocaleString("en-BD")} ${donationData.summary.currency}`,
+      `${formatReportValue(row.balance)} ${donationData.summary.currency}`,
   },
 ];
 

@@ -9,14 +9,18 @@ interface DonationSummaryCardProps {
   className?: string;
 }
 
-function formatMoney(amount: number, currency: string): string {
-  return (
-    new Intl.NumberFormat("en-BD", {
-      style: "decimal",
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(amount) + ` ${currency}`
-  );
+function formatMoney(amount: number | string, currency: string): string {
+  if (typeof amount === "number") {
+    return (
+      new Intl.NumberFormat("en-BD", {
+        style: "decimal",
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      }).format(amount) + ` ${currency}`
+    );
+  }
+
+  return `${amount} ${currency}`;
 }
 
 export function DonationSummaryCard({
