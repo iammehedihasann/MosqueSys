@@ -3,6 +3,7 @@ import { images } from "@/assets/image";
 
 type ProfileCardProps = {
   name: string;
+  title?: string;
   role: string;
   phone: string;
   image: string;
@@ -12,6 +13,7 @@ type ProfileCardProps = {
 
 export default function ProfileCard({
   name,
+  title,
   role,
   phone,
   image,
@@ -55,10 +57,13 @@ export default function ProfileCard({
       <h3 className="text-xl font-bold text-slate-900">
         {name}
       </h3>
+      {title && (
+        <p className="mt-1 text-sm text-slate-500">{title}</p>
+      )}
 
-      <p className="mt-1 text-sm text-slate-500">
+      {/* <p className="mt-1 text-sm text-slate-500">
         মসজিদের সম্মানিত স্টাফ
-      </p>
+      </p> */}
     </div>
   </div>
 

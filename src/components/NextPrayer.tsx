@@ -15,86 +15,114 @@ export interface NextPrayerProps {
   next: PrayerStatusInfo | null
   className?: string
 }
-
 export function NextPrayer({ current, next, className }: NextPrayerProps) {
   return (
-    <div className={cn('grid grid-cols-1 gap-3 md:grid-cols-2', className)} aria-label="Prayer status">
-      <div className="rounded-3xl border border-amber-200 bg-amber-50/70 p-4 text-amber-950 sm:p-5">
-        <div className="flex items-start justify-between gap-4">
-          <div className="min-w-0">
-            <p className="text-xs font-extrabold tracking-wide text-amber-900/80">{current?.label ?? 'CURRENT'}</p>
-            {current ? (
-              <p className="mt-1 truncate text-lg font-black">
-                {current.nameBn ? (
-                  <>
-                    {current.nameBn}{' '}
-                    <span className="font-semibold text-amber-900/60">({current.name})</span>
-                  </>
-                ) : (
-                  current.name
-                )}
+    <div
+      className={cn(
+        "grid grid-cols-1 gap-4 xl:grid-cols-[0.9fr_1.1fr]",
+        className
+      )}
+      aria-label="Prayer status"
+    >
+      {/* Current Prayer */}
+      <div className="group relative overflow-hidden rounded-3xl border border-amber-200 bg-gradient-to-br from-amber-50 to-white p-5">
+        <div className="absolute top-0 left-0 h-1 w-full bg-amber-400" />
+
+        <div className="flex h-full flex-col justify-between">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.25em] text-amber-700">
+              {current?.label ?? "CURRENT"}
+            </p>
+
+            <h3 className="mt-3 text-2xl font-black text-slate-900">
+              {current?.nameBn ?? "লোড হচ্ছে"}
+            </h3>
+
+            {current?.name && (
+              <p className="mt-1 text-sm font-medium text-slate-500">
+                {current.name}
               </p>
-            ) : (
-              <p className="mt-1 text-lg font-black">Loading…</p>
             )}
           </div>
 
-          <div className="flex shrink-0 items-center gap-2 rounded-2xl border border-amber-200 bg-white px-3 py-2">
-            <Clock className="h-4 w-4 text-amber-800" />
-            <div className="text-right leading-tight">
-              <div className="text-sm font-extrabold">{current?.timeLabel ?? '—'}</div>
+          <div className="mt-6 flex items-center gap-3 rounded-2xl border border-amber-200 bg-white p-4">
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-100">
+              <Clock className="h-5 w-5 text-amber-700" />
+            </div>
+
+            <div>
+              <div className="text-xl font-black text-slate-900">
+                {current?.timeLabel ?? "—"}
+              </div>
+
               {current?.subLines?.length ? (
-                <div className="mt-0.5 space-y-0.5 text-[11px] font-semibold text-amber-900/70">
+                <div className="mt-1 text-xs text-slate-500">
                   {current.subLines.map((line) => (
                     <div key={line}>{line}</div>
                   ))}
                 </div>
               ) : (
-                <div className="text-[11px] font-semibold text-amber-900/70">{current?.subLabel ?? ''}</div>
+                <div className="mt-1 text-xs text-slate-500">
+                  {current?.subLabel}
+                </div>
               )}
             </div>
           </div>
         </div>
       </div>
 
-      <div className="rounded-3xl border border-emerald-200 bg-gradient-to-r from-emerald-950 via-teal-900 to-emerald-950 p-4 text-white sm:p-5">
-        <div className="flex items-start justify-between gap-4">
-          <div className="min-w-0">
-            <p className="text-xs font-extrabold tracking-wide text-amber-200/90">{next?.label ?? 'NEXT'}</p>
-            {next ? (
-              <p className="mt-1 truncate text-lg font-black">
-                {next.nameBn ? (
-                  <>
-                    {next.nameBn}{' '}
-                    <span className="font-semibold text-white/70">({next.name})</span>
-                  </>
-                ) : (
-                  next.name
-                )}
-              </p>
-            ) : (
-              <p className="mt-1 text-lg font-black">Loading…</p>
-            )}
-          </div>
+      {/* Next Prayer */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-emerald-700 via-emerald-600 to-teal-600 p-[1px]">
+        <div className="h-full rounded-[22px] bg-gradient-to-br from-emerald-900 to-emerald-800 p-6 text-white">
+          <div className="flex h-full flex-col justify-between">
+            <div>
+              <div className="inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-bold tracking-[0.25em] text-amber-200">
+                {next?.label ?? "NEXT"}
+              </div>
 
-          <div className="flex shrink-0 items-center gap-2 rounded-2xl border border-white/15 bg-white/10 px-3 py-2">
-            <Clock className="h-4 w-4 text-amber-200" />
-            <div className="text-right leading-tight">
-              <div className="text-sm font-extrabold">{next?.timeLabel ?? '—'}</div>
+              <h2 className="mt-4 text-3xl font-black">
+                {next?.nameBn ?? "লোড হচ্ছে"}
+              </h2>
+
+              {next?.name && (
+                <p className="mt-2 text-white/70">
+                  {next.name}
+                </p>
+              )}
+            </div>
+
+            <div className="mt-8 flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 p-5">
+              <div className="flex items-center gap-3">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/10">
+                  <Clock className="h-5 w-5 text-amber-200" />
+                </div>
+
+                <div>
+                  <div className="text-sm text-white/70">
+                    সময়
+                  </div>
+
+                  <div className="text-2xl font-black">
+                    {next?.timeLabel ?? "—"}
+                  </div>
+                </div>
+              </div>
+
               {next?.subLines?.length ? (
-                <div className="mt-0.5 space-y-0.5 text-[11px] font-mono font-semibold text-white/80">
+                <div className="text-right text-xs text-white/80">
                   {next.subLines.map((line) => (
                     <div key={line}>{line}</div>
                   ))}
                 </div>
               ) : (
-                <div className="text-[11px] font-mono font-semibold text-white/80">{next?.subLabel ?? ''}</div>
+                <div className="text-right text-xs text-white/80">
+                  {next?.subLabel}
+                </div>
               )}
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
-

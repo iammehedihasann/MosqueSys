@@ -22,9 +22,9 @@ export interface Notice {
 
 // Donation
 export interface DonationSummary {
-  monthCollected: number
-  monthExpense: number
-  currentBalance: number
+  monthCollected: number | string
+  monthExpense: number | string
+  currentBalance: number | string
   currency: string
   lastUpdated: string
 }

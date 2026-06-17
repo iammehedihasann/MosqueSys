@@ -101,7 +101,7 @@ export function Donation() {
           <p className="text-gray-700 text-lg">
             সরাসরি মসজিদে এসে দান বক্সে দান করতে পারবেন অথবা কমিটির যেকোনো
             সদস্যের কাছে হস্তান্তর করতে পারবেন।{" "}
-            <span className="text-xl text-green-400 font-bold">
+            <span className="text-xl text-green-900 font-bold">
               রসিদ নিতে ভুলবেন না।
             </span>
           </p>

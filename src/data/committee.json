@@ -6,114 +6,127 @@
       "phone": "০১৯৭১০১০৯১৪৮ ",
       "image": "JahagirMember",
       "email": "arif@gmail.com",
-      "facebook": "www.facebook.com"
+      "facebook": "https://www.facebook.com/sihan.rahman10",
+      "title": "সভাপতি"
     },
     {
       "name": "মোস্তফা মিয়া",
       "role": "সহ-সভাপতি",
       "phone": "০১৭১২-১০০০০১",
       "image": "",
-      "email": "arif@gmail.com",
-      "facebook": "www.facebook.com"
+      "email": "mostofa@gmail.com",
+      "facebook": "www.facebook.com",
+      "title": "সহ-সভাপতি"
     },
     {
       "name": "মাসুদ মিয়া",
       "role": "সাধারণ সম্পাদক",
       "phone": "০১৭০৯-০৯৮৬০৯ ",
-      "image": "",
-      "email": "arif@gmail.com",
-      "facebook": "www.facebook.com"
+      "image": "masud",
+      "email": "masud@gmail.com",
+      "facebook": "www.facebook.com",
+      "title": "সাধারণ সম্পাদক"
     },
     {
       "name": "ইসতেহার মিয়া",
       "role": "সহ-সাধারণ সম্পাদক",
       "phone": "০১৭৮৩৩৮৫৮৬৫",
-      "image": "",
-      "email": "arif@gmail.com",
-      "facebook": "www.facebook.com"
+      "image": "Estehar",
+      "email": "istehar@gmail.com",
+      "facebook": "https://www.facebook.com/md.astehar.miyh",
+      "title": "সহ-সাধারণ সম্পাদক"
     },
     {
       "name": "মোঃ ফয়সাল মিয়া",
       "role": "কোষাধ্যক্ষ",
-      "phone": "০১৯২৮১৯৮৫৬১ ",
+      "phone": "০১৯২৮-১৯৮৫৬১ ",
       "image": "Faysal",
-      "email": "arif@gmail.com",
-      "facebook": "www.facebook.com"
+      "email": "faysal@gmail.com",
+      "facebook": "https://www.facebook.com/md.faysal.32245",
+      "title": "কোষাধ্যক্ষ"
     },
-
     {
       "name": "তাজুল ইসলাম",
       "role": "দপ্তরভিত্তিক",
       "phone": "০১৭৪০-৯৭২০০৪ ",
       "image": "",
-      "email": "arif@gmail.com",
-      "facebook": "www.facebook.com"
+      "email": "tajulislam@gmail.com",
+      "facebook": "https://www.facebook.com/profile.php?id=100045531999612",
+      "title": "কমিটি সদস্য"
     },
     {
       "name": "মনির হোসেন",
       "role": "সমাজকল্যাণ সম্পাদক",
-      "phone": "০১৭১২-১০০০০৭",
+      "phone": "০১৭১৬-৮৫৮২১৫ ",
       "image": "",
-      "email": "arif@gmail.com",
-      "facebook": "www.facebook.com"
+      "email": "monirhosen@gmail.com",
+      "facebook": "www.facebook.com",
+      "title": "কমিটি সদস্য"
     },
     {
-      "name": "তোফাজ্জল হোসেন ",
+      "name": "মতিন মিয়া ",
       "role": "সদস্য",
-      "phone": "০১৭৪০-৪৩৪২৮০ ",
-      "image": "Tofajjol",
-      "email": "arif@gmail.com",
-      "facebook": "www.facebook.com"
+      "phone": "০১৭১২-১০০০০৯",
+      "image": "matin",
+      "email": "matin@gmail.com",
+      "facebook": "https://www.facebook.com/matin.matin.92798",
+      "title": "কমিটি সদস্য"
     },
     {
       "name": "তৌকির আহমেদ ",
       "role": "সদস্য",
       "phone": "০১৯১২-৫৭৫৫৬৮",
       "image": "taukir",
-      "email": "arif@gmail.com",
-      "facebook": "www.facebook.com"
+      "email": "taukirahmed@gmail.com",
+      "facebook": "https://www.facebook.com/mdtaukir.ahmed",
+      "title": "কমিটি সদস্য"
     },
     {
-      "name": "মতিন মিয়া ",
+      "name": "তোফাজ্জল হোসেন ",
       "role": "সদস্য",
-      "phone": "০১৭১২-১০০০০৯",
-      "image": "",
-      "email": "arif@gmail.com",
-      "facebook": "www.facebook.com"
+      "phone": "০১৭৪০-৪৩৪২৮০ ",
+      "image": "Tofajjol",
+      "email": "tofajjalhossain@gmail.com",
+      "facebook": "https://www.facebook.com/tofa41",
+      "title": "কমিটি সদস্য"
     }
   ],
   "imamStaff": [
     {
-      "name": "হাফেজ মুহাম্মদ নোমান মিয়া",
-      "role": "প্রধান ইমাম",
-      "phone": "০১৯০৫-৮৭৮৩৫১",
+      "name": "মুফিত সাইফুল ইসলাম ",
+      "role": "খতীব",
+      "phone": "০১৯৮৫-৮৬৭৩০৩",
       "image": "ImamDemoImage",
-      "email": "noman@gmail.com",
-      "facebook": "www.facebook.com"
+      "email": "saiful@gmail.com",
+      "facebook": "www.facebook.com",
+      "title": "সম্মানিত খতীব সাহেব "
     },
     {
-      "name": "মোকারম মিয়া",
+      "name": "মোঃ আক্তার হোসেন ",
       "role": "সহকারী ইমাম",
       "phone": "০১৭৯৭-৩৪৫৩৪৩",
-      "image": "Mokramkaka",
-      "email": "mokaram@gmail.com",
-      "facebook": "www.facebook.com"
+      "image": "akter",
+      "email": "akterhosen@gmail.com",
+      "facebook": "www.facebook.com",
+      "title": "সহকারী ইমাম"
     },
     {
-      "name": "হাফেজ মুহাম্মদ নোমান মিয়া",
+      "name": "মুফিত সাইফুল ইসলাম ",
       "role": "প্রধান ইমাম",
-      "phone": "০১৯০৫-৮৭৮৩৫১",
+      "phone": "০১৯৮৫-৮৬৭৩০৩",
       "image": "ImamDemoImage",
       "email": "noman@gmail.com",
-      "facebook": "www.facebook.com"
+      "facebook": "www.facebook.com",
+      "title": "সম্মানিত প্রধান ইমাম"
     },
     {
-      "name": " মোহাম্মদ হানিফা",
+      "name": "রিয়াদ",
       "role": "মুয়াজ্জিন",
       "phone": "০১৭১৮-১৭৩১২২",
       "image": "riyad",
       "email": "arif@gmail.com",
-      "facebook": "www.facebook.com"
+      "facebook": "https://www.facebook.com/mdriadislam01",
+      "title": "মুয়াজ্জিন"
     },
     {
       "name": "মেহেদী",
@@ -121,15 +134,17 @@
       "phone": "০১৭৭৯-৫২০৫৯৩ ",
       "image": "Mehedi",
       "email": "mehediextrim@gmail.com",
-      "facebook": "www.facebook.com/HasanMehediX"
+      "facebook": "https://www.facebook.com/HasanMehediX",
+      "title": "খাদেম"
     },
     {
-      "name": "রিয়াদ",
+      "name": "মোকারম ",
       "role": "খাদেম",
-      "phone": "০১৭১৮-১৭৩১২২",
-      "image": "riyad",
+      "phone": "০১৭৯৭-৩৪৫৩৪৩ ",
+      "image": "Mokramkaka",
       "email": "graphicboy@gmail.com",
-      "facebook": "www.facebook.com/HasanMehediX"
+      "facebook": "https://www.facebook.com/md.mokarom.331327",
+      "title": "খাদেম"
     },
     {
       "name": "আরিফ",
@@ -137,7 +152,8 @@
       "phone": "০১৩০৯-৮০২০৫৬ ",
       "image": "arif",
       "email": "arif@gmail.com",
-      "facebook": "www.facebook.com"
+      "facebook": "https://www.facebook.com/md.arif.263080",
+      "title": "খাদেম"
     },
     {
       "name": "এনামুল",
@@ -145,7 +161,8 @@
       "phone": "০১৩২২-০৪৪১৬৪",
       "image": "anamul",
       "email": "anamul@gmail.com",
-      "facebook": "www.facebook.com/HasanMehediX"
+      "facebook": "https://www.facebook.com/md.anamolahammed",
+      "title": "খাদেম"
     },
     {
       "name": "নুরে আলম নীরব",
@@ -153,15 +170,17 @@
       "phone": "০১৭১২-৫৫৫৫৫৫",
       "image": "nirob",
       "email": "oldpcplayer@gmail.com",
-      "facebook": "www.facebook.com/HasanMehediX"
+      "facebook": "www.facebook.com/HasanMehediX",
+      "title": "খাদেম"
     },
     {
       "name": "মাহফুজ ",
       "role": "খাদেম",
-      "phone": "০১৭১২-৫৫৫৫৫৫",
-      "image": "",
+      "phone": "০১৭৭৬-৩১৫৮৮৯ ",
+      "image": "mahfuj",
       "email": "mahfoz@gmail.com",
-      "facebook": "www.facebook.com/HasanMehediX"
+      "facebook": "https://www.facebook.com/profile.php?id=61586681627259",
+      "title": "খাদেম"
     }
   ]
 }

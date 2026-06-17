@@ -44,7 +44,7 @@ export function Home() {
   const imamAndMuazzin = committeeData.imamStaff.slice(0, 4);
   const galleryItems = galleryData.items.slice(0, 6);
   const services = servicesData.services;
-  const heroImages = [images.mosqueCover, images.mosque_construction, images.program_1];
+  const heroImages = [images.mosqueCover, images.mosque_construction, images.mimbar];
   const [currentImage, setCurrentImage] = useState(0);
 
   useEffect(() => {
@@ -64,9 +64,9 @@ export function Home() {
             key={index}
             src={img}
             alt="Mosque"
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[2000ms] 
-              ${index === currentImage ? "opacity-100 scale-105" : "opacity-0"}
-              brightness-110 contrast-105`}
+            className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-[1000ms]
+  ${index === currentImage ? "opacity-100 scale-105" : "opacity-0"}
+  brightness-110 contrast-105`}
           />
         ))}
 
@@ -224,7 +224,7 @@ export function Home() {
           </Link>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-6">
+        <div className="grid lg:grid-cols-3 sm:grid-cols-2 gap-6">
           {imamAndMuazzin.map((member, index) => (
             <ProfileCard
               key={`${member.name}-${member.role}-${member.phone}-${index}`}
