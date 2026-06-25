@@ -1,5 +1,5 @@
 // imam images
-import Imam from "./MosqueImage/imamimam.webp"
+import Imam from "./MosqueImage/imam/imam.webp"
 
 // committee images
 import JahagirMember from "./MosqueImage/committee/Sovapoti.webp";
@@ -7,9 +7,9 @@ import Tofajjol from "./MosqueImage/committee/Tofajjol.webp";
 import taukir from "./MosqueImage/committee/Taukir.webp";
 import Faysal from "./MosqueImage/committee/Faysal.webp";
 import Estehar from "./MosqueImage/committee/Estehar.webp"
-import Mokramkaka from "../MosqueImage/committee/MokaramKaka.webp";
-import masud from "./MosqueImage/committee/masud.webp";
-import akter from "./MosqueImage/committee/AkterVai.webp";
+import Mokramkaka from "./MosqueImage/committee/MokaramKaka.webp";
+import masud from "../assets/MosqueImage/committee/masud.webp"
+import akter from "./MosqueImage/imam/AkterVai.webp";
 import matin from "./MosqueImage/committee/matin.webp";
 
 
@@ -29,7 +29,7 @@ import friends from "./MosqueImage/community/friends_image.jpg";
 
 // mosque images 
 import mosqueCover from "./MosqueImage/mosqueImages/mosqueCoverPage.webp";
-import madrasha from "./MosqueImage/mosqueImages/MadrasaProfile.webp";
+import madrasha from "./MosqueImage/mosque/MadrasaProfile.jpg";
 import mosque_construction from "./MosqueImage/mosqueImages/mosque_contrac_1.webp";
 import mimbar from "./MosqueImage/mosqueImages/mimbar.webp";
 
