@@ -1,30 +1,45 @@
-import anamul from "./MosqueImage/people/anamul.webp";
-import arif from "./MosqueImage/people/arif.webp";
-import riyad from "./MosqueImage/people/riyad.webp";
-import nirob from "./MosqueImage/people/nirob.webp";
-import mahfuj from "./MosqueImage/people/mahfuj.webp";
-import Imam from "./MosqueImage/people/imam.webp"
-import JahagirMember from "./MosqueImage/people/Sovapoti.jpg";
-import Tofajjol from "./MosqueImage/people/Tofajjol.jpeg";
-import taukir from "./MosqueImage/people/Taukir.jpeg";
-import Faysal from "./MosqueImage/people/Faysal.jpg";
-import Estehar from "./MosqueImage/people/Estehar.webp"
-import Mokramkaka from "./MosqueImage/people/MokaramKaka.jpg";
-import masud from "./MosqueImage/people/masud.webp";
-import Mehedi from "./MosqueImage/people/Mehedi.jpeg";
+// imam images
+import Imam from "./MosqueImage/imamimam.webp"
+
+// committee images
+import JahagirMember from "./MosqueImage/committee/Sovapoti.webp";
+import Tofajjol from "./MosqueImage/committee/Tofajjol.webp";
+import taukir from "./MosqueImage/committee/Taukir.webp";
+import Faysal from "./MosqueImage/committee/Faysal.webp";
+import Estehar from "./MosqueImage/committee/Estehar.webp"
+import Mokramkaka from "../MosqueImage/committee/MokaramKaka.webp";
+import masud from "./MosqueImage/committee/masud.webp";
+import akter from "./MosqueImage/committee/AkterVai.webp";
+import matin from "./MosqueImage/committee/matin.webp";
+
+
+
+// khadem images
+import Mehedi from "./MosqueImage/khadem/Mehedi.webp";
+import anamul from "./MosqueImage/khadem/anamul.webp";
+import arif from "./MosqueImage/khadem/arif.webp";
+import riyad from "./MosqueImage/khadem/riyad.webp";
+import nirob from "./MosqueImage/khadem/nirob.webp";
+import mahfuj from "./MosqueImage/khadem/mahfuj.webp";
+
+
+
 import friends from "./MosqueImage/community/friends_image.jpg";
-import akter from "./MosqueImage/people/AkterVai.webp";
-import matin from "./MosqueImage/people/matin.webp";
 
 
-import mosqueCover from "./MosqueImage/mosque/mosqueCoverPage.jpg";
-import madrasha from "./MosqueImage/mosque/MadrasaProfile.jpg";
-import mosque_construction from "./MosqueImage/mosque/mosque_contrac_1.jpg";
-import mimbar from "./MosqueImage/mosque/mimbar.webp";
+// mosque images 
+import mosqueCover from "./MosqueImage/mosqueImages/mosqueCoverPage.webp";
+import madrasha from "./MosqueImage/mosqueImages/MadrasaProfile.webp";
+import mosque_construction from "./MosqueImage/mosqueImages/mosque_contrac_1.webp";
+import mimbar from "./MosqueImage/mosqueImages/mimbar.webp";
+
 
 // অজুখানার ছবি 
 import ojukhana from "./MosqueImage/mosque/ojukhana/ojukhana.webp";
 
+
+
+// Mosque program images
 import program_1 from "./MosqueImage/programs/program_1.jpg";
 import program_2 from "./MosqueImage/programs/program_2.jpg";
 import program_3 from "./MosqueImage/programs/program_3.jpg";
