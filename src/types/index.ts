@@ -22,18 +22,18 @@ export interface Notice {
 
 // Donation
 export interface DonationSummary {
-  monthCollected: number | string
-  monthExpense: number | string
-  currentBalance: number | string
+  monthCollected: number | string | null
+  monthExpense: number | string | null
+  currentBalance: number | string | null
   currency: string
   lastUpdated: string
 }
 
 export interface DonationMonthlyRow {
   month: string
-  collected: number | string
-  expense: number | string
-  balance: number | string
+  collected?: number | string | null
+  expense?: number | string | null
+  balance?: number | string | null
 }
 
 export type DonationMethodType = 'bkash' | 'nagad' | 'bank' | 'cash'

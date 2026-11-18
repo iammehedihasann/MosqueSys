@@ -1,180 +1,77 @@
-import {
-  PiggyBank,
-  User,
-  Lightbulb,
-  Building2,
-  HandCoins,
-  TriangleAlert,
-} from "lucide-react";
-import { DonationMethodCard } from "@/components/shared/DonationMethodCard";
-import { DonationSummaryCard } from "@/components/shared/DonationSummaryCard";
-import { Table } from "@/components/ui/Table";
-import { Button } from "@/components/ui/Button";
+// src/pages/Donation.tsx
+import { useSearchParams } from "react-router-dom";
 import donationData from "@/data/donation.json";
-import type { DonationMethod, DonationMonthlyRow } from "@/types";
+import type { DonationMethod } from "@/types";
+import { calculateDonationReport } from "@/utils/donationReport";
+import { scrollToSection } from "@/utils/scroll";
+import { DonationHero } from "@/components/donation/DonationHero";
+import { SectionNav, type NavItem } from "@/components/donation/SectionNav";
+import { DonationMethods } from "@/components/donation/DonationMethods";
+import { DonationCategories } from "@/components/donation/DonationCategories";
+import {
+  AccountsSection,
+  type AccountsTab,
+} from "@/components/donation/AccountsSection";
+import { GiveCtaBand } from "@/components/donation/GiveCtaBand";
 
-const formatReportValue = (value: number | string) =>
-  typeof value === "number"
-    ? value.toLocaleString("en-BD")
-    : value;
+const currency = donationData.summary.currency.trim();
 
-const monthlyColumns = [
-  { key: "month" as const, header: "মাস / Month" },
-  {
-    key: "collected" as const,
-    header: "সংগৃহীত",
-    render: (row: DonationMonthlyRow) =>
-      `${formatReportValue(row.collected)} ${donationData.summary.currency}`,
-  },
-  {
-    key: "expense" as const,
-    header: "ব্যয়",
-    render: (row: DonationMonthlyRow) =>
-      `${formatReportValue(row.expense)} ${donationData.summary.currency}`,
-  },
-  {
-    key: "balance" as const,
-    header: "ব্যালেন্স",
-    render: (row: DonationMonthlyRow) =>
-      `${formatReportValue(row.balance)} ${donationData.summary.currency}`,
-  },
+const NAV_ITEMS: NavItem[] = [
+  { id: "give", label: "দান করুন" },
+  { id: "categories", label: "দানের খাত" },
+  { id: "accounts", label: "আয়-ব্যয়ের হিসাব" },
 ];
 
-const categoryIcons: Record<string, React.ReactNode> = {
-  "Monthly Fund": <PiggyBank className="h-7 w-7 text-accent" />,
-  "Imam Salary": <User className="h-7 w-7 text-lime-700" />,
-  "Electricity Bill": <Lightbulb className="h-7 w-7 text-yellow-400" />,
-  Development: <Building2 className="h-7 w-7 text-slate-700" />,
-  "Zakat/Fitra": <HandCoins className="h-7 w-7 text-green-500" />,
-  "Emergency Fund": <TriangleAlert className="h-7 w-7 text-red-600" />,
-};
-
 export function Donation() {
+  const [params, setParams] = useSearchParams();
   const methods = donationData.methods as DonationMethod[];
-  const categories = donationData.categories;
-  const monthlyReport = donationData.monthlyReport as DonationMonthlyRow[];
+  const report = calculateDonationReport(
+    donationData.summary,
+    donationData.monthlyReport,
+  );
+
+  // The tab lives in the URL (?tab=expense) so links can be shared.
+  const tab: AccountsTab = params.get("tab") === "expense" ? "expense" : "report";
+  const changeTab = (next: AccountsTab) =>
+    setParams(
+      (prev) => {
+        const p = new URLSearchParams(prev);
+        p.set("tab", next);
+        return p;
+      },
+      { replace: true },
+    );
+  const openAccounts = (next: AccountsTab) => {
+    changeTab(next);
+    requestAnimationFrame(() => scrollToSection("accounts"));
+  };
+  const goGive = () => scrollToSection("give");
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-      <div className="text-center mb-8 md:mb-12">
-        <h1 className="text-3xl md:text-4xl text-primary mb-4">দান করুন</h1>
+    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
+      <DonationHero onGive={goGive} onOpenAccounts={openAccounts} />
+      <SectionNav items={NAV_ITEMS} />
 
-        <p className="text-2xl  text-gray-600 max-w-2xl mx-auto">
-          "যে ব্যক্তি আল্লাহর পথে ব্যয় করে, তাকে সাতশত গুণ পর্যন্ত বৃদ্ধি করা
-          হয়" - সূরা বাকারা (২:২৬১)
-        </p>
+      <div className="space-y-14">
+        <section id="give" className="scroll-mt-20">
+          <DonationMethods methods={methods} />
+        </section>
+
+        <section id="categories" className="scroll-mt-20">
+          <DonationCategories categories={donationData.categories} />
+        </section>
+
+        <section id="accounts" className="scroll-mt-20">
+          <AccountsSection
+            tab={tab}
+            onTabChange={changeTab}
+            report={report}
+            currency={currency}
+          />
+        </section>
+
+        <GiveCtaBand onGive={goGive} />
       </div>
-
-      {/* Section 1: Donation Methods */}
-      <section className="mb-12 ">
-        <h2 className="mb-2 text-lg font-semibold text-[var(--color-text)]">
-          দানের মাধ্যম
-        </h2>
-        <p className="mb-4 text-lg text-[var(--color-text-muted)]">
-          bKash, Nagad, ব্যাংক বা নগদ—যেকোনো উপায়ে দান করতে পারেন। নম্বর কপি
-          করে ব্যবহার করুন।
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 ">
-          {methods.map((method) => (
-            <DonationMethodCard
-              key={method.id}
-              method={method}
-              className="mt-6 bg-white rounded-lg shadow-sm p-6 border-l-4 border-l-accent"
-            />
-          ))}
-        </div>
-        <div className="mt-6 bg-white rounded-lg shadow-lg p-4 border-l-4 border-accent">
-          <h3 className="text-xl text-gray-900 mb-4">ব্যাংক তথ্য</h3>
-          <div className="space-y-2 text-gray-700">
-            <p>
-              <strong>ব্যাংক:</strong> সিটি ব্যাংক বাংলাদেশ লিমিটেড
-            </p>
-            <p>
-              <strong>একাউন্ট নাম:</strong> সাগরদী বাইতুল মামুর জামে মসজিদ
-            </p>
-            <p>
-              <strong>একাউন্ট নাম্বার:</strong> ২৩০৪৭৮০৭****{" "}
-            </p>
-            <p>
-              <strong>শাখা:</strong> মাদবদী, নরসিংদী
-            </p>
-          </div>
-        </div>
-        {/* Cash Donation Info */}
-        <div className="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-6">
-          <h3 className="text-2xl text-blue-900 mb-2">নগদ দান</h3>
-          <p className="text-gray-700 text-lg">
-            সরাসরি মসজিদে এসে দান বক্সে দান করতে পারবেন অথবা কমিটির যেকোনো
-            সদস্যের কাছে হস্তান্তর করতে পারবেন।{" "}
-            <span className="text-xl text-green-900 font-bold">
-              রসিদ নিতে ভুলবেন না।
-            </span>
-          </p>
-        </div>
-      </section>
-
-      {/* Section 2: Donation Categories */}
-      <section className="mb-12">
-        <h2 className="mb-2 text-2xl font-semibold text-[var(--color-text)]' ">
-          দানের খাত
-        </h2>
-        <p className="mb-4 text-sm text-text-muted"></p>
-        <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3 ">
-          {categories.map((cat) => (
-            <div
-              key={cat.id}
-              className=" border-t-2 border-green-600 flex items-center gap-4 rounded-xl   bg-white p-4 shadow-[var(--shadow-card)] transition-shadow hover:shadow-[var(--shadow-card-hover)]"
-            >
-              <div>
-                {categoryIcons[cat.name] || (
-                  <PiggyBank className="h-7 w-7 text-accent text-xl" />
-                )}
-              </div>
-              <div>
-                {cat.nameBn && (
-                  <p className="font-medium text-xl text-[var(--color-text)] ">
-                    {cat.nameBn}
-                  </p>
-                )}
-
-                {cat.description && (
-                  <p className="mt-0.5 text-[15px] text-[var(--color-text-muted)]">
-                    {cat.description}
-                  </p>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Section 3: Monthly Report */}
-      <section className="mb-12">
-        <div className="mb-4 flex flex-wrap items-center justify-between gap-4">
-          <div>
-            <h2 className="text-2xl font-semibold text-text">মাসিক রিপোর্ট</h2>
-          </div>
-          <Button
-            variant="secondary"
-            size="sm"
-            className="min-h-11"
-            onClick={() => alert("PDF ডাউনলোড ফিচারটি আসছে!")}
-          >
-            PDF ডাউনলোড
-          </Button>
-        </div>
-        <DonationSummaryCard
-          summary={donationData.summary}
-          showCta={true}
-          className="mb-6 text-2xl "
-        />
-        <Table<DonationMonthlyRow>
-          columns={monthlyColumns}
-          data={monthlyReport}
-          keyExtractor={(row) => row.month}
-          className="overflow-hidden rounded-xl border-[var(--color-border)]"
-        />
-      </section>
     </div>
   );
 }

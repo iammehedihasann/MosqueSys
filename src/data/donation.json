@@ -2,57 +2,87 @@
   "summary": {
     "monthCollected": "",
     "monthExpense": "",
-    "currentBalance": "" ,
+    "currentBalance": "",
     "currency": "টাকা ",
     "lastUpdated": "2025-02-22"
   },
   "monthlyReport": [
     {
-      "month": "জুন  ২০২৬ ",
-      "collected": "চলছে ",
+      "month": "নভেম্বর ২০২৬",
+      "collected": "8981",
+      "expense": "-",
+      "balance": ""
+    },
+    {
+      "month": "অক্টোবর ২০২৬",
+      "collected": "-",
       "expense": "-",
       "balance": "-"
     },
     {
-      "month": "মে  ২০২৬ ",
+      "month": "সেপ্টেম্বর ২০২৬",
+      "collected": "-",
+      "expense": "-",
+      "balance": "-"
+    },
+    {
+      "month": "আগস্ট ২০২৬",
+      "collected": "-",
+      "expense": "-",
+      "balance": "-"
+    },
+    {
+      "month": "জুলাই ২০২৬",
+      "collected": "-",
+      "expense": "-",
+      "balance": "-"
+    },
+    {
+      "month": "জুন ২০২৬",
+      "collected": "-",
+      "expense": "-",
+      "balance": "-"
+    },
+    {
+      "month": "মে ২০২৬",
       "collected": 4120,
       "expense": "-",
       "balance": "-"
     },
     {
-      "month": "এপ্রিল  ২০২৬ ",
+      "month": "এপ্রিল ২০২৬",
       "collected": 5153,
       "expense": "-",
       "balance": "-"
     },
     {
-      "month": "মার্চ  ২০২৬ ",
+      "month": "মার্চ ২০২৬",
       "collected": 7188,
       "expense": "-",
       "balance": "-"
     },
     {
-      "month": "ফেব্রুয়ারি  ২০২৬ ",
+      "month": "ফেব্রুয়ারি ২০২৬",
       "collected": 5150,
-     "expense": "-",
+      "expense": "-",
       "balance": "-"
     },
     {
-      "month": "জানুয়ারি  ২০২৬ ",
+      "month": "জানুয়ারি ২০২৬",
       "collected": 5457,
       "expense": "-",
       "balance": "-"
     },
     {
-      "month": "ডিসেম্বর  ২০২৫ ",
+      "month": "ডিসেম্বর ২০২৫",
       "collected": 4110,
       "expense": "-",
       "balance": "-"
     },
     {
-      "month": "নভেম্বর  ২০২৫ ",
+      "month": "নভেম্বর ২০২৫",
       "collected": 3500,
-     "expense": "-",
+      "expense": "-",
       "balance": "-"
     }
   ],

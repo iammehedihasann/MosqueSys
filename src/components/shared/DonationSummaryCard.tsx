@@ -1,32 +1,23 @@
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
 import type { DonationSummary } from "@/types";
+import { formatDonationMoney } from "@/utils/donationReport";
 import { ArrowRight } from "lucide-react";
 
 interface DonationSummaryCardProps {
   summary: DonationSummary;
   showCta?: boolean;
   className?: string;
-}
-
-function formatMoney(amount: number | string, currency: string): string {
-  if (typeof amount === "number") {
-    return (
-      new Intl.NumberFormat("en-BD", {
-        style: "decimal",
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0,
-      }).format(amount) + ` ${currency}`
-    );
-  }
-
-  return `${amount} ${currency}`;
+  reportMonth?: string;
+  monthNet?: number | null;
 }
 
 export function DonationSummaryCard({
   summary,
   showCta = true,
   className,
+  reportMonth,
+  monthNet,
 }: DonationSummaryCardProps) {
   return (
     <div
@@ -39,15 +30,15 @@ export function DonationSummaryCard({
         দান সংক্ষেপ
       </h3>
       <p className="mt-1 text-sm text-[var(--color-text-muted)]">
-        সর্বশেষ আপডেট: {summary.lastUpdated}
+        {reportMonth ? `প্রতিবেদনের মাস: ${reportMonth}` : `সর্বশেষ আপডেট: ${summary.lastUpdated}`}
       </p>
-      <div className="mt-5 grid gap-4 sm:grid-cols-3">
+      <div className={cn("mt-5 grid gap-4", reportMonth ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-3")}>
         <div className="rounded-lg bg-green-50 p-4">
           <p className="text-sm font-medium text-[var(--color-text-muted)]">
             এই মাসে সংগৃহীত
           </p>
           <p className="mt-1 text-xl font-bold text-[var(--color-primary)]">
-            {formatMoney(summary.monthCollected, summary.currency)}
+            {formatDonationMoney(summary.monthCollected, summary.currency)}
           </p>
         </div>
         <div className="rounded-lg bg-amber-50 p-4">
@@ -55,15 +46,25 @@ export function DonationSummaryCard({
             এই মাসে ব্যয়
           </p>
           <p className="mt-1 text-xl font-bold text-amber-700">
-            {formatMoney(summary.monthExpense, summary.currency)}
+            {formatDonationMoney(summary.monthExpense, summary.currency)}
           </p>
         </div>
+        {reportMonth && (
+          <div className="rounded-lg bg-[var(--color-bg)] p-4">
+            <p className="text-sm font-medium text-[var(--color-text-muted)]">
+              নিট (আয় − ব্যয়)
+            </p>
+            <p className="mt-1 text-xl font-bold text-[var(--color-text)]">
+              {formatDonationMoney(monthNet ?? null, summary.currency)}
+            </p>
+          </div>
+        )}
         <div className="rounded-lg bg-[var(--color-bg)] p-4">
           <p className="text-sm font-medium text-[var(--color-text-muted)]">
-            বর্তমান ব্যালেন্স
+            {reportMonth ? "মাসশেষের ব্যালেন্স" : "বর্তমান ব্যালেন্স"}
           </p>
           <p className="mt-1 text-xl font-bold text-[var(--color-text)]">
-            {formatMoney(summary.currentBalance, summary.currency)}
+            {formatDonationMoney(summary.currentBalance, summary.currency)}
           </p>
         </div>
       </div>
