@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import donationData from "@/data/donation.json";
 import type { DonationMethod } from "@/types";
 import { calculateDonationReport } from "@/utils/donationReport";
+import { loadExpenses } from "@/utils/expenses";
 import { scrollToSection } from "@/utils/scroll";
 import { DonationHero } from "@/components/donation/DonationHero";
 import { SectionNav, type NavItem } from "@/components/donation/SectionNav";
@@ -28,6 +29,8 @@ export function Donation() {
   const report = calculateDonationReport(
     donationData.summary,
     donationData.monthlyReport,
+    new Date(),
+    loadExpenses(),
   );
 
   // The tab lives in the URL (?tab=expense) so links can be shared.

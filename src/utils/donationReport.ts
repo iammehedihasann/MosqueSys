@@ -1,6 +1,10 @@
 import type { DonationMonthlyRow, DonationSummary } from "@/types";
+import type { Expense } from "@/utils/expenses";
 
 const formatter = new Intl.NumberFormat("en-BD", { maximumFractionDigits: 2 });
+const REPORT_HISTORY_WINDOW = 12;
+const REPORT_DISPLAY_WINDOW = 5;
+const REPORT_TIME_ZONE = "Asia/Dhaka";
 const banglaDigits = "০১২৩৪৫৬৭৮৯";
 const banglaMonths = [
   "জানুয়ারি",
@@ -90,6 +94,8 @@ export function formatDonationMoney(value: ReportAmount, currency = "") {
 export function calculateDonationReport(
   summary: DonationSummary,
   monthlyReport: readonly DonationMonthlyRow[] = [],
+  now: Date = new Date(),
+  expenses: readonly Expense[] = [],
 ) {
   const ordered = monthlyReport.map((row) => ({
     row,
@@ -102,16 +108,46 @@ export function calculateDonationReport(
     ordered.reverse();
   }
 
+  const dateParts = new Intl.DateTimeFormat("en", {
+    timeZone: REPORT_TIME_ZONE,
+    year: "numeric",
+    month: "2-digit",
+  }).formatToParts(now);
+  const year = dateParts.find((part) => part.type === "year")?.value;
+  const month = dateParts.find((part) => part.type === "month")?.value;
+  const currentPeriod = year && month ? monthPeriod(`${year}-${month}`) : null;
+  const allPeriodsKnown = ordered.every((item) => item.period !== null);
+  const history =
+    currentPeriod !== null && allPeriodsKnown
+      ? ordered.filter(
+          ({ period }) =>
+            period !== null &&
+            period >= currentPeriod - REPORT_HISTORY_WINDOW + 1 &&
+            period <= currentPeriod,
+        )
+      : ordered.slice(-REPORT_HISTORY_WINDOW);
+
+  const expensesByMonth = new Map<string, number>();
+  for (const expense of expenses) {
+    const key = expense.date.slice(0, 7);
+    expensesByMonth.set(
+      key,
+      (expensesByMonth.get(key) ?? 0) + expense.amount,
+    );
+  }
+
   let previousClosing: number | null = null;
   let previousPeriod: number | null = null;
-  let incomeTotal = 0;
-  let expenseTotal = 0;
-  let incomeCount = 0;
-  let expenseCount = 0;
 
-  const months = ordered.map(({ row, period }) => {
+  const historyMonths = history.map(({ row, period }) => {
     const collected = amountInPoisha(row.collected);
-    const expense = amountInPoisha(row.expense);
+    const key =
+      period === null
+        ? ""
+        : `${Math.floor(period / 12)}-${String((period % 12) + 1).padStart(2, "0")}`;
+    const expense = expensesByMonth.has(key)
+      ? (expensesByMonth.get(key) ?? 0) * 100
+      : amountInPoisha(row.expense);
     const net =
       collected !== null && expense !== null ? collected - expense : null;
     const openingBalance =
@@ -122,15 +158,6 @@ export function calculateDonationReport(
 
     previousClosing = closingBalance;
     previousPeriod = period;
-
-    if (collected !== null) {
-      incomeTotal += collected;
-      incomeCount++;
-    }
-    if (expense !== null) {
-      expenseTotal += expense;
-      expenseCount++;
-    }
 
     return {
       month: row.month.trim(),
@@ -143,6 +170,53 @@ export function calculateDonationReport(
     };
   });
 
+  const months =
+    currentPeriod !== null && allPeriodsKnown
+      ? historyMonths.filter((_, index) => {
+          const period = history[index].period;
+          return (
+            period !== null &&
+            period >= currentPeriod - REPORT_DISPLAY_WINDOW + 1 &&
+            period <= currentPeriod
+          );
+        })
+      : historyMonths.slice(-REPORT_DISPLAY_WINDOW);
+  const incomeAmounts = historyMonths.flatMap((row) =>
+    row.collected === null ? [] : [Math.round(row.collected * 100)],
+  );
+  const expensesByPeriod = new Map<number, number>();
+  history.forEach(({ row, period }) => {
+    if (period === null) return;
+    const key = `${Math.floor(period / 12)}-${String((period % 12) + 1).padStart(2, "0")}`;
+    const expense = expensesByMonth.has(key)
+      ? (expensesByMonth.get(key) ?? 0) * 100
+      : amountInPoisha(row.expense);
+    if (expense !== null) expensesByPeriod.set(period, expense);
+  });
+  for (const [key, amount] of expensesByMonth) {
+    const period = monthPeriod(key);
+    if (
+      period !== null &&
+      currentPeriod !== null &&
+      period >= currentPeriod - REPORT_HISTORY_WINDOW + 1 &&
+      period <= currentPeriod
+    ) {
+      expensesByPeriod.set(period, amount * 100);
+    }
+  }
+  const expenseAmounts = [...expensesByPeriod.values()];
+  const completeYear =
+    historyMonths.length === REPORT_HISTORY_WINDOW &&
+    historyMonths.every((row) => row.collected !== null && row.expense !== null);
+  const incomeTotalPoisha = incomeAmounts.reduce((sum, amount) => sum + amount, 0);
+  const expenseTotalPoisha = expenseAmounts.reduce((sum, amount) => sum + amount, 0);
+  const yearlyNetPoisha = completeYear
+    ? historyMonths.reduce(
+        (sum, row) =>
+          sum + Math.round((row.net ?? 0) * 100),
+        0,
+      )
+    : null;
   const latest = months.at(-1);
   return {
     months,
@@ -155,10 +229,11 @@ export function calculateDonationReport(
           currentBalance: latest.closingBalance ?? "",
         }
       : summary,
-    incomeTotal: incomeCount ? toTaka(incomeTotal) : null,
-    expenseTotal: expenseCount ? toTaka(expenseTotal) : null,
-    incomeCount,
-    expenseCount,
+    incomeTotal: incomeAmounts.length ? toTaka(incomeTotalPoisha) : null,
+    expenseTotal: expenseAmounts.length ? toTaka(expenseTotalPoisha) : null,
+    yearlyNet: toTaka(yearlyNetPoisha),
+    incomeCount: incomeAmounts.length,
+    expenseCount: expenseAmounts.length,
   };
 }
 

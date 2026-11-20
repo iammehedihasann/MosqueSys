@@ -76,18 +76,31 @@ export function MonthlyReport({ report, currency }: Props) {
         showCta={true}
         className="mb-6"
       />
+      <p className="mb-3 text-sm text-gray-600">
+        তালিকা ও চার্টে বর্তমান মাসসহ সর্বশেষ পাঁচ মাস; ব্যয়ের মোট গত ১২ মাসের নথিভুক্ত হিসাব।
+        পুরোনো ডেটা সংরক্ষিত থাকবে।
+      </p>
       {latest && (
         <>
-          <dl className="mb-4 grid gap-3 sm:grid-cols-2">
+          <dl className="mb-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             <TotalCard
-              label="নথিভুক্ত মোট আয়"
+              label="গত ১২ মাসের মোট আয়"
               value={formatDonationMoney(report.incomeTotal, currency)}
-              note={`${bn(months.length)} মাসের মধ্যে ${bn(report.incomeCount)} মাসের হিসাব`}
+              note={`${bn(report.incomeCount)} মাসে আয় নথিভুক্ত`}
             />
             <TotalCard
-              label="নথিভুক্ত মোট ব্যয়"
+              label="গত ১২ মাসের নথিভুক্ত ব্যয়"
               value={formatDonationMoney(report.expenseTotal, currency)}
-              note={`${bn(months.length)} মাসের মধ্যে ${bn(report.expenseCount)} মাসের হিসাব`}
+              note={`${bn(report.expenseCount)} মাসে ব্যয় নথিভুক্ত`}
+            />
+            <TotalCard
+              label="গত ১২ মাসের নিট সঞ্চয়"
+              value={formatDonationMoney(report.yearlyNet, currency)}
+              note={
+                report.yearlyNet === null
+                  ? "১২ মাসের আয় ও ব্যয়ের পূর্ণ হিসাব দরকার"
+                  : "১২ মাসের নথিভুক্ত আয় থেকে ব্যয় বাদ"
+              }
             />
           </dl>
           <DonationChart months={months} currency={currency} className="mb-6" />

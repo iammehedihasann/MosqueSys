@@ -24,7 +24,7 @@ export default function DonationChartCanvas({
       type: "bar",
       data: { labels: [], datasets: [] },
       options: {
-        indexAxis: "y",
+        indexAxis: "x",
         responsive: true,
         maintainAspectRatio: false,
         skipNull: true,
@@ -34,19 +34,19 @@ export default function DonationChartCanvas({
         interaction: { mode: "index", intersect: false },
         scales: {
           x: {
+            grid: { display: false },
+            ticks: { autoSkip: false, maxRotation: 45, minRotation: 0 },
+          },
+          y: {
             beginAtZero: true,
             grid: { color: "#E3ECE6" },
             ticks: { maxTicksLimit: 5 },
-          },
-          y: {
-            grid: { display: false },
-            ticks: { autoSkip: false, crossAlign: "far" },
           },
         },
         plugins: {
           tooltip: {
             callbacks: {
-              label: (item) => `${item.dataset.label}: ${formatDonationMoney(item.parsed.x, currency)}`,
+              label: (item) => `${item.dataset.label}: ${formatDonationMoney(item.parsed.y, currency)}`,
             },
           },
         },
@@ -84,7 +84,7 @@ export default function DonationChartCanvas({
 
   return (
     <div className="max-h-[30rem] overflow-y-auto">
-      <div className="relative" style={{ height: Math.max(208, months.length * 34 + 36) }}>
+      <div className="relative" style={{ height: Math.max(260, months.length * 48 + 60) }}>
         <canvas ref={canvasRef} aria-hidden="true" />
       </div>
     </div>
