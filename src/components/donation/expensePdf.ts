@@ -2,8 +2,11 @@ import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 import '@/components/donation/expensePdf.css';
 import mosqueImage from '@/assets/MosqueImage/mosque/mosqueCoverPage.jpg';
-import { bnNumber, categories, expenseNet, formatExpenseDate, formatMonth, totalExpenses, type Expense } from '@/utils/expenses';
+import { bnNumber, categories, expenseNet, formatExpenseDate, formatMonth, loadExpenseRecords, totalExpenses, type Expense } from '@/utils/expenses';
 import { buildExpenseReport } from '@/utils/expenseReport';
+import { calculateDonationReport } from '@/utils/donationReport';
+import donationData from '@/data/donation.json';
+import { applyDonationCollectionOverrides } from '@/utils/donationCollections';
 
 const mosque = 'সাগরদী বাইতুল মামুর জামে মসজিদ';
 const address = 'সাগরদী কান্দাপাড়া, পাইকারচর ইউনিয়ন পরিষদ, নরসিংদী, ঢাকা, বাংলাদেশ';
@@ -14,13 +17,27 @@ function table(headers: string[]) { const t = element('table', undefined, 'expen
 function row(t: HTMLTableElement, values: string[]) { const tr = t.tBodies[0].insertRow(); values.forEach(value => tr.appendChild(element('td', value))); return tr; }
 function card(label: string, value: string) { const el = element('div', undefined, 'expense-print-card'); el.append(element('span', label), element('strong', value)); return el; }
 
-export async function downloadExpensePdf(month: string, all: Expense[], selected: Expense[]) {
-  const report = buildExpenseReport(all);
+export async function downloadExpensePdf(month: string, all: Expense[]) {
+  let latestExpenses = all;
+  try {
+    latestExpenses = loadExpenseRecords();
+  } catch (error) {
+    console.warn('সংরক্ষিত খরচের সর্বশেষ তথ্য লোড করা যায়নি; চলতি ডেটা ব্যবহার হচ্ছে।', error);
+  }
+  const latestMonthlyReport = applyDonationCollectionOverrides(donationData.monthlyReport);
+  const report = buildExpenseReport(latestExpenses, latestMonthlyReport);
   const monthReport = report.find(x => x.key === month);
-  const monthItems = all.filter(x => x.date.startsWith(month));
-  const totalIncome = report.reduce((n, x) => n + (typeof x.income === 'number' ? x.income : 0), 0);
-  const hasIncome = report.some(x => typeof x.income === 'number');
-  const expenses = report.filter(x => x.expense !== null);
+  const monthItems = latestExpenses.filter(x => x.date.startsWith(month));
+  const donationReport = calculateDonationReport(
+    donationData.summary,
+    latestMonthlyReport,
+    new Date(),
+    latestExpenses,
+  );
+  const totalIncome = donationReport.incomeTotal;
+  const hasIncome = totalIncome !== null;
+  const totalExpense = donationReport.expenseTotal;
+  const hasExpense = totalExpense !== null;
   const host = element('div', undefined, 'expense-print-host');
   host.setAttribute('aria-hidden', 'true');
   document.body.append(host);
@@ -36,9 +53,9 @@ export async function downloadExpensePdf(month: string, all: Expense[], selected
   let page = makePage();
   page.append(element('h1', 'দান ও ব্যয়ের প্রতিবেদন'));
   const summary = element('div', undefined, 'expense-print-summary');
-  summary.append(card('মাসের আয়', fmt(monthReport?.income)), card('মাসের ব্যয়', monthItems.length ? fmt(totalExpenses(monthItems)) : '—'), card('নিট', fmt(expenseNet(monthReport?.income, monthItems))), card('ব্যয়ের সংখ্যা', bnNumber.format(selected.length)));
+  summary.append(card('মাসের আয়', fmt(monthReport?.income)), card('মাসের ব্যয়', monthItems.length ? fmt(totalExpenses(monthItems)) : '—'), card('নিট', fmt(expenseNet(monthReport?.income, monthItems))), card('ব্যয়ের সংখ্যা', bnNumber.format(monthItems.length)));
   const totals = element('div', undefined, 'expense-print-totals');
-  totals.append(card('নথিভুক্ত মোট আয়', hasIncome ? fmt(totalIncome) : '—'), card('নথিভুক্ত মোট ব্যয়', expenses.length ? fmt(expenses.reduce((n, x) => n + (x.expense ?? 0), 0)) : '—'));
+  totals.append(card('নথিভুক্ত মোট আয়', hasIncome ? fmt(totalIncome) : '—'), card('নথিভুক্ত মোট ব্যয়', hasExpense ? fmt(totalExpense) : '—'));
   page.append(summary, totals);
   await document.fonts.load('400 14px ReportBengali'); await document.fonts.load('700 14px ReportBengali'); await document.fonts.ready;
   const img = page.querySelector('img'); if (img && !img.complete) await new Promise<void>((resolve, reject) => { img.onload = () => resolve(); img.onerror = () => reject(new Error('Image failed')); });
@@ -56,8 +73,8 @@ export async function downloadExpensePdf(month: string, all: Expense[], selected
     }
   };
   try {
-    addTable('ব্যয়ের বিবরণ', ['তারিখ', 'খাত', 'বিবরণ', 'কোথায় / প্রাপক', 'পরিমাণ'], selected.length ? selected.map(x => [formatExpenseDate(x.date), categories[x.category], x.description, x.payee, fmt(x.amount)]) : [['—', '—', 'এই মাসে কোনো ব্যয় নথিভুক্ত হয়নি', '—', '—']]);
-    addTable('মাসভিত্তিক হিসাব', ['মাস', 'আয়', 'ব্যয়', 'নিট'], [...report.map(x => [x.key ? formatMonth(x.key) : x.label, fmt(x.income), fmt(x.expense), fmt(x.net)]), ['মোট', hasIncome ? fmt(totalIncome) : '—', expenses.length ? fmt(expenses.reduce((n, x) => n + (x.expense ?? 0), 0)) : '—', '—']]);
+    addTable('ব্যয়ের বিবরণ', ['তারিখ', 'খাত', 'খরচের কারণ', 'কোথায় খরচ / প্রাপক', 'পরিমাণ'], monthItems.length ? monthItems.map(x => [formatExpenseDate(x.date), categories[x.category], x.description, x.payee, fmt(x.amount)]) : [['—', '—', 'এই মাসে কোনো ব্যয় নথিভুক্ত হয়নি', '—', '—']]);
+    addTable('মাসভিত্তিক হিসাব', ['মাস', 'আয়', 'ব্যয়', 'নিট'], [...report.map(x => [x.key ? formatMonth(x.key) : x.label, fmt(x.income), fmt(x.expense), fmt(x.net)]), ['গত ১২ মাসের মোট', hasIncome ? fmt(totalIncome) : '—', hasExpense ? fmt(totalExpense) : '—', '—']]);
     const end = element('div'); end.append(element('p', 'ড্যাশ (—) অনুপলব্ধ হিসাব নির্দেশ করে। চলমান মাসের হিসাব চূড়ান্ত নয়।', 'expense-print-note'));
     const signatures = element('div', undefined, 'expense-print-signatures'); ['প্রস্তুতকারী', 'যাচাইকারী', 'অনুমোদনকারী'].forEach(x => signatures.append(element('span', x))); end.append(signatures); page.append(end);
     if (end.getBoundingClientRect().bottom - page.getBoundingClientRect().top > limit) { end.remove(); page = makePage(); page.append(end); }

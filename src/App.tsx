@@ -4,6 +4,8 @@ import { Home } from "./pages/Home";
 import { PrayerTimes } from "./pages/PrayerTimes";
 import { NoticePage } from "./pages/Notices";
 import { Donation } from "./pages/Donation";
+import { Expenses } from "./pages/Expenses";
+import { MonthlyReportPage } from "./pages/MonthlyReportPage";
 import { Committee } from "./pages/Committee";
 import { Services } from "./pages/Services";
 // import { Gallery } from "./pages/Gallery"
@@ -29,6 +31,8 @@ const router = createBrowserRouter([
       { path: "prayer-times", element: <PrayerTimes /> },
       { path: "notices", element: <NoticePage /> },
       { path: "donation", element: <Donation /> },
+      { path: "expenses", element: <Expenses /> },
+      { path: "monthly-report", element: <MonthlyReportPage /> },
       { path: "committee", element: <Committee /> },
       { path: "services", element: <Services /> },
       { path: "services/:id", element: <ServiceDetails /> },

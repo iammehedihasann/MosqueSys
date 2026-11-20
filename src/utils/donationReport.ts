@@ -83,6 +83,11 @@ function amountStatus(value: ReportAmount) {
   return /^[—–-]*$/.test(status) ? null : status;
 }
 
+export function parseDonationMoney(value: ReportAmount) {
+  const poisha = amountInPoisha(value);
+  return poisha === null ? null : poisha / 100;
+}
+
 export function formatDonationMoney(value: ReportAmount, currency = "") {
   const poisha = amountInPoisha(value);
   if (poisha === null) return amountStatus(value) ?? "—";

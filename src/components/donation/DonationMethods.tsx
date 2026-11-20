@@ -1,5 +1,5 @@
 // src/components/donation/DonationMethods.tsx
-import { DonationMethodCard } from "@/components/shared/DonationMethodCard";
+import { DonationPaymentCard } from "./DonationPaymentCard";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import type { DonationMethod } from "@/types";
 import { BankInfoCard } from "./BankInfoCard";
@@ -12,16 +12,15 @@ export function DonationMethods({ methods }: { methods: DonationMethod[] }) {
         title="দানের মাধ্যম"
         subtitle="bKash, Nagad, ব্যাংক বা নগদ—যেকোনো উপায়ে দান করতে পারেন। নম্বর কপি করে ব্যবহার করুন।"
       />
-      <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-3">
+      <div className="donation-payment-grid">
         {methods.map((method) => (
-          <DonationMethodCard
+          <DonationPaymentCard
             key={method.id}
             method={method}
-            className="h-full rounded-lg border-l-4 border-l-accent bg-white p-6 shadow-sm"
           />
         ))}
       </div>
-      <div className="mt-6 grid gap-6 lg:grid-cols-2">
+      <div className="donation-bank-grid">
         <BankInfoCard />
         <CashDonationNote />
       </div>

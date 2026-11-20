@@ -257,7 +257,7 @@ export function Home() {
             reportLink={
               <Button
                 asChild
-                to="/donation"
+                to="/monthly-report"
                 variant="primary"
                 className="rounded-lg bg-(--home-green)! px-5 text-white hover:bg-(--home-green-2)!"
               >

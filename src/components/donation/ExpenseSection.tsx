@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { createElement, useEffect, useMemo, useState, type FormEvent } from "react";
 import { useSearchParams } from "react-router-dom";
 import {
   AlertCircle,
@@ -8,11 +8,14 @@ import {
   Download,
   Loader2,
   MoreHorizontal,
+  Pencil,
+  Plus,
   Receipt,
   Search,
   SearchX,
   Sparkles,
   Tag,
+  Trash2,
   Users,
   Wallet,
   Wrench,
@@ -22,17 +25,33 @@ import {
 } from "lucide-react";
 import {
   bnNumber,
+  applyExpenseChanges,
   breakdown,
   categories,
+  currentDhakaDate,
+  currentDhakaMonth,
   expenseNet,
+  expensesUpdatedEvent,
   filterExpenses,
   formatExpenseDate,
   formatMonth,
+  isExpenseCategory,
   loadExpenses,
+  loadExpenseChanges,
+  saveExpenseChanges,
   totalExpenses,
+  validDate,
+  type Expense,
+  type ExpenseChanges,
   type ExpenseSort,
 } from "@/utils/expenses";
 import { buildExpenseReport } from "@/utils/expenseReport";
+import donationData from "@/data/donation.json";
+import {
+  applyDonationCollectionOverrides,
+  donationsUpdatedEvent,
+} from "@/utils/donationCollections";
+import type { DonationMonthlyRow } from "@/types";
 
 const money = (n: number) => `${bnNumber.format(n)} টাকা`;
 
@@ -54,14 +73,15 @@ function CategoryBubble({
   k: string;
   size?: "sm" | "md";
 }) {
-  const Icon = iconFor(k);
   const box = size === "sm" ? "h-9 w-9 rounded-xl" : "h-11 w-11 rounded-2xl";
   return (
     <span
       aria-hidden="true"
       className={`${box} flex shrink-0 items-center justify-center bg-emerald-50 text-emerald-700`}
     >
-      <Icon className={size === "sm" ? "h-4 w-4" : "h-5 w-5"} />
+      {createElement(iconFor(k), {
+        className: size === "sm" ? "h-4 w-4" : "h-5 w-5",
+      })}
     </span>
   );
 }
@@ -74,30 +94,65 @@ const chipOff =
   "border-gray-200 bg-white text-gray-700 hover:border-emerald-300 hover:bg-emerald-50";
 const hideScrollbar =
   "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden";
-const barColors = [
-  "bg-emerald-700",
-  "bg-emerald-600",
-  "bg-emerald-500",
-  "bg-emerald-400",
-  "bg-emerald-300",
-  "bg-emerald-200",
-];
 
 export function ExpenseSection() {
   const [params, setParams] = useSearchParams();
   const [items, setItems] = useState<ReturnType<typeof loadExpenses> | null>(
     null,
   );
+  const [expenseChanges, setExpenseChanges] = useState<ExpenseChanges>({
+    added: [],
+    updated: [],
+    deletedIds: [],
+  });
+  const [editingExpense, setEditingExpense] = useState<Expense | null>(null);
+  const [storageError, setStorageError] = useState<string | null>(null);
+  const [formError, setFormError] = useState<string | null>(null);
   const [search, setSearch] = useState(params.get("search") ?? "");
   const [pdfState, setPdfState] = useState<
     "idle" | "loading" | "success" | "error"
   >("idle");
+  const [monthlyReport, setMonthlyReport] = useState<DonationMonthlyRow[]>(() =>
+    applyDonationCollectionOverrides(donationData.monthlyReport),
+  );
 
   useEffect(() => {
-    setItems(loadExpenses());
+    const refreshCollections = () =>
+      setMonthlyReport(
+        applyDonationCollectionOverrides(donationData.monthlyReport),
+      );
+    window.addEventListener(donationsUpdatedEvent, refreshCollections);
+    return () =>
+      window.removeEventListener(donationsUpdatedEvent, refreshCollections);
   }, []);
 
-  const report = useMemo(() => buildExpenseReport(items ?? []), [items]);
+  useEffect(() => {
+    if (pdfState !== "success") return;
+    const timer = window.setTimeout(() => setPdfState("idle"), 4000);
+    return () => window.clearTimeout(timer);
+  }, [pdfState]);
+
+  useEffect(() => {
+    try {
+      const changes = loadExpenseChanges();
+      setExpenseChanges(changes);
+      setItems(applyExpenseChanges(loadExpenses(), changes));
+    } catch (error) {
+      setStorageError(
+        error instanceof Error ? error.message : "সংরক্ষিত খরচ লোড করা যায়নি।",
+      );
+      setItems(loadExpenses());
+    }
+  }, []);
+
+  const report = useMemo(
+    () =>
+      buildExpenseReport(
+        items ?? [],
+        monthlyReport,
+      ),
+    [items, monthlyReport],
+  );
   const recordedMonths = useMemo(
     () =>
       [...new Set((items ?? []).map((x) => x.date.slice(0, 7)))]
@@ -122,7 +177,7 @@ export function ExpenseSection() {
   const month =
     requestedMonth && /^\d{4}-(0[1-9]|1[0-2])$/.test(requestedMonth)
       ? requestedMonth
-      : (recordedMonths[0] ?? months[0] ?? "");
+      : currentDhakaMonth();
   const cat = params.get("cat") ?? "";
   const sort = (
     ["newest", "oldest", "amount"].includes(params.get("sort") ?? "")
@@ -154,14 +209,11 @@ export function ExpenseSection() {
 
   const monthItems = (items ?? []).filter((x) => x.date.slice(0, 7) === month);
   const filtered = filterExpenses(items ?? [], month, cat, query, sort);
-  const groups = [...breakdown(filtered)].sort((a, b) => b.amount - a.amount);
   const top = breakdown(monthItems).sort((a, b) => b.amount - a.amount)[0];
   const net = expenseNet(
     report.find((x) => x.key === month)?.income,
     monthItems,
   );
-  const monthChips =
-    month && !months.includes(month) ? [month, ...months] : months;
   const hasFilter = Boolean(cat || query || sort !== "newest");
   const TopIcon = top ? iconFor(top.key) : Tag;
 
@@ -174,12 +226,113 @@ export function ExpenseSection() {
     });
   };
 
+  const addExpense = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const date = String(formData.get("date") ?? "");
+    const categoryValue = String(formData.get("category") ?? "");
+    const description = String(formData.get("description") ?? "").trim();
+    const payee = String(formData.get("payee") ?? "").trim();
+    const amount = Number(formData.get("amount"));
+
+    if (!validDate(date) || !isExpenseCategory(categoryValue) || !description || !payee || !Number.isSafeInteger(amount) || amount <= 0) {
+      setFormError("তারিখ, খরচের কারণ, কোথায় খরচ হয়েছে এবং সঠিক পরিমাণ দিন।");
+      return;
+    }
+
+    try {
+      const expense: Expense = {
+        id: editingExpense?.id ?? crypto.randomUUID(),
+        date,
+        category: categoryValue,
+        description,
+        payee,
+        amount,
+      };
+      const nextChanges: ExpenseChanges = editingExpense
+        ? expenseChanges.added.some((saved) => saved.id === expense.id)
+          ? {
+              ...expenseChanges,
+              added: expenseChanges.added.map((saved) =>
+                saved.id === expense.id ? expense : saved,
+              ),
+            }
+          : {
+              ...expenseChanges,
+              updated: [
+                ...expenseChanges.updated.filter(
+                  (saved) => saved.id !== expense.id,
+                ),
+                expense,
+              ],
+            }
+        : {
+            ...expenseChanges,
+            added: [...expenseChanges.added, expense],
+          };
+      saveExpenseChanges(nextChanges);
+      setExpenseChanges(nextChanges);
+      setItems(applyExpenseChanges(loadExpenses(), nextChanges));
+      setFormError(null);
+      setEditingExpense(null);
+      update("month", date.slice(0, 7));
+      form.reset();
+      window.dispatchEvent(new Event(expensesUpdatedEvent));
+    } catch (error) {
+      setFormError(
+        error instanceof Error ? error.message : "খরচ সংরক্ষণ করা যায়নি।",
+      );
+    }
+  };
+
+  const startEditing = (expense: Expense) => {
+    setEditingExpense(expense);
+    setFormError(null);
+    document.getElementById("expense-entry-form")?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  };
+
+  const deleteExpense = (expense: Expense) => {
+    if (!window.confirm(`এই খরচটি মুছে ফেলবেন?\n${expense.description}`)) return;
+
+    const isAdded = expenseChanges.added.some(
+      (saved) => saved.id === expense.id,
+    );
+    const isBundled = loadExpenses().some((saved) => saved.id === expense.id);
+    const nextChanges: ExpenseChanges = {
+      added: expenseChanges.added.filter((saved) => saved.id !== expense.id),
+      updated: expenseChanges.updated.filter(
+        (saved) => saved.id !== expense.id,
+      ),
+      deletedIds:
+        !isAdded && isBundled
+          ? [...new Set([...expenseChanges.deletedIds, expense.id])]
+          : expenseChanges.deletedIds,
+    };
+
+    try {
+      saveExpenseChanges(nextChanges);
+      setExpenseChanges(nextChanges);
+      setItems(applyExpenseChanges(loadExpenses(), nextChanges));
+      setFormError(null);
+      if (editingExpense?.id === expense.id) setEditingExpense(null);
+      window.dispatchEvent(new Event(expensesUpdatedEvent));
+    } catch (error) {
+      setFormError(
+        error instanceof Error ? error.message : "খরচ মুছে ফেলা যায়নি।",
+      );
+    }
+  };
+
   const download = async () => {
     if (!items || !month) return;
     setPdfState("loading");
     try {
       const { downloadExpensePdf } = await import("./expensePdf");
-      await downloadExpensePdf(month, items, filtered);
+      await downloadExpensePdf(month, items);
       setPdfState("success");
     } catch (error) {
       console.error("PDF generation failed", error);
@@ -238,6 +391,11 @@ export function ExpenseSection() {
           </p>
         )}
       </div>
+      {storageError && (
+        <p role="alert" className="mb-4 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-800">
+          {storageError}
+        </p>
+      )}
 
       {!items ? (
         <div
@@ -258,28 +416,129 @@ export function ExpenseSection() {
         </div>
       ) : (
         <>
-          {/* Month picker */}
-          <div
-            role="group"
-            aria-label="মাস নির্বাচন"
-            className={`-mx-4 flex snap-x gap-2 overflow-x-auto px-4 pb-2 sm:mx-0 sm:px-0 ${hideScrollbar}`}
-          >
-            {!monthChips.length && (
-              <span className="py-2 text-sm text-gray-500">কোনো মাস নেই</span>
-            )}
-            {monthChips.map((m) => (
-              <button
-                key={m}
-                type="button"
-                aria-pressed={m === month}
-                className={`${chip} ${m === month ? chipOn : chipOff}`}
-                onClick={() => update("month", m)}
-              >
-                <CalendarDays aria-hidden="true" className="h-4 w-4" />
-                {formatMonth(m)}
-              </button>
-            ))}
+          <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+            <label className="block w-full max-w-xs">
+              <span className="mb-1 block text-sm font-semibold text-gray-700">
+                মাস ও বছর নির্বাচন
+              </span>
+              <input
+                type="month"
+                value={month}
+                onChange={(event) => update("month", event.target.value)}
+                className={`min-h-11 w-full rounded-xl border border-gray-300 bg-white px-3 ${focusRing}`}
+              />
+            </label>
+            <p className="text-sm text-gray-500">
+              {month ? formatMonth(month) : "মাস নির্বাচন করুন"}
+            </p>
           </div>
+
+          <form
+            id="expense-entry-form"
+            key={editingExpense?.id ?? "new-expense-form"}
+            onSubmit={addExpense}
+            className="mb-5 rounded-2xl border border-emerald-100 bg-white p-4 shadow-sm sm:p-5"
+          >
+            <div className="mb-4">
+              <h3 className="font-semibold text-gray-900">
+                {editingExpense ? "খরচ সম্পাদনা করুন" : "নতুন খরচ যোগ করুন"}
+              </h3>
+              <p className="mt-1 text-xs text-gray-500">
+                খরচের তারিখ, পরিমাণ, কোথায় খরচ হয়েছে এবং কারণ লিখুন। তথ্য শুধু এই ব্রাউজারে থাকবে।
+              </p>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <label className="block text-sm font-medium text-gray-700">
+                তারিখ
+                <input
+                  type="date"
+                  name="date"
+                  defaultValue={editingExpense?.date ?? currentDhakaDate()}
+                  required
+                  className={`mt-1 min-h-11 w-full rounded-xl border border-gray-300 bg-white px-3 ${focusRing}`}
+                />
+              </label>
+              <label className="block text-sm font-medium text-gray-700">
+                খরচের খাত
+                <select
+                  name="category"
+                  defaultValue={editingExpense?.category ?? "other"}
+                  required
+                  className={`mt-1 min-h-11 w-full rounded-xl border border-gray-300 bg-white px-3 ${focusRing}`}
+                >
+                  {Object.entries(categories).map(([key, label]) => (
+                    <option key={key} value={key}>{label}</option>
+                  ))}
+                </select>
+              </label>
+              <label className="block text-sm font-medium text-gray-700">
+                পরিমাণ (টাকা)
+                <input
+                  type="number"
+                  name="amount"
+                  defaultValue={editingExpense?.amount}
+                  min="1"
+                  step="1"
+                  inputMode="numeric"
+                  required
+                  className={`mt-1 min-h-11 w-full rounded-xl border border-gray-300 bg-white px-3 ${focusRing}`}
+                />
+              </label>
+              <label className="block text-sm font-medium text-gray-700">
+                কোথায় খরচ / প্রাপক
+                <input
+                  type="text"
+                  name="payee"
+                  defaultValue={editingExpense?.payee}
+                  maxLength={120}
+                  required
+                  placeholder="দোকান, স্থান বা প্রাপকের নাম"
+                  className={`mt-1 min-h-11 w-full rounded-xl border border-gray-300 bg-white px-3 ${focusRing}`}
+                />
+              </label>
+              <label className="block text-sm font-medium text-gray-700 sm:col-span-2">
+                খরচের কারণ
+                <input
+                  type="text"
+                  name="description"
+                  defaultValue={editingExpense?.description}
+                  maxLength={200}
+                  required
+                  placeholder="কী কাজে খরচ হয়েছে"
+                  className={`mt-1 min-h-11 w-full rounded-xl border border-gray-300 bg-white px-3 ${focusRing}`}
+                />
+              </label>
+            </div>
+            {formError && (
+              <p role="alert" className="mt-3 text-sm font-medium text-red-700">
+                {formError}
+              </p>
+            )}
+            <button
+              type="submit"
+              disabled={Boolean(storageError)}
+              className={`mt-4 inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-emerald-700 px-5 font-semibold text-white hover:bg-emerald-800 disabled:cursor-not-allowed disabled:opacity-50 ${focusRing}`}
+            >
+              {editingExpense ? (
+                <Pencil aria-hidden="true" className="h-4 w-4" />
+              ) : (
+                <Plus aria-hidden="true" className="h-4 w-4" />
+              )}
+              {editingExpense ? "পরিবর্তন সংরক্ষণ" : "খরচ সংরক্ষণ"}
+            </button>
+            {editingExpense && (
+              <button
+                type="button"
+                onClick={() => {
+                  setEditingExpense(null);
+                  setFormError(null);
+                }}
+                className={`mt-4 ml-2 inline-flex min-h-11 items-center justify-center rounded-xl border border-gray-300 px-5 font-semibold text-gray-700 hover:bg-gray-50 ${focusRing}`}
+              >
+                বাতিল
+              </button>
+            )}
+          </form>
 
           {/* Hero total */}
           <div className="mt-4 overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-800 to-emerald-950 p-6 text-white shadow-md sm:p-8">
@@ -494,6 +753,7 @@ export function ExpenseSection() {
                     <div className="min-w-0 flex-1">
                       <div className="flex items-start justify-between gap-3">
                         <h3 className="font-semibold break-words text-gray-900">
+                          <span className="text-gray-500">কারণ: </span>
                           {x.description}
                         </h3>
                         <p className="shrink-0 font-bold tabular-nums text-amber-700">
@@ -501,6 +761,7 @@ export function ExpenseSection() {
                         </p>
                       </div>
                       <p className="mt-1 text-sm break-words text-gray-600">
+                        কোথায় / প্রাপক:{" "}
                         {x.payee}
                       </p>
                       <div className="mt-2 flex flex-wrap items-center gap-2 text-xs">
@@ -511,6 +772,26 @@ export function ExpenseSection() {
                           <CalendarDays aria-hidden="true" className="h-3.5 w-3.5" />
                           {formatExpenseDate(x.date)}
                         </span>
+                      </div>
+                      <div className="mt-3 flex gap-2">
+                        <button
+                          type="button"
+                          disabled={Boolean(storageError)}
+                          onClick={() => startEditing(x)}
+                          className={`inline-flex min-h-9 items-center gap-1 rounded-lg border border-emerald-200 px-3 text-xs font-semibold text-emerald-800 hover:bg-emerald-50 disabled:cursor-not-allowed disabled:opacity-50 ${focusRing}`}
+                        >
+                          <Pencil aria-hidden="true" className="h-3.5 w-3.5" />
+                          সম্পাদনা
+                        </button>
+                        <button
+                          type="button"
+                          disabled={Boolean(storageError)}
+                          onClick={() => deleteExpense(x)}
+                          className={`inline-flex min-h-9 items-center gap-1 rounded-lg border border-red-200 px-3 text-xs font-semibold text-red-700 hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-50 ${focusRing}`}
+                        >
+                          <Trash2 aria-hidden="true" className="h-3.5 w-3.5" />
+                          মুছুন
+                        </button>
                       </div>
                     </div>
                   </article>
@@ -525,9 +806,10 @@ export function ExpenseSection() {
                       {[
                         ["তারিখ", ""],
                         ["খাত", ""],
-                        ["বিবরণ", ""],
-                        ["কোথায় / প্রাপক", ""],
+                        ["খরচের কারণ", ""],
+                        ["কোথায় খরচ / প্রাপক", ""],
                         ["পরিমাণ", "text-right"],
+                        ["অ্যাকশন", "text-right"],
                       ].map(([x, align]) => (
                         <th
                           scope="col"
@@ -565,6 +847,30 @@ export function ExpenseSection() {
                         <td className="px-4 py-3 text-right font-bold tabular-nums whitespace-nowrap text-amber-700">
                           {money(x.amount)}
                         </td>
+                        <td className="px-4 py-3 text-right whitespace-nowrap">
+                          <div className="inline-flex items-center gap-1">
+                            <button
+                              type="button"
+                              disabled={Boolean(storageError)}
+                              aria-label={`${x.description} সম্পাদনা`}
+                              onClick={() => startEditing(x)}
+                              className={`inline-flex min-h-9 items-center gap-1 rounded-lg px-2 text-xs font-semibold text-emerald-800 hover:bg-emerald-50 disabled:cursor-not-allowed disabled:opacity-50 ${focusRing}`}
+                            >
+                              <Pencil aria-hidden="true" className="h-3.5 w-3.5" />
+                              সম্পাদনা
+                            </button>
+                            <button
+                              type="button"
+                              disabled={Boolean(storageError)}
+                              aria-label={`${x.description} মুছুন`}
+                              onClick={() => deleteExpense(x)}
+                              className={`inline-flex min-h-9 items-center gap-1 rounded-lg px-2 text-xs font-semibold text-red-700 hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-50 ${focusRing}`}
+                            >
+                              <Trash2 aria-hidden="true" className="h-3.5 w-3.5" />
+                              মুছুন
+                            </button>
+                          </div>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -573,53 +879,15 @@ export function ExpenseSection() {
 
               {/* Total bar */}
               <div
-                className="sticky bottom-0 z-10 mt-3 flex items-center justify-between gap-3 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 shadow-sm lg:static"
+                className="sticky bottom-0 z-10 mt-2 flex items-center justify-between gap-3 rounded-xl border border-amber-200 bg-amber-50 px-4 py-2 shadow-sm lg:static"
                 style={{
-                  paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))",
+                  paddingBottom: "max(0.5rem, env(safe-area-inset-bottom))",
                 }}
               >
                 <span className="font-semibold text-gray-900">মোট</span>
-                <span className="text-xl font-bold tabular-nums text-amber-800">
+                <span className="text-lg font-bold tabular-nums text-amber-800">
                   {money(totalExpenses(filtered))}
                 </span>
-              </div>
-
-              {/* Category breakdown */}
-              <div className="mt-8 rounded-3xl border border-gray-100 bg-white p-5 shadow-sm sm:p-6">
-                <h3 className="text-lg font-semibold text-gray-900">
-                  খাতভিত্তিক ব্যয়
-                </h3>
-                <ul className="mt-4 space-y-4">
-                  {groups.map((x, i) => (
-                    <li key={x.key}>
-                      <div className="flex items-center gap-3">
-                        <CategoryBubble k={x.key} size="sm" />
-                        <div className="min-w-0 flex-1">
-                          <div className="flex items-baseline justify-between gap-3">
-                            <span className="truncate font-medium text-gray-900">
-                              {x.label}
-                            </span>
-                            <span className="shrink-0 text-sm tabular-nums text-gray-600">
-                              <span className="font-semibold text-gray-900">
-                                {money(x.amount)}
-                              </span>{" "}
-                              · {bnNumber.format(x.percent)}%
-                            </span>
-                          </div>
-                          <div
-                            aria-hidden="true"
-                            className="mt-1.5 h-2.5 overflow-hidden rounded-full bg-gray-100"
-                          >
-                            <div
-                              className={`h-full rounded-full ${barColors[Math.min(i, barColors.length - 1)]}`}
-                              style={{ width: `${Math.max(x.percent, 2)}%` }}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
               </div>
             </>
           )}

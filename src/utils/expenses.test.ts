@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { breakdown, expenseNet, filterExpenses, formatExpenseDate, loadExpenses, totalExpenses, validDate, type Expense } from './expenses';
+import { applyExpenseChanges, breakdown, expenseNet, filterExpenses, formatExpenseDate, loadExpenseChanges, loadExpenses, saveExpenseChanges, totalExpenses, validDate, type Expense } from './expenses';
 import { buildExpenseReport } from './expenseReport';
 
 const entries: Expense[] = [
@@ -17,6 +17,57 @@ describe('expense data', () => {
     expect(validDate('2024-02-29')).toBe(true); expect(validDate('2025-02-29')).toBe(false);
     expect(formatExpenseDate('2026-05-01')).toContain('১');
   });
+  it('persists expense additions, edits, and deletions in browser storage', () => {
+    const values = new Map<string, string>();
+    vi.stubGlobal('window', {
+      localStorage: {
+        getItem: (key: string) => values.get(key) ?? null,
+        setItem: (key: string, value: string) => values.set(key, value),
+      },
+    });
+    try {
+      const changes = {
+        added: [entries[2]],
+        updated: [{ ...entries[0], amount: 25 }],
+        deletedIds: [entries[1].id],
+      };
+      saveExpenseChanges(changes);
+      expect(applyExpenseChanges(entries.slice(0, 2), loadExpenseChanges())).toEqual([
+        { ...entries[0], amount: 25 },
+        entries[2],
+      ]);
+    } finally {
+      vi.unstubAllGlobals();
+    }
+  });
+  it('adds a new expense to local records instead of treating it as an update', () => {
+    const values = new Map<string, string>();
+    vi.stubGlobal('window', {
+      localStorage: {
+        getItem: (key: string) => values.get(key) ?? null,
+        setItem: (key: string, value: string) => values.set(key, value),
+      },
+    });
+    try {
+      const expense = {
+        id: 'new-expense',
+        date: '2026-11-21',
+        category: 'repair' as const,
+        description: 'ঝড়ের ক্ষয় repaired',
+        payee: 'কামাল দোকান',
+        amount: 2500,
+      };
+      saveExpenseChanges({
+        added: [expense],
+        updated: [],
+        deletedIds: [],
+      });
+      const records = applyExpenseChanges([], loadExpenseChanges());
+      expect(records).toEqual([expense]);
+    } finally {
+      vi.unstubAllGlobals();
+    }
+  });
   it('filters and preserves equal-key order when sorting', () => {
     expect(filterExpenses(entries, '2026-05', '', '', 'newest').map(x => x.id)).toEqual(['3', '1', '2']);
     expect(filterExpenses(entries, '2026-05', '', '', 'amount').map(x => x.id)).toEqual(['1', '2', '3']);
@@ -32,5 +83,11 @@ describe('expense data', () => {
     expect(may?.income).toBe(4120); expect(may?.expense).toBe(3); expect(may?.net).toBe(4117);
     expect(buildExpenseReport([]).find(x => x.income === 'চলছে')?.net).toBe('চলছে');
     expect(buildExpenseReport([]).find(x => x.key === '2026-02')).toBeDefined();
+  });
+  it('includes numeric-string income and expenses in the monthly report', () => {
+    const november = buildExpenseReport([], [
+      { month: 'নভেম্বর ২০২৬', collected: '1550', expense: '400' },
+    ]).find(x => x.key === '2026-11');
+    expect(november).toMatchObject({ income: 1550, expense: 400, net: 1150 });
   });
 });

@@ -1,79 +1,50 @@
 // src/pages/Donation.tsx
-import { useSearchParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import donationData from "@/data/donation.json";
 import type { DonationMethod } from "@/types";
-import { calculateDonationReport } from "@/utils/donationReport";
-import { loadExpenses } from "@/utils/expenses";
 import { scrollToSection } from "@/utils/scroll";
 import { DonationHero } from "@/components/donation/DonationHero";
-import { SectionNav, type NavItem } from "@/components/donation/SectionNav";
+import { DonationNavigation } from "@/components/donation/DonationNavigation";
 import { DonationMethods } from "@/components/donation/DonationMethods";
 import { DonationCategories } from "@/components/donation/DonationCategories";
-import {
-  AccountsSection,
-  type AccountsTab,
-} from "@/components/donation/AccountsSection";
-import { GiveCtaBand } from "@/components/donation/GiveCtaBand";
-
-const currency = donationData.summary.currency.trim();
-
-const NAV_ITEMS: NavItem[] = [
-  { id: "give", label: "দান করুন" },
-  { id: "categories", label: "দানের খাত" },
-  { id: "accounts", label: "আয়-ব্যয়ের হিসাব" },
-];
+import { DonationPrayerPanel } from "@/components/donation/DonationPrayerPanel";
+import { DonationCampaignPanel } from "@/components/donation/DonationCampaignPanel";
+import { DonationUpdates } from "@/components/donation/DonationUpdates";
+import "@/components/donation/donationPage.css";
 
 export function Donation() {
-  const [params, setParams] = useSearchParams();
+  const [params] = useSearchParams();
+  const navigate = useNavigate();
   const methods = donationData.methods as DonationMethod[];
-  const report = calculateDonationReport(
-    donationData.summary,
-    donationData.monthlyReport,
-    new Date(),
-    loadExpenses(),
-  );
 
-  // The tab lives in the URL (?tab=expense) so links can be shared.
-  const tab: AccountsTab = params.get("tab") === "expense" ? "expense" : "report";
-  const changeTab = (next: AccountsTab) =>
-    setParams(
-      (prev) => {
-        const p = new URLSearchParams(prev);
-        p.set("tab", next);
-        return p;
-      },
-      { replace: true },
-    );
-  const openAccounts = (next: AccountsTab) => {
-    changeTab(next);
-    requestAnimationFrame(() => scrollToSection("accounts"));
-  };
+  useEffect(() => {
+    const tab = params.get("tab");
+    if (tab !== "expense" && tab !== "report") return;
+    const nextParams = new URLSearchParams(params);
+    nextParams.delete("tab");
+    const query = nextParams.toString();
+    const destination = tab === "expense" ? "/expenses" : "/monthly-report";
+    navigate(`${destination}${query ? `?${query}` : ""}`, { replace: true });
+  }, [navigate, params]);
+
   const goGive = () => scrollToSection("give");
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
-      <DonationHero onGive={goGive} onOpenAccounts={openAccounts} />
-      <SectionNav items={NAV_ITEMS} />
-
-      <div className="space-y-14">
-        <section id="give" className="scroll-mt-20">
+    <div className="donation-page">
+      <DonationHero onGive={goGive} />
+      <div className="donation-container">
+      <DonationNavigation />
+      <div className="donation-main-grid">
+        <section id="give" className="donation-panel scroll-mt-24">
           <DonationMethods methods={methods} />
         </section>
-
-        <section id="categories" className="scroll-mt-20">
+        <aside className="donation-sidebar"><DonationPrayerPanel /><DonationCampaignPanel /></aside>
+      </div>
+        <section id="categories" className="donation-panel donation-categories scroll-mt-24">
           <DonationCategories categories={donationData.categories} />
         </section>
-
-        <section id="accounts" className="scroll-mt-20">
-          <AccountsSection
-            tab={tab}
-            onTabChange={changeTab}
-            report={report}
-            currency={currency}
-          />
-        </section>
-
-        <GiveCtaBand onGive={goGive} />
+        <DonationUpdates />
       </div>
     </div>
   );
